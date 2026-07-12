@@ -128,3 +128,11 @@
     @apply font-sans;
   }
 }
+
+.base-layout {
+  @apply flex flex-col items-center justify-start min-h-screen p-8;
+}
+
+.base-title {
+  @apply text-3xl mb-4 mt-8;
+}
