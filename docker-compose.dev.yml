@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17.1
+    container_name: children_registry_postgres_dev
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: children_registry_dev
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'
+volumes:
+  postgres:
