@@ -6,3 +6,117 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Child {
+  id                 Int             @id @default(autoincrement())
+  firstName          String
+  lastName           String
+  identityCardNumber String?
+  birthDate          DateTime?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  removedAt          DateTime?
+  registrations      Registration[]
+  childRelations     RelationShip[]
+  pinOtorgations     PinOtorgation[]
+}
+
+model Registration {
+  childId   Int
+  classId   Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  removedAt DateTime?
+  child     Child     @relation(fields: [childId], references: [id])
+  class     Class     @relation(fields: [classId], references: [id])
+
+  @@id([childId, classId])
+}
+
+model Class {
+  id            Int            @id @default(autoincrement())
+  year          Int
+  classRoomId   Int?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  removedAt     DateTime?
+  classRoom     ClassRoom?      @relation(fields: [classRoomId], references: [id])
+  registrations Registration[]
+}
+
+model ClassRoom {
+  id        Int       @id @default(autoincrement())
+  name      String
+  alias     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  removedAt DateTime?
+  classes   Class[]
+}
+
+model Contact {
+  id                 Int            @id @default(autoincrement())
+  firstName          String
+  lastName           String
+  identityCardNumber String?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  removedAt          DateTime?
+  phones             Phone[]
+  contactRelations   RelationShip[]
+}
+
+model Phone {
+  id        Int       @id @default(autoincrement())
+  number    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  removedAt DateTime?
+  contactId Int
+  contact   Contact   @relation(fields: [contactId], references: [id])
+}
+
+model RelationShipType {
+  id        Int            @id @default(autoincrement())
+  name      String
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  removedAt DateTime?
+  relations RelationShip[]
+}
+
+model RelationShip {
+  childId            Int
+  contactId          Int
+  relationShipTypeId Int
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  removedAt          DateTime?
+  child              Child            @relation(fields: [childId], references: [id])
+  contact            Contact          @relation(fields: [contactId], references: [id])
+  relationShipType   RelationShipType @relation(fields: [relationShipTypeId], references: [id])
+
+  @@id([childId, contactId, relationShipTypeId])
+}
+
+model PinOtorgation {
+  childId        Int
+  pinId          Int
+  otorgationDate DateTime
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  removedAt      DateTime?
+  child          Child     @relation(fields: [childId], references: [id])
+  pin            Pin       @relation(fields: [pinId], references: [id])
+
+  @@id([childId, pinId])
+}
+
+model Pin {
+  id             Int             @id @default(autoincrement())
+  name           String
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  removedAt      DateTime?
+  pinOtorgations PinOtorgation[]
+}
