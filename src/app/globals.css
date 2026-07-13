@@ -130,13 +130,21 @@
 }
 
 .base-layout {
-  @apply flex flex-col items-center justify-start min-h-screen p-8;
+  @apply min-h-screen p-8;
+}
+
+.list-layout {
+  @apply min-h-screen w-full max-w-full;
+}
+
+.list-layout .title {
+  @apply text-lg font-bold;
 }
 
 .centered-layout {
-  @apply flex flex-col items-center justify-start min-h-screen w-full max-w-full md:max-w-1/4;
+  @apply m-auto min-h-screen w-full md:max-w-3/8;
 }
 
-.base-title {
-  @apply text-3xl mb-6 mt-8;
+.centered-layout .title {
+  @apply text-3xl mb-10 mt-8 text-center;
 }

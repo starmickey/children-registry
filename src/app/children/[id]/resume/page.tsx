@@ -32,98 +32,100 @@ export default async function ResumePage({
   }
 
   return (
-    <section className="base-layout">
+    <div className="base-layout">
       <div className="centered-layout">
-        <div className="flex w-full justify-end">
+        <header className="flex w-full justify-end">
           {child.class?.classRoom && (
             <Badge>
               {child.class.classRoom.alias ?? child.class.classRoom.name}
             </Badge>
           )}
-        </div>
+        </header>
 
-        <h1 className="base-title">
-          {child.firstName} {child.lastName}
-        </h1>
+        <main className="min-w-full">
+          <h1 className="title">
+            {child.firstName} {child.lastName}
+          </h1>
 
-        <section className="grid grid-cols-1 gap-4 w-full">
-          <Card>
-            <CardHeader>
-              <CardTitle role="heading" aria-level={2}>
-                General
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Item size="sm">
-                <ItemMedia variant="icon">
-                  <User />
-                </ItemMedia>
-                <ItemContent>
-                  <ItemTitle>{child.identityCardNumber}</ItemTitle>
-                </ItemContent>
-              </Item>
-              <Item size="sm">
-                <ItemMedia variant="icon">
-                  <CakeIcon />
-                </ItemMedia>
-                <ItemContent>
-                  <ItemTitle>
-                    {child.birthDate?.toLocaleDateString("es-ES")}
-                  </ItemTitle>
-                </ItemContent>
-              </Item>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle role="heading" aria-level={2}>
-                Contactos
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {child.contacts.map((contact, idx) => (
-                <Item key={idx}>
+          <section className="grid grid-cols-1 gap-4 w-full">
+            <Card>
+              <CardHeader>
+                <CardTitle role="heading" aria-level={2}>
+                  General
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Item size="sm">
                   <ItemMedia variant="icon">
-                    <PhoneIcon />
+                    <User />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>{child.identityCardNumber}</ItemTitle>
+                  </ItemContent>
+                </Item>
+                <Item size="sm">
+                  <ItemMedia variant="icon">
+                    <CakeIcon />
                   </ItemMedia>
                   <ItemContent>
                     <ItemTitle>
-                      {contact.phones.map((phone, i) => (
-                        <div key={i}>{phone.number}</div>
-                      ))}
+                      {child.birthDate?.toLocaleDateString("es-ES")}
                     </ItemTitle>
-                    <ItemDescription>
-                      {contact.firstName} {contact.lastName} (
-                      {contact.relationShip})
-                    </ItemDescription>
                   </ItemContent>
                 </Item>
-              ))}
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle role="heading" aria-level={2}>
-                Insignias
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {child.pins.map((pin, idx) => (
-                <Item key={idx} size="sm">
-                  <ItemMedia variant="icon">
-                    <Star />
-                  </ItemMedia>
-                  <ItemContent>
-                    <ItemTitle>{pin.pinName}</ItemTitle>
-                  </ItemContent>
-                </Item>
-              ))}
-            </CardContent>
-          </Card>
-        </section>
+            <Card>
+              <CardHeader>
+                <CardTitle role="heading" aria-level={2}>
+                  Contactos
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {child.contacts.map((contact, idx) => (
+                  <Item key={idx}>
+                    <ItemMedia variant="icon">
+                      <PhoneIcon />
+                    </ItemMedia>
+                    <ItemContent>
+                      <ItemTitle>
+                        {contact.phones.map((phone, i) => (
+                          <div key={i}>{phone.number}</div>
+                        ))}
+                      </ItemTitle>
+                      <ItemDescription>
+                        {contact.firstName} {contact.lastName} (
+                        {contact.relationShip})
+                      </ItemDescription>
+                    </ItemContent>
+                  </Item>
+                ))}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle role="heading" aria-level={2}>
+                  Insignias
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {child.pins.map((pin, idx) => (
+                  <Item key={idx} size="sm">
+                    <ItemMedia variant="icon">
+                      <Star />
+                    </ItemMedia>
+                    <ItemContent>
+                      <ItemTitle>{pin.pinName}</ItemTitle>
+                    </ItemContent>
+                  </Item>
+                ))}
+              </CardContent>
+            </Card>
+          </section>
+        </main>
       </div>
-    </section>
+    </div>
   );
 }

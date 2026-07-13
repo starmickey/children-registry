@@ -2,6 +2,18 @@ import "dotenv/config";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../generated/prisma/client";
+import {
+  children,
+  classes,
+  classRooms,
+  contacts,
+  phones,
+  pinOtorgations,
+  pins,
+  registrations,
+  relationShips,
+  relationShipTypes,
+} from "./seed-data";
 
 const connectionString = `${process.env.DATABASE_URL}`;
 const pool = new Pool({ connectionString });
@@ -9,124 +21,123 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const child = await prisma.child.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      firstName: "John",
-      lastName: "Doe",
-      birthDate: new Date("2010-01-01"),
-      identityCardNumber: "123456789",
-    },
-  });
+  await Promise.all(
+    children.map(({ id, ...child }) =>
+      prisma.child.upsert({
+        where: { id },
+        update: {},
+        create: child,
+      }),
+    ),
+  ).then(() => console.log(`${children.length} children loaded`));
 
-  const parroquia = await prisma.classRoom.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      name: "Parroquia San José Obrero",
-      alias: "Parroquia",
-    },
-  });
+  await Promise.all(
+    classRooms.map(({ id, ...classRoom }) =>
+      prisma.classRoom.upsert({
+        where: { id },
+        update: {},
+        create: classRoom,
+      }),
+    ),
+  ).then(() => console.log(`${classRooms.length} classRooms loaded`));
 
-  const perpetuo = await prisma.classRoom.upsert({
-    where: { id: 2 },
-    update: {},
-    create: {
-      name: "Capilla Nuestra Señora del Perpetuo Socorro",
-      alias: "Perpetuo",
-    },
-  });
+  await Promise.all(
+    classes.map(({ id, ...classItem }) =>
+      prisma.class.upsert({
+        where: { id },
+        update: {},
+        create: classItem,
+      }),
+    ),
+  ).then(() => console.log(`${classes.length} classes loaded`));
 
-  const parroquiaClass = await prisma.class.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      year: 2026,
-      classRoomId: parroquia.id,
-    },
-  });
+  await Promise.all(
+    registrations.map(({ childId, classId }) =>
+      prisma.registration.upsert({
+        where: {
+          childId_classId: {
+            childId,
+            classId,
+          },
+        },
+        update: {},
+        create: {
+          childId,
+          classId,
+        },
+      }),
+    ),
+  ).then(() => console.log(`${registrations.length} registrations loaded`));
 
-  const perpetuoClass = await prisma.class.upsert({
-    where: { id: 2 },
-    update: {},
-    create: {
-      year: 2026,
-      classRoomId: perpetuo.id,
-    },
-  });
+  await Promise.all(
+    contacts.map(({ id, ...contact }) =>
+      prisma.contact.upsert({
+        where: { id },
+        update: {},
+        create: contact,
+      }),
+    ),
+  ).then(() => console.log(`${contacts.length} contacts loaded`));
 
-  const registration = await prisma.registration.upsert({
-    where: {
-      childId_classId: { childId: child.id, classId: parroquiaClass.id },
-    },
-    update: {},
-    create: {
-      childId: child.id,
-      classId: parroquiaClass.id,
-    },
-  });
+  await Promise.all(
+    phones.map(({ id, ...phone }) =>
+      prisma.phone.upsert({
+        where: { id },
+        update: {},
+        create: phone,
+      }),
+    ),
+  ).then(() => console.log(`${phones.length} phones loaded`));
 
-  const contact = await prisma.contact.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      firstName: "Jane",
-      lastName: "Doe",
-      identityCardNumber: "987654321",
-    },
-  });
+  await Promise.all(
+    relationShipTypes.map(({ id, ...relationShipType }) =>
+      prisma.relationShipType.upsert({
+        where: { id },
+        update: {},
+        create: relationShipType,
+      }),
+    ),
+  ).then(() => console.log(`${relationShipTypes.length} relationShipTypes loaded`));
 
-  const phone = await prisma.phone.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      number: "555-1234",
-      contactId: contact.id,
-    },
-  });
+  await Promise.all(
+    relationShips.map(({ childId, contactId, relationShipTypeId }) =>
+      prisma.relationShip.upsert({
+        where: {
+          childId_contactId_relationShipTypeId: {
+            childId,
+            contactId,
+            relationShipTypeId,
+          },
+        },
+        update: {},
+        create: {
+          childId,
+          contactId,
+          relationShipTypeId,
+        },
+      }),
+    ),
+  ).then(() => console.log(`${relationShips.length} relationShips loaded`));
 
-  const relationShipType = await prisma.relationShipType.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      name: "Mother",
-    },
-  });
+  await Promise.all(
+    pins.map(({ id, ...pin }) =>
+      prisma.pin.upsert({
+        where: { id },
+        update: {},
+        create: pin,
+      }),
+    ),
+  ).then(() => console.log(`${pins.length} pins loaded`));
 
-  const relationShip = await prisma.relationShip.upsert({
-    where: {
-      childId_contactId_relationShipTypeId: {
-        childId: child.id,
-        contactId: contact.id,
-        relationShipTypeId: relationShipType.id,
-      },
-    },
-    update: {},
-    create: {
-      childId: child.id,
-      contactId: contact.id,
-      relationShipTypeId: relationShipType.id,
-    },
-  });
-
-  const pin = await prisma.pin.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      name: "Carnet",
-    },
-  });
-
-  const pinOtorgation = await prisma.pinOtorgation.upsert({
-    where: { childId_pinId: { childId: child.id, pinId: pin.id } },
-    update: {},
-    create: {
-      pinId: pin.id,
-      childId: child.id,
-      otorgationDate: new Date(),
-    },
-  });
+  await Promise.all(
+    pinOtorgations.map(({ childId, pinId, ...pinOtorgation }) =>
+      prisma.pinOtorgation.upsert({
+        where: { childId_pinId: { childId, pinId } },
+        update: {},
+        create: { childId, pinId, ...pinOtorgation },
+      }),
+    ),
+  ).then(() => console.log(`${pinOtorgations.length} pinOtorgations loaded`));
 }
 main()
   .then(async () => {

@@ -1,5 +1,10 @@
 import { prisma } from "@/lib/prisma";
 
+export const getChildren = async () =>
+  prisma.child.findMany({
+    where: { removedAt: null },
+  });
+
 export const getChildResume = async (id: number) =>
   prisma.child.findUnique({
     where: { id, removedAt: null },
