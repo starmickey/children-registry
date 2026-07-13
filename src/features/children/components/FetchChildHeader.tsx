@@ -35,8 +35,6 @@ export default function FetchChildHeader() {
   }
 
   const handleSearch = useDebouncedCallback((term: string) => {
-    setSearchString(term);
-
     const params = new URLSearchParams(searchParams);
 
     if (term) {
@@ -63,7 +61,10 @@ export default function FetchChildHeader() {
           <Input
             placeholder="Ingrese un nombre"
             value={searchString}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => {
+              setSearchString(e.target.value);
+              handleSearch(e.target.value);
+            }}
           />
         </>
       ) : (
