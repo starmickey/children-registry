@@ -84,53 +84,57 @@ export default async function ResumePage({
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle role="heading" aria-level={2}>
-                  Contactos
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {child.contacts.map((contact, idx) => (
-                  <Item key={idx}>
-                    <ItemMedia variant="icon">
-                      <PhoneIcon />
-                    </ItemMedia>
-                    <ItemContent>
-                      <ItemTitle>
-                        {contact.phones.map((phone, i) => (
-                          <div key={i}>{phone.number}</div>
-                        ))}
-                      </ItemTitle>
-                      <ItemDescription>
-                        {contact.firstName} {contact.lastName} (
-                        {contact.relationShip})
-                      </ItemDescription>
-                    </ItemContent>
-                  </Item>
-                ))}
-              </CardContent>
-            </Card>
+            {child.contacts.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle role="heading" aria-level={2}>
+                    Contactos
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {child.contacts.map((contact, idx) => (
+                    <Item key={idx}>
+                      <ItemMedia variant="icon">
+                        <PhoneIcon />
+                      </ItemMedia>
+                      <ItemContent>
+                        <ItemTitle>
+                          {contact.phones.map((phone, i) => (
+                            <div key={i}>{phone.number}</div>
+                          ))}
+                        </ItemTitle>
+                        <ItemDescription>
+                          {contact.firstName} {contact.lastName} (
+                          {contact.relationShip})
+                        </ItemDescription>
+                      </ItemContent>
+                    </Item>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
 
-            <Card>
-              <CardHeader>
-                <CardTitle role="heading" aria-level={2}>
-                  Insignias
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {child.pins.map((pin, idx) => (
-                  <Item key={idx} size="sm">
-                    <ItemMedia variant="icon">
-                      <Star />
-                    </ItemMedia>
-                    <ItemContent>
-                      <ItemTitle>{pin.pinName}</ItemTitle>
-                    </ItemContent>
-                  </Item>
-                ))}
-              </CardContent>
-            </Card>
+            {child.pins.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle role="heading" aria-level={2}>
+                    Insignias
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {child.pins.map((pin, idx) => (
+                    <Item key={idx} size="sm">
+                      <ItemMedia variant="icon">
+                        <Star />
+                      </ItemMedia>
+                      <ItemContent>
+                        <ItemTitle>{pin.pinName}</ItemTitle>
+                      </ItemContent>
+                    </Item>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
           </section>
         </main>
       </div>
