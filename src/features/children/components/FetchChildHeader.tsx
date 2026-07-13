@@ -68,7 +68,7 @@ export default function FetchChildHeader() {
         </>
       ) : (
         <>
-          <h1 className="title flex-1">Children</h1>
+          <h1 className="title flex-1">Infancia Misionera</h1>
           <Button
             variant="ghost"
             size="icon"
