@@ -1,9 +1,26 @@
 import { prisma } from "@/lib/prisma";
 
-export const getChildren = async () =>
-  prisma.child.findMany({
-    where: { removedAt: null },
-  });
+export const searchChildren = async (searchString?: string) =>
+  searchString && searchString.trim()
+    ? prisma.child.findMany({
+        where: {
+          OR: [
+            // 1. The first name or surname starts directly with the string
+            { firstName: { startsWith: searchString, mode: "insensitive" } },
+            { lastName: { startsWith: searchString, mode: "insensitive" } },
+
+            // 2. A secondary word inside the field starts with the string (e.g., "Mary Jo")
+            {
+              firstName: { contains: ` ${searchString}`, mode: "insensitive" },
+            },
+            { lastName: { contains: ` ${searchString}`, mode: "insensitive" } },
+          ],
+          removedAt: null,
+        },
+      })
+    : prisma.child.findMany({
+        where: { removedAt: null },
+      });
 
 export const getChildResume = async (id: number) =>
   prisma.child.findUnique({

@@ -1,12 +1,5 @@
 import { parseChildResumeDTO } from "@/features/children/dto/parser/childResume";
-import { getChildren, getChildResume } from "@/features/children/repository/childrenRepository";
-import { parseChildDTO } from "../dto/parser/child";
-
-export async function fetchChildrenService() {
-  const children = await getChildren();
-
-  return children.map(parseChildDTO);
-}
+import { getChildResume } from "@/features/children/repository/childrenRepository";
 
 export async function getChildResumeService(id: number) {
   const childResume = await getChildResume(id);

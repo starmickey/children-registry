@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Item,
@@ -10,7 +11,9 @@ import {
 import { getChildResumeParamsSchema } from "@/features/children/schemas/childrenSchemas";
 import { getChildResumeService } from "@/features/children/services/getChildResume";
 import { CakeIcon, PhoneIcon, Star, User } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ChevronLeft as ArrowLeft } from "lucide-react";
 
 export default async function ResumePage({
   params,
@@ -34,7 +37,12 @@ export default async function ResumePage({
   return (
     <div className="base-layout">
       <div className="centered-layout">
-        <header className="flex w-full justify-end">
+        <header className="flex w-full justify-between items-center">
+          <Link href="/children">
+            <Button variant="ghost" size="icon-sm">
+              <ArrowLeft />
+            </Button>
+          </Link>
           {child.class?.classRoom && (
             <Badge>
               {child.class.classRoom.alias ?? child.class.classRoom.name}
