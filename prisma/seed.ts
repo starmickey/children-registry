@@ -5,14 +5,14 @@ import { PrismaClient } from "../generated/prisma/client";
 import {
   children,
   classes,
-  classRooms,
+  classrooms,
   contacts,
   phones,
-  pinOtorgations,
+  pinGrants,
   pins,
   registrations,
-  relationShips,
-  relationShipTypes,
+  relationships,
+  relationshipTypes,
 } from "./seed-data";
 
 const connectionString = `${process.env.DATABASE_URL}`;
@@ -32,14 +32,14 @@ async function main() {
   ).then(() => console.log(`${children.length} children loaded`));
 
   await Promise.all(
-    classRooms.map(({ id, ...classRoom }) =>
-      prisma.classRoom.upsert({
+    classrooms.map(({ id, ...classroom }) =>
+      prisma.classroom.upsert({
         where: { id },
         update: {},
-        create: classRoom,
+        create: classroom,
       }),
     ),
-  ).then(() => console.log(`${classRooms.length} classRooms loaded`));
+  ).then(() => console.log(`${classrooms.length} classrooms loaded`));
 
   await Promise.all(
     classes.map(({ id, ...classItem }) =>
@@ -90,34 +90,34 @@ async function main() {
   ).then(() => console.log(`${phones.length} phones loaded`));
 
   await Promise.all(
-    relationShipTypes.map(({ id, ...relationShipType }) =>
-      prisma.relationShipType.upsert({
+    relationshipTypes.map(({ id, ...relationshipType }) =>
+      prisma.relationshipType.upsert({
         where: { id },
         update: {},
-        create: relationShipType,
+        create: relationshipType,
       }),
     ),
-  ).then(() => console.log(`${relationShipTypes.length} relationShipTypes loaded`));
+  ).then(() => console.log(`${relationshipTypes.length} relationshipTypes loaded`));
 
   await Promise.all(
-    relationShips.map(({ childId, contactId, relationShipTypeId }) =>
-      prisma.relationShip.upsert({
+    relationships.map(({ childId, contactId, relationshipTypeId }) =>
+      prisma.relationship.upsert({
         where: {
-          childId_contactId_relationShipTypeId: {
+          childId_contactId_relationshipTypeId: {
             childId,
             contactId,
-            relationShipTypeId,
+            relationshipTypeId,
           },
         },
         update: {},
         create: {
           childId,
           contactId,
-          relationShipTypeId,
+          relationshipTypeId,
         },
       }),
     ),
-  ).then(() => console.log(`${relationShips.length} relationShips loaded`));
+  ).then(() => console.log(`${relationships.length} relationships loaded`));
 
   await Promise.all(
     pins.map(({ id, ...pin }) =>
@@ -130,14 +130,14 @@ async function main() {
   ).then(() => console.log(`${pins.length} pins loaded`));
 
   await Promise.all(
-    pinOtorgations.map(({ childId, pinId, ...pinOtorgation }) =>
-      prisma.pinOtorgation.upsert({
+    pinGrants.map(({ childId, pinId, ...pinGrant }) =>
+      prisma.pinGrant.upsert({
         where: { childId_pinId: { childId, pinId } },
         update: {},
-        create: { childId, pinId, ...pinOtorgation },
+        create: { childId, pinId, ...pinGrant },
       }),
     ),
-  ).then(() => console.log(`${pinOtorgations.length} pinOtorgations loaded`));
+  ).then(() => console.log(`${pinGrants.length} pinGrants loaded`));
 }
 main()
   .then(async () => {

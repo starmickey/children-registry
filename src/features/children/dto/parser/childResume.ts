@@ -10,7 +10,7 @@ export function parseChildResumeDTO(
 ): ChildResumeDTO {
   const registration = child.registrations[0];
   const latestClass = registration?.class;
-  const classRoom = latestClass?.classRoom;
+  const classRoom = latestClass?.classroom;
 
   return {
     id: child.id,
@@ -30,21 +30,21 @@ export function parseChildResumeDTO(
             },
           }
         : null,
-    contacts: child.childRelations.map((relation) => ({
+    contacts: child.childRelationships.map((relation) => ({
       contactId: relation.contactId,
       firstName: relation.contact.firstName,
       lastName: relation.contact.lastName,
       identityCardNumber: relation.contact.identityCardNumber,
-      relationShipTypeId: relation.relationShipTypeId,
-      relationShip: relation.relationShipType.name,
+      relationShipTypeId: relation.relationshipTypeId,
+      relationShip: relation.relationshipType.name,
       phones: relation.contact.phones.map((phone) => ({
         id: phone.id,
         number: phone.number,
       })),
     })),
-    pins: child.pinOtorgations.map((pinOtorgation) => ({
-      pinId: pinOtorgation.pinId,
-      pinName: pinOtorgation.pin.name,
+    pins: child.pinGrants.map((pinGrant) => ({
+      pinId: pinGrant.pinId,
+      pinName: pinGrant.pin.name,
     })),
   };
 }

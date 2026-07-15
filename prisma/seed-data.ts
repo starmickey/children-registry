@@ -15,7 +15,7 @@ export const children = [
   },
 ];
 
-export const classRooms = [
+export const classrooms = [
   {
     id: 1,
     name: "Parroquia San José Obrero",
@@ -32,12 +32,12 @@ export const classes = [
   {
     id: 1,
     year: 2026,
-    classRoomId: 1,
+    classroomId: 1,
   },
   {
     id: 2,
     year: 2026,
-    classRoomId: 2,
+    classroomId: 2,
   },
 ];
 
@@ -96,7 +96,7 @@ export const phones = [
   },
 ];
 
-export const relationShipTypes = [
+export const relationshipTypes = [
   {
     id: 1,
     name: "Mother",
@@ -107,21 +107,21 @@ export const relationShipTypes = [
   },
 ];
 
-export const relationShips = [
+export const relationships = [
   {
     childId: 1,
     contactId: 1,
-    relationShipTypeId: 1,
+    relationshipTypeId: 1,
   },
   {
     childId: 2,
     contactId: 2,
-    relationShipTypeId: 1,
+    relationshipTypeId: 1,
   },
   {
     childId: 2,
     contactId: 3,
-    relationShipTypeId: 2,
+    relationshipTypeId: 2,
   },
 ];
 
@@ -136,15 +136,15 @@ export const pins = [
   },
 ];
 
-export const pinOtorgations = [
+export const pinGrants = [
   {
     pinId: 1,
     childId: 1,
-    otorgationDate: new Date(),
+    grantedAt: new Date(),
   },
   {
     pinId: 2,
     childId: 2,
-    otorgationDate: new Date(),
+    grantedAt: new Date(),
   },
 ];

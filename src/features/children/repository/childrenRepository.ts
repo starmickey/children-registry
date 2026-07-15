@@ -47,15 +47,15 @@ export const getChildResume = async (id: number) =>
         include: {
           class: {
             include: {
-              classRoom: true,
+              classroom: true,
             },
           },
         },
       },
-      childRelations: {
+      childRelationships: {
         where: {
           removedAt: null,
-          relationShipType: {
+          relationshipType: {
             removedAt: null,
           },
           contact: {
@@ -63,7 +63,7 @@ export const getChildResume = async (id: number) =>
           },
         },
         include: {
-          relationShipType: true,
+          relationshipType: true,
           contact: {
             include: {
               phones: {
@@ -75,7 +75,7 @@ export const getChildResume = async (id: number) =>
           },
         },
       },
-      pinOtorgations: {
+      pinGrants: {
         where: {
           removedAt: null,
         },

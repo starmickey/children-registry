@@ -8,115 +8,147 @@ datasource db {
 }
 
 model Child {
-  id                 Int             @id @default(autoincrement())
-  firstName          String
-  lastName           String
-  identityCardNumber String?
-  birthDate          DateTime?
-  createdAt          DateTime        @default(now())
-  updatedAt          DateTime        @updatedAt
-  removedAt          DateTime?
+  id                 Int            @id @default(autoincrement())
+  firstName          String         @map("first_name")
+  lastName           String         @map("last_name")
+  identityCardNumber String?        @map("identity_card_number")
+  birthDate          DateTime?      @map("birth_date")
+  createdAt          DateTime       @default(now()) @map("created_at")
+  updatedAt          DateTime       @updatedAt @map("updated_at")
+  removedAt          DateTime?      @map("removed_at")
   registrations      Registration[]
-  childRelations     RelationShip[]
-  pinOtorgations     PinOtorgation[]
+  childRelationships Relationship[]
+  pinGrants          PinGrant[]
+
+  @@index([removedAt])
+  @@map("children")
 }
 
 model Registration {
-  childId   Int
-  classId   Int
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  removedAt DateTime?
-  child     Child     @relation(fields: [childId], references: [id])
-  class     Class     @relation(fields: [classId], references: [id])
+  childId   Int       @map("child_id")
+  classId   Int       @map("class_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  removedAt DateTime? @map("removed_at")
+  child     Child     @relation(fields: [childId], references: [id], onDelete: Cascade)
+  class     Class     @relation(fields: [classId], references: [id], onDelete: Cascade)
 
   @@id([childId, classId])
+  @@index([classId])
+  @@map("registrations")
 }
 
 model Class {
   id            Int            @id @default(autoincrement())
   year          Int
-  classRoomId   Int?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  removedAt     DateTime?
-  classRoom     ClassRoom?      @relation(fields: [classRoomId], references: [id])
+  classroomId   Int?           @map("classroom_id")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+  removedAt     DateTime?      @map("removed_at")
+  classroom     Classroom?     @relation(fields: [classroomId], references: [id], onDelete: SetNull)
   registrations Registration[]
+
+  @@index([classroomId])
+  @@index([removedAt])
+  @@map("classes")
 }
 
-model ClassRoom {
+model Classroom {
   id        Int       @id @default(autoincrement())
   name      String
   alias     String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  removedAt DateTime?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  removedAt DateTime? @map("removed_at")
   classes   Class[]
+
+  @@index([removedAt])
+  @@map("classrooms")
 }
 
 model Contact {
   id                 Int            @id @default(autoincrement())
-  firstName          String
-  lastName           String
-  identityCardNumber String?
-  createdAt          DateTime       @default(now())
-  updatedAt          DateTime       @updatedAt
-  removedAt          DateTime?
+  firstName          String         @map("first_name")
+  lastName           String         @map("last_name")
+  identityCardNumber String?        @map("identity_card_number")
+  createdAt          DateTime       @default(now()) @map("created_at")
+  updatedAt          DateTime       @updatedAt @map("updated_at")
+  removedAt          DateTime?      @map("removed_at")
   phones             Phone[]
-  contactRelations   RelationShip[]
+  contactRelations   Relationship[]
+
+  @@index([removedAt])
+  @@map("contacts")
 }
 
 model Phone {
   id        Int       @id @default(autoincrement())
   number    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  removedAt DateTime?
-  contactId Int
-  contact   Contact   @relation(fields: [contactId], references: [id])
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  removedAt DateTime? @map("removed_at")
+  contactId Int       @map("contact_id")
+  contact   Contact   @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  @@index([contactId]) // FK index: Crucial for queries matching phones to contacts
+  @@index([removedAt])
+  @@map("phones")
 }
 
-model RelationShipType {
+model RelationshipType {
   id        Int            @id @default(autoincrement())
   name      String
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  removedAt DateTime?
-  relations RelationShip[]
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+  removedAt DateTime?      @map("removed_at")
+  relations Relationship[]
+
+  @@index([removedAt])
+  @@map("relationship_types")
 }
 
-model RelationShip {
-  childId            Int
-  contactId          Int
-  relationShipTypeId Int
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
-  removedAt          DateTime?
-  child              Child            @relation(fields: [childId], references: [id])
-  contact            Contact          @relation(fields: [contactId], references: [id])
-  relationShipType   RelationShipType @relation(fields: [relationShipTypeId], references: [id])
+model Relationship {
+  childId            Int              @map("child_id")
+  contactId          Int              @map("contact_id")
+  relationshipTypeId Int              @map("relationship_type_id")
+  createdAt          DateTime         @default(now()) @map("created_at")
+  updatedAt          DateTime         @updatedAt @map("updated_at")
+  removedAt          DateTime?        @map("removed_at")
+  child              Child            @relation(fields: [childId], references: [id], onDelete: Cascade)
+  contact            Contact          @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  relationshipType   RelationshipType @relation(fields: [relationshipTypeId], references: [id], onDelete: Restrict)
 
-  @@id([childId, contactId, relationShipTypeId])
+  @@id([childId, contactId, relationshipTypeId])
+  @@index([contactId]) // Indexed for direct lookup on contact side
+  @@index([relationshipTypeId]) // Indexed for filtering by relationship types
+  @@index([removedAt])
+  @@map("relationships")
 }
 
-model PinOtorgation {
-  childId        Int
-  pinId          Int
-  otorgationDate DateTime
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  removedAt      DateTime?
-  child          Child     @relation(fields: [childId], references: [id])
-  pin            Pin       @relation(fields: [pinId], references: [id])
+model PinGrant {
+  childId   Int       @map("child_id")
+  pinId     Int       @map("pin_id")
+  grantedAt DateTime  @map("granted_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  removedAt DateTime? @map("removed_at")
+  child     Child     @relation(fields: [childId], references: [id], onDelete: Cascade)
+  pin       Pin       @relation(fields: [pinId], references: [id], onDelete: Restrict)
 
   @@id([childId, pinId])
+  @@index([pinId]) // Explicitly indexed for looking up who holds specific PINs
+  @@index([removedAt])
+  @@map("pin_grants")
 }
 
 model Pin {
-  id             Int             @id @default(autoincrement())
-  name           String
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  removedAt      DateTime?
-  pinOtorgations PinOtorgation[]
+  id        Int        @id @default(autoincrement())
+  name      String
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  removedAt DateTime?  @map("removed_at")
+  pinGrants PinGrant[]
+
+  @@index([removedAt])
+  @@map("pins")
 }
