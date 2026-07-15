@@ -28,10 +28,13 @@ export default function FetchChildHeader() {
   function handleReturnButtonClick() {
     const params = new URLSearchParams(searchParams);
 
+    params.delete("search");
+
+    setSearchString("");
     setExpanded(false);
 
-    params.delete("search"); // Removes the param if the input is cleared
-    setSearchString("");
+    // ADD THIS LINE: Apply the changes to the URL
+    router.replace(`${pathname}?${params.toString()}`);
   }
 
   const handleSearch = useDebouncedCallback((term: string) => {
