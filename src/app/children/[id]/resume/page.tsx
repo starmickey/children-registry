@@ -25,6 +25,8 @@ import {
   PhoneFormat,
 } from "@/components/ui/numeric-format";
 import { calculateAge } from "@/lib/utils";
+import { PhoneCallButton, WhatsAppButton } from "@/components/social-buttons";
+import { FaWhatsapp as WhatsAppIcon } from 'react-icons/fa';
 
 export default async function ResumePage({
   params,
@@ -97,7 +99,9 @@ export default async function ResumePage({
                     <ItemContent>
                       <ItemTitle>
                         {child.birthDate?.toLocaleDateString("es-ES")}{" "}
-                        <span className="text-muted-foreground">({calculateAge(child.birthDate)} años)</span>
+                        <span className="text-muted-foreground">
+                          ({calculateAge(child.birthDate)} años)
+                        </span>
                       </ItemTitle>
                     </ItemContent>
                   </Item>
@@ -138,13 +142,28 @@ export default async function ResumePage({
                         </ItemDescription>
                       </ItemContent>
                       {contact.phones.length > 0 && (
-                        <ItemMedia variant="icon">
-                          <a href={`tel:${contact.phones[0].number}`}>
-                            <Button type="button" variant="ghost">
+                        <>
+                          <ItemMedia variant="icon">
+                            <WhatsAppButton
+                              type="button"
+                              variant="ghost"
+                              phone={contact.phones[0].number}
+                              className="px-0.5 pt-0 border-0 items-start"
+                              >
+                              <WhatsAppIcon />
+                            </WhatsAppButton>
+                          </ItemMedia>
+                          <ItemMedia variant="icon">
+                            <PhoneCallButton
+                              type="button"
+                              variant="ghost"
+                              phone={contact.phones[0].number}
+                              className="px-0.5 pt-0 border-0 items-start"
+                            >
                               <PhoneIcon />
-                            </Button>
-                          </a>
-                        </ItemMedia>
+                            </PhoneCallButton>
+                          </ItemMedia>
+                        </>
                       )}
                     </Item>
                   ))}
