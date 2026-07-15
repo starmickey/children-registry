@@ -24,6 +24,7 @@ export default async function Page({
                     variant="outline"
                     type="button"
                     className="w-full justify-start"
+                    size="lg"
                   >
                     {child.firstName} {child.lastName}
                   </Button>
