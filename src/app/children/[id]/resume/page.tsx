@@ -24,6 +24,7 @@ import {
   IdentityCardNumberFormat,
   PhoneFormat,
 } from "@/components/ui/numeric-format";
+import { calculateAge } from "@/lib/utils";
 
 export default async function ResumePage({
   params,
@@ -73,29 +74,34 @@ export default async function ResumePage({
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <Item size="sm">
-                  <ItemMedia variant="icon">
-                    <NotebookIcon />
-                  </ItemMedia>
-                  <ItemContent>
-                    <ItemTitle>
-                      <span className="font-bold">DNI:</span>{" "}
-                      <IdentityCardNumberFormat
-                        value={child.identityCardNumber}
-                      />
-                    </ItemTitle>
-                  </ItemContent>
-                </Item>
-                <Item size="sm">
-                  <ItemMedia variant="icon">
-                    <CakeIcon />
-                  </ItemMedia>
-                  <ItemContent>
-                    <ItemTitle>
-                      {child.birthDate?.toLocaleDateString("es-ES")}
-                    </ItemTitle>
-                  </ItemContent>
-                </Item>
+                {child.identityCardNumber && (
+                  <Item size="sm">
+                    <ItemMedia variant="icon">
+                      <NotebookIcon />
+                    </ItemMedia>
+                    <ItemContent>
+                      <ItemTitle>
+                        <span className="font-bold">DNI:</span>{" "}
+                        <IdentityCardNumberFormat
+                          value={child.identityCardNumber}
+                        />
+                      </ItemTitle>
+                    </ItemContent>
+                  </Item>
+                )}
+                {child.birthDate && (
+                  <Item size="sm">
+                    <ItemMedia variant="icon">
+                      <CakeIcon />
+                    </ItemMedia>
+                    <ItemContent>
+                      <ItemTitle>
+                        {child.birthDate?.toLocaleDateString("es-ES")}{" "}
+                        <span className="text-muted-foreground">({calculateAge(child.birthDate)} años)</span>
+                      </ItemTitle>
+                    </ItemContent>
+                  </Item>
+                )}
               </CardContent>
             </Card>
 
