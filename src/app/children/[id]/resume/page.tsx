@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/numeric-format";
 import { calculateAge } from "@/lib/utils";
 import { PhoneCallButton, WhatsAppButton } from "@/components/social-buttons";
-import { FaWhatsapp as WhatsAppIcon } from 'react-icons/fa';
+import { FaWhatsapp as WhatsAppIcon } from "react-icons/fa";
 
 export default async function ResumePage({
   params,
@@ -46,6 +46,20 @@ export default async function ResumePage({
   if (!child) {
     notFound();
   }
+
+  const sortedContacts = [
+    ...(child.contacts.filter(
+      (c) => c.relationShip.toLowerCase() === "madre",
+    ) ?? []),
+    ...(child.contacts.filter(
+      (c) => c.relationShip.toLowerCase() === "padre",
+    ) ?? []),
+    ...(child.contacts.filter(
+      (c) =>
+        c.relationShip.toLowerCase() !== "madre" &&
+        c.relationShip.toLowerCase() !== "padre",
+    ) ?? []),
+  ];
 
   return (
     <div className="base-layout">
@@ -117,7 +131,7 @@ export default async function ResumePage({
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {child.contacts.map((contact, idx) => (
+                  {sortedContacts.map((contact, idx) => (
                     <Item key={idx}>
                       <ItemMedia variant="icon">
                         <UserIcon />
@@ -149,7 +163,7 @@ export default async function ResumePage({
                               variant="ghost"
                               phone={contact.phones[0].number}
                               className="px-0.5 pt-0 border-0 items-start"
-                              >
+                            >
                               <WhatsAppIcon />
                             </WhatsAppButton>
                           </ItemMedia>
