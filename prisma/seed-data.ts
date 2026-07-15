@@ -1,33 +1,262 @@
 export const children = [
   {
     id: 1,
-    firstName: "John",
-    lastName: "Doe",
-    birthDate: new Date("2010-01-01"),
-    identityCardNumber: "123456789",
+    firstName: "Eimmy Abigail",
+    lastName: "Astudillo",
+    birthDate: new Date("2021-07-22"),
+    identityCardNumber: "58884245",
   },
   {
     id: 2,
-    firstName: "EImmy",
-    lastName: "Doe",
-    birthDate: new Date("2010-01-01"),
-    identityCardNumber: "123456790",
+    firstName: "Mateo Valentín",
+    lastName: "Luna",
+    birthDate: new Date("2021-01-07"),
+    identityCardNumber: "58470523",
+  },
+  {
+    id: 3,
+    firstName: "Nacho",
+    lastName: "Giménez",
+    birthDate: new Date("2020-08-18"),
+    identityCardNumber: "58277689",
+  },
+  {
+    id: 4,
+    firstName: "Renata",
+    lastName: "Ojer",
+    birthDate: new Date("2020-07-06"),
+    identityCardNumber: "58276183",
+  },
+  {
+    id: 5,
+    firstName: "Ángeles",
+    lastName: "Sosa",
+    birthDate: new Date("2019-10-23"),
+    identityCardNumber: "57792894",
+  },
+  {
+    id: 6,
+    firstName: "Brisa",
+    lastName: "Herrera",
+    birthDate: new Date("2019-10-22"),
+    identityCardNumber: "58470523",
+  },
+  {
+    id: 7,
+    firstName: "Alina",
+    lastName: "Altamiranda",
+    birthDate: new Date("2018-09-08"),
+    identityCardNumber: "57115958",
+  },
+  {
+    id: 8,
+    firstName: "Valentino Shihander",
+    lastName: "Brizuela",
+    birthDate: new Date("2018-09-10"),
+    identityCardNumber: "57113045",
+  },
+  {
+    id: 9,
+    firstName: "Trinidad",
+    lastName: "Vargas Pereyra",
+    birthDate: new Date("2018-09-26"),
+    identityCardNumber: "57115450",
+  },
+  {
+    id: 10,
+    firstName: "María Trinidad",
+    lastName: "Ojer",
+    birthDate: new Date("2017-07-18"),
+    identityCardNumber: "56297803",
+  },
+  {
+    id: 11,
+    firstName: "Olivia",
+    lastName: "Ferreyra Caputti",
+    birthDate: new Date("2017-08-16"),
+    identityCardNumber: "56292243",
+  },
+  {
+    id: 12,
+    firstName: "Valentina Lihué",
+    lastName: "Villoldo Gutiérrez",
+    birthDate: new Date("2017-12-29"),
+    identityCardNumber: "56474870",
+  },
+  {
+    id: 13,
+    firstName: "Martina",
+    lastName: "Matamoro",
+    birthDate: new Date("2018-02-07"),
+    identityCardNumber: "56692011",
+  },
+  {
+    id: 14,
+    firstName: "Alfredo Lian",
+    lastName: "Brizuela",
+    birthDate: new Date("2016-01-25"),
+    identityCardNumber: "55257311",
+  },
+  {
+    id: 15,
+    firstName: "Amadeo",
+    lastName: "Giménez",
+    birthDate: new Date("2016-08-08"),
+    identityCardNumber: "55548700",
+  },
+  {
+    id: 16,
+    firstName: "Brunella",
+    lastName: "Molina",
+    birthDate: new Date("2017-07-01"),
+    identityCardNumber: "55385758",
+  },
+  {
+    id: 17,
+    firstName: "Joaquín",
+    lastName: "Matamoro",
+    birthDate: new Date("2016-08-10"),
+    identityCardNumber: null,
+  },
+  {
+    id: 18,
+    firstName: "Milo Genaro",
+    lastName: "Palma González",
+    birthDate: new Date("2016-11-29"),
+    identityCardNumber: "56922048",
+  },
+  {
+    id: 19,
+    firstName: "Benicio",
+    lastName: "Altamiranda",
+    birthDate: new Date("2016-09-27"),
+    identityCardNumber: "55626914",
+  },
+  {
+    id: 20,
+    firstName: "Thiago",
+    lastName: "Maravilla",
+    birthDate: new Date("2016-09-01"),
+    identityCardNumber: "55548723",
+  },
+  {
+    id: 21,
+    firstName: "Sarah",
+    lastName: "Viadana",
+    birthDate: new Date("2016-05-24"),
+    identityCardNumber: "55386985",
+  },
+  {
+    id: 22,
+    firstName: "Maia",
+    lastName: "Videla",
+    birthDate: new Date("2015-08-04"),
+    identityCardNumber: "54921765",
+  },
+  {
+    id: 23,
+    firstName: "Mora Jazmín",
+    lastName: "Herrera",
+    birthDate: new Date("2015-08-08"),
+    identityCardNumber: "54695966",
+  },
+  {
+    id: 24,
+    firstName: "Amelia",
+    lastName: "Ruiz",
+    birthDate: new Date("2015-06-28"),
+    identityCardNumber: "54695320",
+  },
+  {
+    id: 25,
+    firstName: "Eva Catalina",
+    lastName: "Blanes",
+    birthDate: new Date("2015-06-16"),
+    identityCardNumber: "54695703",
+  },
+  {
+    id: 26,
+    firstName: "Lucía",
+    lastName: "Rodríguez Villar",
+    birthDate: new Date("2015-05-05"),
+    identityCardNumber: "54690428",
+  },
+  {
+    id: 27,
+    firstName: "Amir Máximo",
+    lastName: "Palma González",
+    birthDate: new Date("2013-09-25"),
+    identityCardNumber: "53311582",
+  },
+  {
+    id: 28,
+    firstName: "Giovanni",
+    lastName: "Benítez",
+    birthDate: null,
+    identityCardNumber: null,
+  },
+  {
+    id: 29,
+    firstName: "Joselyn",
+    lastName: "Murúa",
+    birthDate: new Date("2013-01-17"),
+    identityCardNumber: null,
+  },
+  {
+    id: 30,
+    firstName: "Martina",
+    lastName: "López",
+    birthDate: new Date("2012-07-06"),
+    identityCardNumber: "52298567",
+  },
+  {
+    id: 31,
+    firstName: "Julieta María Gladys",
+    lastName: "Astudillo",
+    birthDate: new Date("2011-08-02"),
+    identityCardNumber: "51318309",
+  },
+  {
+    id: 32,
+    firstName: "Ángel Eduardo (Cachín)",
+    lastName: "Molina",
+    birthDate: new Date("1972-10-31"),
+    identityCardNumber: null,
+  },
+  {
+    id: 33,
+    firstName: "Fermín",
+    lastName: "Viadana",
+    birthDate: null,
+    identityCardNumber: null,
+  },
+  {
+    id: 34,
+    firstName: "León",
+    lastName: "Palma González",
+    birthDate: null,
+    identityCardNumber: null,
+  },
+  {
+    id: 35,
+    firstName: "Jerónimo",
+    lastName: "Martínez",
+    birthDate: null,
+    identityCardNumber: "57582721",
   },
 ];
-
 export const classrooms = [
   {
     id: 1,
-    name: "Parroquia San José Obrero",
+    name: "Parroquia",
     alias: "Parroquia",
   },
   {
     id: 2,
-    name: "Capilla Nuestra Señora del Perpetuo Socorro",
+    name: "Perpetuo",
     alias: "Perpetuo",
   },
 ];
-
 export const classes = [
   {
     id: 1,
@@ -40,7 +269,6 @@ export const classes = [
     classroomId: 2,
   },
 ];
-
 export const registrations = [
   {
     childId: 1,
@@ -48,65 +276,1071 @@ export const registrations = [
   },
   {
     childId: 2,
+    classId: 1,
+  },
+  {
+    childId: 3,
+    classId: 1,
+  },
+  {
+    childId: 4,
+    classId: 1,
+  },
+  {
+    childId: 5,
     classId: 2,
   },
+  {
+    childId: 6,
+    classId: 1,
+  },
+  {
+    childId: 7,
+    classId: 1,
+  },
+  {
+    childId: 8,
+    classId: 1,
+  },
+  {
+    childId: 9,
+    classId: 1,
+  },
+  {
+    childId: 10,
+    classId: 1,
+  },
+  {
+    childId: 11,
+    classId: 1,
+  },
+  {
+    childId: 12,
+    classId: 1,
+  },
+  {
+    childId: 13,
+    classId: 2,
+  },
+  {
+    childId: 14,
+    classId: 1,
+  },
+  {
+    childId: 15,
+    classId: 1,
+  },
+  {
+    childId: 16,
+    classId: 2,
+  },
+  {
+    childId: 17,
+    classId: 2,
+  },
+  {
+    childId: 18,
+    classId: 1,
+  },
+  {
+    childId: 19,
+    classId: 1,
+  },
+  {
+    childId: 20,
+    classId: 1,
+  },
+  {
+    childId: 21,
+    classId: 1,
+  },
+  {
+    childId: 22,
+    classId: 1,
+  },
+  {
+    childId: 23,
+    classId: 1,
+  },
+  {
+    childId: 24,
+    classId: 2,
+  },
+  {
+    childId: 25,
+    classId: 1,
+  },
+  {
+    childId: 26,
+    classId: 2,
+  },
+  {
+    childId: 27,
+    classId: 1,
+  },
+  {
+    childId: 28,
+    classId: 1,
+  },
+  {
+    childId: 29,
+    classId: 2,
+  },
+  {
+    childId: 30,
+    classId: 2,
+  },
+  {
+    childId: 31,
+    classId: 1,
+  },
+  {
+    childId: 32,
+    classId: 1,
+  },
+  {
+    childId: 33,
+    classId: 1,
+  },
+  {
+    childId: 34,
+    classId: 1,
+  },
+  {
+    childId: 35,
+    classId: 1,
+  },
 ];
-
 export const contacts = [
   {
     id: 1,
-    firstName: "Jane",
-    lastName: "Doe",
-    identityCardNumber: "987654321",
+    firstName: "Gisel",
+    lastName: "Marchan",
+    identityCardNumber: "33570811",
   },
   {
     id: 2,
-    firstName: "Susan",
-    lastName: "Dawson",
-    identityCardNumber: "987654321",
+    firstName: "Alexandro Lucas",
+    lastName: "Astudillo",
+    identityCardNumber: "47965714",
   },
   {
     id: 3,
-    firstName: "George",
-    lastName: "Bryan",
-    identityCardNumber: "987654321",
+    firstName: "Macarena",
+    lastName: "Marchan",
+    identityCardNumber: "39020324",
+  },
+  {
+    id: 4,
+    firstName: "Alejandra",
+    lastName: "Marchan",
+    identityCardNumber: "30179745",
+  },
+  {
+    id: 5,
+    firstName: "Florencia",
+    lastName: "Astudillo",
+    identityCardNumber: "",
+  },
+  {
+    id: 6,
+    firstName: "Analía",
+    lastName: "Villca",
+    identityCardNumber: "32634915",
+  },
+  {
+    id: 7,
+    firstName: "Luis",
+    lastName: "Luna",
+    identityCardNumber: "32493259",
+  },
+  {
+    id: 8,
+    firstName: "Cari",
+    lastName: "Balbina",
+    identityCardNumber: "92689140",
+  },
+  {
+    id: 9,
+    firstName: "Emiliano",
+    lastName: "Luna",
+    identityCardNumber: "49131030",
+  },
+  {
+    id: 10,
+    firstName: "Pamela",
+    lastName: "Villca",
+    identityCardNumber: "4664333",
+  },
+  {
+    id: 11,
+    firstName: "Sabrina",
+    lastName: "Montes",
+    identityCardNumber: "",
+  },
+  {
+    id: 12,
+    firstName: "Érica",
+    lastName: "Gallardo",
+    identityCardNumber: "36653372",
+  },
+  {
+    id: 13,
+    firstName: "Viviana",
+    lastName: "Mora",
+    identityCardNumber: "31518724",
+  },
+  {
+    id: 14,
+    firstName: "Facundo",
+    lastName: "Sosa",
+    identityCardNumber: "32570862",
+  },
+  {
+    id: 15,
+    firstName: "Alejo",
+    lastName: "Godoy",
+    identityCardNumber: "",
+  },
+  {
+    id: 16,
+    firstName: "Dania",
+    lastName: "Rosales",
+    identityCardNumber: "34816589",
+  },
+  {
+    id: 17,
+    firstName: "Juan",
+    lastName: "Herrera",
+    identityCardNumber: "33167155",
+  },
+  {
+    id: 18,
+    firstName: "Juan Pablo",
+    lastName: "Herrera",
+    identityCardNumber: "50294877",
+  },
+  {
+    id: 19,
+    firstName: "Yamila",
+    lastName: "Vega",
+    identityCardNumber: "32927557",
+  },
+  {
+    id: 20,
+    firstName: "Emmanuel",
+    lastName: "Robles",
+    identityCardNumber: "36850461",
+  },
+  {
+    id: 21,
+    firstName: "Sonia",
+    lastName: "Cespedes",
+    identityCardNumber: "22749619",
+  },
+  {
+    id: 22,
+    firstName: "Oscar",
+    lastName: "Vega",
+    identityCardNumber: "16963324",
+  },
+  {
+    id: 23,
+    firstName: "Micaela",
+    lastName: "Díaz",
+    identityCardNumber: "40370131",
+  },
+  {
+    id: 24,
+    firstName: "Orlando",
+    lastName: "Brizuela",
+    identityCardNumber: "34775542",
+  },
+  {
+    id: 25,
+    firstName: "Lorena",
+    lastName: "Brizuela",
+    identityCardNumber: "37271681",
+  },
+  {
+    id: 26,
+    firstName: "Gladys",
+    lastName: "Acosta",
+    identityCardNumber: "13711829",
+  },
+  {
+    id: 27,
+    firstName: "Mariana",
+    lastName: "Pereyra",
+    identityCardNumber: "27459090",
+  },
+  {
+    id: 28,
+    firstName: "Juan Pablo",
+    lastName: "Vargas",
+    identityCardNumber: "27036481",
+  },
+  {
+    id: 29,
+    firstName: "Ángel",
+    lastName: "Pereyra",
+    identityCardNumber: "7840715",
+  },
+  {
+    id: 30,
+    firstName: "Laureano",
+    lastName: "Vargas",
+    identityCardNumber: "51532252",
+  },
+  {
+    id: 31,
+    firstName: "Mayra",
+    lastName: "Caputti",
+    identityCardNumber: "33967972",
+  },
+  {
+    id: 32,
+    firstName: "Rodolfo",
+    lastName: "Ferreyra",
+    identityCardNumber: "31929833",
+  },
+  {
+    id: 33,
+    firstName: "Claudia",
+    lastName: "Olivera",
+    identityCardNumber: "18586753",
+  },
+  {
+    id: 34,
+    firstName: "Estefanía",
+    lastName: "Gutiérrez",
+    identityCardNumber: "35197329",
+  },
+  {
+    id: 35,
+    firstName: "Florinda",
+    lastName: "Pérez",
+    identityCardNumber: "12378572",
+  },
+  {
+    id: 36,
+    firstName: "Luis César",
+    lastName: "Gutiérrez",
+    identityCardNumber: "12100924",
+  },
+  {
+    id: 37,
+    firstName: "Agustina",
+    lastName: "Gutiérrez",
+    identityCardNumber: "41363325",
+  },
+  {
+    id: 38,
+    firstName: "Guadalupe",
+    lastName: "Matamoro",
+    identityCardNumber: "39533830",
+  },
+  {
+    id: 39,
+    firstName: "Marta",
+    lastName: "Jauven",
+    identityCardNumber: "16534869",
+  },
+  {
+    id: 40,
+    firstName: "Macarena",
+    lastName: "Matamoro",
+    identityCardNumber: "38474937",
+  },
+  {
+    id: 41,
+    firstName: "",
+    lastName: "Abuela",
+    identityCardNumber: "Florencia",
+  },
+  {
+    id: 42,
+    firstName: "",
+    lastName: "Prima",
+    identityCardNumber: "",
+  },
+  {
+    id: 43,
+    firstName: "Nora",
+    lastName: "Godoy",
+    identityCardNumber: "29018283",
+  },
+  {
+    id: 44,
+    firstName: "Gustavo",
+    lastName: "Molina",
+    identityCardNumber: "20857899",
+  },
+  {
+    id: 45,
+    firstName: "Lautaro",
+    lastName: "Molina",
+    identityCardNumber: "45585618",
+  },
+  {
+    id: 46,
+    firstName: "Julieta",
+    lastName: "Molina",
+    identityCardNumber: "37413072",
+  },
+  {
+    id: 47,
+    firstName: "Alejandra",
+    lastName: "Matamoro",
+    identityCardNumber: "32784464",
+  },
+  {
+    id: 48,
+    firstName: "Benjamín",
+    lastName: "Ochoa",
+    identityCardNumber: "30836081",
+  },
+  {
+    id: 49,
+    firstName: "Dulce",
+    lastName: "González",
+    identityCardNumber: "36381111",
+  },
+  {
+    id: 50,
+    firstName: "Carlos",
+    lastName: "Palma",
+    identityCardNumber: "",
+  },
+  {
+    id: 51,
+    firstName: "María Alejandra",
+    lastName: "Cicarelli",
+    identityCardNumber: "24447703",
+  },
+  {
+    id: 52,
+    firstName: "Eliana",
+    lastName: "Alberoni",
+    identityCardNumber: "24161040",
+  },
+  {
+    id: 53,
+    firstName: "Mirtha",
+    lastName: "Díaz",
+    identityCardNumber: "5919862",
+  },
+  {
+    id: 54,
+    firstName: "Jessica",
+    lastName: "Spagna",
+    identityCardNumber: "41230892",
+  },
+  {
+    id: 55,
+    firstName: "Patricia",
+    lastName: "Alberoni",
+    identityCardNumber: "21375437",
+  },
+  {
+    id: 56,
+    firstName: "Fernando",
+    lastName: "Crapella",
+    identityCardNumber: "39381742",
+  },
+  {
+    id: 57,
+    firstName: "Luciana",
+    lastName: "Jofré",
+    identityCardNumber: "33967914",
+  },
+  {
+    id: 58,
+    firstName: "Guillermo",
+    lastName: "Viadana",
+    identityCardNumber: "31286039",
+  },
+  {
+    id: 59,
+    firstName: "María del Carmen",
+    lastName: "Abarracín",
+    identityCardNumber: "11902837",
+  },
+  {
+    id: 60,
+    firstName: "Dante",
+    lastName: "Viadana",
+    identityCardNumber: "12594642",
+  },
+  {
+    id: 61,
+    firstName: "Guadalupe",
+    lastName: "Viadana",
+    identityCardNumber: "32130274",
+  },
+  {
+    id: 62,
+    firstName: "Tania",
+    lastName: "Videla",
+    identityCardNumber: "42508921",
+  },
+  {
+    id: 63,
+    firstName: "Federico",
+    lastName: "Lencinas",
+    identityCardNumber: "38756084",
+  },
+  {
+    id: 64,
+    firstName: "Katherina",
+    lastName: "Arias",
+    identityCardNumber: "38474720",
+  },
+  {
+    id: 65,
+    firstName: "Celeste",
+    lastName: "Arias",
+    identityCardNumber: "38759138",
+  },
+  {
+    id: 66,
+    firstName: "Beatriz",
+    lastName: "Calibar",
+    identityCardNumber: "18462239",
+  },
+  {
+    id: 67,
+    firstName: "Cecilia",
+    lastName: "Meresses",
+    identityCardNumber: "94217002",
+  },
+  {
+    id: 68,
+    firstName: "Alejandro",
+    lastName: "Ruiz",
+    identityCardNumber: "16222736",
+  },
+  {
+    id: 69,
+    firstName: "José Alejandro",
+    lastName: "Ruiz",
+    identityCardNumber: "48357791",
+  },
+  {
+    id: 70,
+    firstName: "Daniel",
+    lastName: "Ruiz",
+    identityCardNumber: "48357792",
+  },
+  {
+    id: 71,
+    firstName: "José",
+    lastName: "Ruiz",
+    identityCardNumber: "48357771",
+  },
+  {
+    id: 72,
+    firstName: "Carina",
+    lastName: "Pino",
+    identityCardNumber: "23241183",
+  },
+  {
+    id: 73,
+    firstName: "Mauricio",
+    lastName: "Blanes",
+    identityCardNumber: "22700565",
+  },
+  {
+    id: 74,
+    firstName: "Iara Azul",
+    lastName: "Blanes",
+    identityCardNumber: "41366570",
+  },
+  {
+    id: 75,
+    firstName: "Yamila",
+    lastName: "Pino",
+    identityCardNumber: "29374835",
+  },
+  {
+    id: 76,
+    firstName: "Elisa",
+    lastName: "Villar",
+    identityCardNumber: "25237245",
+  },
+  {
+    id: 77,
+    firstName: "Agustín",
+    lastName: "Rodríguez",
+    identityCardNumber: "24342499",
+  },
+  {
+    id: 78,
+    firstName: "Clara",
+    lastName: "Rodríguez",
+    identityCardNumber: "49265654",
+  },
+  {
+    id: 79,
+    firstName: "Claudia",
+    lastName: "Ortiz",
+    identityCardNumber: "",
+  },
+  {
+    id: 80,
+    firstName: "Debra",
+    lastName: "Toledano",
+    identityCardNumber: "",
+  },
+  {
+    id: 81,
+    firstName: "Brian",
+    lastName: "Matamoro",
+    identityCardNumber: "",
+  },
+  {
+    id: 82,
+    firstName: "Bárbara",
+    lastName: "Riquelme",
+    identityCardNumber: "25254020",
+  },
+  {
+    id: 83,
+    firstName: "Gustavo",
+    lastName: "López",
+    identityCardNumber: "20828078",
+  },
+  {
+    id: 84,
+    firstName: "Matías",
+    lastName: "López",
+    identityCardNumber: "",
+  },
+  {
+    id: 85,
+    firstName: "Rodrigo",
+    lastName: "Graneo",
+    identityCardNumber: "42308935",
+  },
+  {
+    id: 86,
+    firstName: "Yrma Vicenta (René)",
+    lastName: "Olguín",
+    identityCardNumber: "5185282",
+  },
+  {
+    id: 87,
+    firstName: "María Alejandra",
+    lastName: "Cicarelli",
+    identityCardNumber: "",
+  },
+  {
+    id: 88,
+    firstName: "Jaquelina",
+    lastName: "Rodríguez",
+    identityCardNumber: "34026138",
+  },
+  {
+    id: 89,
+    firstName: "Alejandro",
+    lastName: "Martínez",
+    identityCardNumber: "31845300",
   },
 ];
-
 export const phones = [
   {
     id: 1,
-    number: "555-1234",
+    number: "2616501622",
     contactId: 1,
   },
   {
     id: 2,
-    number: "555-1234",
+    number: "2615381741",
     contactId: 2,
   },
   {
     id: 3,
-    number: "555-1234",
+    number: "2615943142",
     contactId: 3,
   },
   {
     id: 4,
-    number: "555-1234",
-    contactId: 3,
+    number: "2616949219",
+    contactId: 6,
+  },
+  {
+    id: 5,
+    number: "2615619121",
+    contactId: 7,
+  },
+  {
+    id: 6,
+    number: "2613619996",
+    contactId: 9,
+  },
+  {
+    id: 7,
+    number: "2616170155",
+    contactId: 11,
+  },
+  {
+    id: 8,
+    number: "2613628074",
+    contactId: 12,
+  },
+  {
+    id: 9,
+    number: "2616080488",
+    contactId: 13,
+  },
+  {
+    id: 10,
+    number: "2613825099",
+    contactId: 14,
+  },
+  {
+    id: 11,
+    number: "2616999710",
+    contactId: 15,
+  },
+  {
+    id: 12,
+    number: "2612071213",
+    contactId: 16,
+  },
+  {
+    id: 13,
+    number: "2612071186",
+    contactId: 17,
+  },
+  {
+    id: 14,
+    number: "2616080319",
+    contactId: 18,
+  },
+  {
+    id: 15,
+    number: "2612121002",
+    contactId: 19,
+  },
+  {
+    id: 16,
+    number: "2613051036",
+    contactId: 20,
+  },
+  {
+    id: 17,
+    number: "2616797256",
+    contactId: 21,
+  },
+  {
+    id: 18,
+    number: "2617530053",
+    contactId: 24,
+  },
+  {
+    id: 19,
+    number: "2616846407",
+    contactId: 25,
+  },
+  {
+    id: 20,
+    number: "2613024700",
+    contactId: 4,
+  },
+  {
+    id: 21,
+    number: "2616553193",
+    contactId: 27,
+  },
+  {
+    id: 22,
+    number: "2615119821",
+    contactId: 28,
+  },
+  {
+    id: 23,
+    number: "2615408616",
+    contactId: 29,
+  },
+  {
+    id: 24,
+    number: "2612433497",
+    contactId: 31,
+  },
+  {
+    id: 25,
+    number: "2612433541",
+    contactId: 32,
+  },
+  {
+    id: 26,
+    number: "2615993943",
+    contactId: 33,
+  },
+  {
+    id: 27,
+    number: "2615167094",
+    contactId: 34,
+  },
+  {
+    id: 28,
+    number: "2616121755",
+    contactId: 38,
+  },
+  {
+    id: 29,
+    number: "2615929912",
+    contactId: 39,
+  },
+  {
+    id: 30,
+    number: "2612063781",
+    contactId: 40,
+  },
+  {
+    id: 31,
+    number: "Arpírez",
+    contactId: 41,
+  },
+  {
+    id: 32,
+    number: "2613144544",
+    contactId: 43,
+  },
+  {
+    id: 33,
+    number: "2612007512",
+    contactId: 44,
+  },
+  {
+    id: 34,
+    number: "2615671036",
+    contactId: 45,
+  },
+  {
+    id: 35,
+    number: "2612478273",
+    contactId: 47,
+  },
+  {
+    id: 36,
+    number: "2616816170",
+    contactId: 48,
+  },
+  {
+    id: 37,
+    number: "2617759316",
+    contactId: 49,
+  },
+  {
+    id: 38,
+    number: "2612066579",
+    contactId: 51,
+  },
+  {
+    id: 39,
+    number: "2616393814",
+    contactId: 52,
+  },
+  {
+    id: 40,
+    number: "2616393818",
+    contactId: 53,
+  },
+  {
+    id: 41,
+    number: "2616838964",
+    contactId: 57,
+  },
+  {
+    id: 42,
+    number: "2616439772",
+    contactId: 58,
+  },
+  {
+    id: 43,
+    number: "2612114414",
+    contactId: 59,
+  },
+  {
+    id: 44,
+    number: "2615786915",
+    contactId: 62,
+  },
+  {
+    id: 45,
+    number: "2615515257",
+    contactId: 64,
+  },
+  {
+    id: 46,
+    number: "2615985596",
+    contactId: 67,
+  },
+  {
+    id: 47,
+    number: "2615445453",
+    contactId: 68,
+  },
+  {
+    id: 48,
+    number: "2614226298",
+    contactId: 69,
+  },
+  {
+    id: 49,
+    number: "2616660328",
+    contactId: 72,
+  },
+  {
+    id: 50,
+    number: "2615727506",
+    contactId: 73,
+  },
+  {
+    id: 51,
+    number: "2615185022",
+    contactId: 74,
+  },
+  {
+    id: 52,
+    number: "2613065457",
+    contactId: 76,
+  },
+  {
+    id: 53,
+    number: "2613066276",
+    contactId: 77,
+  },
+  {
+    id: 54,
+    number: "2612701065",
+    contactId: 78,
+  },
+  {
+    id: 55,
+    number: "2616587807",
+    contactId: 79,
+  },
+  {
+    id: 56,
+    number: "2617636683",
+    contactId: 80,
+  },
+  {
+    id: 57,
+    number: "2616670603",
+    contactId: 48,
+  },
+  {
+    id: 58,
+    number: "2617089434",
+    contactId: 81,
+  },
+  {
+    id: 59,
+    number: "2616161467",
+    contactId: 82,
+  },
+  {
+    id: 60,
+    number: "2612063381",
+    contactId: 83,
+  },
+  {
+    id: 61,
+    number: "2614168344",
+    contactId: 84,
+  },
+  {
+    id: 62,
+    number: "2612529159",
+    contactId: 85,
+  },
+  {
+    id: 63,
+    number: "2614176645",
+    contactId: 86,
+  },
+  {
+    id: 64,
+    number: "2612066579",
+    contactId: 87,
+  },
+  {
+    id: 65,
+    number: "2616742624",
+    contactId: 88,
+  },
+  {
+    id: 66,
+    number: "2616041465",
+    contactId: 89,
   },
 ];
-
 export const relationshipTypes = [
   {
     id: 1,
-    name: "Mother",
+    name: "Madre",
   },
   {
     id: 2,
-    name: "Father",
+    name: "Padre",
+  },
+  {
+    id: 3,
+    name: "Hermano",
+  },
+  {
+    id: 4,
+    name: "Tía",
+  },
+  {
+    id: 5,
+    name: "Prima",
+  },
+  {
+    id: 6,
+    name: "Abuela",
+  },
+  {
+    id: 7,
+    name: "Familiar/Autorizado",
+  },
+  {
+    id: 8,
+    name: "Abuelo",
+  },
+  {
+    id: 9,
+    name: "Madrina",
+  },
+  {
+    id: 10,
+    name: "46620364",
+  },
+  {
+    id: 11,
+    name: "Hermana",
+  },
+  {
+    id: 12,
+    name: "Padrino",
+  },
+  {
+    id: 13,
+    name: "Tïa",
+  },
+  {
+    id: 14,
+    name: "Mamá de mercedes rodríguez",
+  },
+  {
+    id: 15,
+    name: "Primo",
   },
 ];
-
 export const relationships = [
   {
     childId: 1,
@@ -114,17 +1348,616 @@ export const relationships = [
     relationshipTypeId: 1,
   },
   {
-    childId: 2,
+    childId: 1,
     contactId: 2,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 1,
+    contactId: 3,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 1,
+    contactId: 4,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 1,
+    contactId: 5,
+    relationshipTypeId: 5,
+  },
+  {
+    childId: 2,
+    contactId: 6,
     relationshipTypeId: 1,
   },
   {
     childId: 2,
+    contactId: 7,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 2,
+    contactId: 8,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 2,
+    contactId: 9,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 2,
+    contactId: 10,
+    relationshipTypeId: 7,
+  },
+  {
+    childId: 3,
+    contactId: 11,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 4,
+    contactId: 12,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 5,
+    contactId: 13,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 5,
+    contactId: 14,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 5,
+    contactId: 15,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 6,
+    contactId: 16,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 6,
+    contactId: 17,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 6,
+    contactId: 18,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 7,
+    contactId: 19,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 7,
+    contactId: 20,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 7,
+    contactId: 21,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 7,
+    contactId: 22,
+    relationshipTypeId: 8,
+  },
+  {
+    childId: 7,
+    contactId: 23,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 8,
     contactId: 3,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 8,
+    contactId: 24,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 8,
+    contactId: 25,
+    relationshipTypeId: 9,
+  },
+  {
+    childId: 8,
+    contactId: 1,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 8,
+    contactId: 4,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 8,
+    contactId: 26,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 9,
+    contactId: 27,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 9,
+    contactId: 28,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 9,
+    contactId: 29,
+    relationshipTypeId: 8,
+  },
+  {
+    childId: 9,
+    contactId: 30,
+    relationshipTypeId: 7,
+  },
+  {
+    childId: 10,
+    contactId: 12,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 11,
+    contactId: 31,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 11,
+    contactId: 32,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 11,
+    contactId: 33,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 12,
+    contactId: 34,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 12,
+    contactId: 35,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 12,
+    contactId: 36,
+    relationshipTypeId: 8,
+  },
+  {
+    childId: 12,
+    contactId: 37,
+    relationshipTypeId: 7,
+  },
+  {
+    childId: 13,
+    contactId: 38,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 13,
+    contactId: 39,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 13,
+    contactId: 40,
+    relationshipTypeId: 7,
+  },
+  {
+    childId: 14,
+    contactId: 3,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 14,
+    contactId: 24,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 14,
+    contactId: 1,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 14,
+    contactId: 4,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 14,
+    contactId: 26,
+    relationshipTypeId: 7,
+  },
+  {
+    childId: 14,
+    contactId: 41,
+    relationshipTypeId: 10,
+  },
+  {
+    childId: 14,
+    contactId: 42,
+    relationshipTypeId: 7,
+  },
+  {
+    childId: 15,
+    contactId: 11,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 16,
+    contactId: 43,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 16,
+    contactId: 44,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 16,
+    contactId: 45,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 16,
+    contactId: 46,
+    relationshipTypeId: 11,
+  },
+  {
+    childId: 17,
+    contactId: 47,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 17,
+    contactId: 48,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 18,
+    contactId: 49,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 18,
+    contactId: 50,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 18,
+    contactId: 51,
+    relationshipTypeId: 7,
+  },
+  {
+    childId: 19,
+    contactId: 19,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 19,
+    contactId: 20,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 19,
+    contactId: 21,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 19,
+    contactId: 22,
+    relationshipTypeId: 8,
+  },
+  {
+    childId: 19,
+    contactId: 23,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 20,
+    contactId: 52,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 20,
+    contactId: 53,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 20,
+    contactId: 54,
+    relationshipTypeId: 9,
+  },
+  {
+    childId: 20,
+    contactId: 55,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 20,
+    contactId: 56,
+    relationshipTypeId: 12,
+  },
+  {
+    childId: 21,
+    contactId: 57,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 21,
+    contactId: 58,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 21,
+    contactId: 59,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 21,
+    contactId: 60,
+    relationshipTypeId: 8,
+  },
+  {
+    childId: 21,
+    contactId: 61,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 22,
+    contactId: 62,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 22,
+    contactId: 63,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 22,
+    contactId: 64,
+    relationshipTypeId: 13,
+  },
+  {
+    childId: 22,
+    contactId: 65,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 23,
+    contactId: 16,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 23,
+    contactId: 17,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 23,
+    contactId: 18,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 23,
+    contactId: 66,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 24,
+    contactId: 67,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 24,
+    contactId: 68,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 24,
+    contactId: 69,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 24,
+    contactId: 70,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 24,
+    contactId: 71,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 25,
+    contactId: 72,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 25,
+    contactId: 73,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 25,
+    contactId: 74,
+    relationshipTypeId: 11,
+  },
+  {
+    childId: 25,
+    contactId: 75,
+    relationshipTypeId: 5,
+  },
+  {
+    childId: 26,
+    contactId: 76,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 26,
+    contactId: 77,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 26,
+    contactId: 78,
+    relationshipTypeId: 11,
+  },
+  {
+    childId: 26,
+    contactId: 79,
+    relationshipTypeId: 14,
+  },
+  {
+    childId: 27,
+    contactId: 49,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 27,
+    contactId: 50,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 27,
+    contactId: 51,
+    relationshipTypeId: 7,
+  },
+  {
+    childId: 28,
+    contactId: 80,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 29,
+    contactId: 47,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 29,
+    contactId: 48,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 29,
+    contactId: 81,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 30,
+    contactId: 82,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 30,
+    contactId: 83,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 30,
+    contactId: 84,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 31,
+    contactId: 1,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 31,
+    contactId: 85,
+    relationshipTypeId: 15,
+  },
+  {
+    childId: 31,
+    contactId: 2,
+    relationshipTypeId: 3,
+  },
+  {
+    childId: 31,
+    contactId: 3,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 31,
+    contactId: 4,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 32,
+    contactId: 86,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 33,
+    contactId: 57,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 33,
+    contactId: 58,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 33,
+    contactId: 59,
+    relationshipTypeId: 6,
+  },
+  {
+    childId: 33,
+    contactId: 60,
+    relationshipTypeId: 8,
+  },
+  {
+    childId: 33,
+    contactId: 61,
+    relationshipTypeId: 4,
+  },
+  {
+    childId: 34,
+    contactId: 49,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 34,
+    contactId: 50,
+    relationshipTypeId: 2,
+  },
+  {
+    childId: 34,
+    contactId: 87,
+    relationshipTypeId: 7,
+  },
+  {
+    childId: 35,
+    contactId: 88,
+    relationshipTypeId: 1,
+  },
+  {
+    childId: 35,
+    contactId: 89,
     relationshipTypeId: 2,
   },
 ];
-
 export const pins = [
   {
     id: 1,
@@ -135,16 +1968,10 @@ export const pins = [
     name: "Pin",
   },
 ];
-
 export const pinGrants = [
   {
     pinId: 1,
     childId: 1,
-    grantedAt: new Date(),
-  },
-  {
-    pinId: 2,
-    childId: 2,
     grantedAt: new Date(),
   },
 ];

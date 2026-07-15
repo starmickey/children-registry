@@ -20,132 +20,117 @@ const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-async function main() {
-  await Promise.all(
-    children.map(({ id, ...child }) =>
-      prisma.child.upsert({
-        where: { id },
-        update: {},
-        create: child,
-      }),
-    ),
-  ).then(() => console.log(`${children.length} children loaded`));
-
-  await Promise.all(
-    classrooms.map(({ id, ...classroom }) =>
-      prisma.classroom.upsert({
-        where: { id },
-        update: {},
-        create: classroom,
-      }),
-    ),
-  ).then(() => console.log(`${classrooms.length} classrooms loaded`));
-
-  await Promise.all(
-    classes.map(({ id, ...classItem }) =>
-      prisma.class.upsert({
-        where: { id },
-        update: {},
-        create: classItem,
-      }),
-    ),
-  ).then(() => console.log(`${classes.length} classes loaded`));
-
-  await Promise.all(
-    registrations.map(({ childId, classId }) =>
-      prisma.registration.upsert({
-        where: {
-          childId_classId: {
-            childId,
-            classId,
-          },
-        },
-        update: {},
-        create: {
-          childId,
-          classId,
-        },
-      }),
-    ),
-  ).then(() => console.log(`${registrations.length} registrations loaded`));
-
-  await Promise.all(
-    contacts.map(({ id, ...contact }) =>
-      prisma.contact.upsert({
-        where: { id },
-        update: {},
-        create: contact,
-      }),
-    ),
-  ).then(() => console.log(`${contacts.length} contacts loaded`));
-
-  await Promise.all(
-    phones.map(({ id, ...phone }) =>
-      prisma.phone.upsert({
-        where: { id },
-        update: {},
-        create: phone,
-      }),
-    ),
-  ).then(() => console.log(`${phones.length} phones loaded`));
-
-  await Promise.all(
-    relationshipTypes.map(({ id, ...relationshipType }) =>
-      prisma.relationshipType.upsert({
-        where: { id },
-        update: {},
-        create: relationshipType,
-      }),
-    ),
-  ).then(() => console.log(`${relationshipTypes.length} relationshipTypes loaded`));
-
-  await Promise.all(
-    relationships.map(({ childId, contactId, relationshipTypeId }) =>
-      prisma.relationship.upsert({
-        where: {
-          childId_contactId_relationshipTypeId: {
-            childId,
-            contactId,
-            relationshipTypeId,
-          },
-        },
-        update: {},
-        create: {
-          childId,
-          contactId,
-          relationshipTypeId,
-        },
-      }),
-    ),
-  ).then(() => console.log(`${relationships.length} relationships loaded`));
-
-  await Promise.all(
-    pins.map(({ id, ...pin }) =>
-      prisma.pin.upsert({
-        where: { id },
-        update: {},
-        create: pin,
-      }),
-    ),
-  ).then(() => console.log(`${pins.length} pins loaded`));
-
-  await Promise.all(
-    pinGrants.map(({ childId, pinId, ...pinGrant }) =>
-      prisma.pinGrant.upsert({
-        where: { childId_pinId: { childId, pinId } },
-        update: {},
-        create: { childId, pinId, ...pinGrant },
-      }),
-    ),
-  ).then(() => console.log(`${pinGrants.length} pinGrants loaded`));
+// Helper to concurrently seed a table and return a Map of { originalId -> newDbId }
+async function parallelSeedAndMap<T extends { id: number }>(
+  items: T[],
+  createFn: (item: Omit<T, "id">) => Promise<{ id: number }>
+): Promise<Map<number, number>> {
+  const results = await Promise.all(
+    items.map(async (item) => {
+      const { id, ...data } = item;
+      const created = await createFn(data);
+      return { originalId: id, newId: created.id };
+    })
+  );
+  return new Map(results.map((r) => [r.originalId, r.newId]));
 }
+
+async function main() {
+  console.log("Starting parallel database seed...");
+
+  // ==========================================
+  // TIER 1: INDEPENDENT TABLES
+  // These tables have no foreign keys. 
+  // We can seed all 5 tables in parallel.
+  // ==========================================
+  console.log("Seeding Tier 1 (Independent Models)...");
+  const [childIdMap, classroomIdMap, contactIdMap, relTypeIdMap, pinIdMap] = await Promise.all([
+    parallelSeedAndMap(children, (data) => prisma.child.create({ data })),
+    parallelSeedAndMap(classrooms, (data) => prisma.classroom.create({ data })),
+    parallelSeedAndMap(contacts, (data) => prisma.contact.create({ data })),
+    parallelSeedAndMap(relationshipTypes, (data) => prisma.relationshipType.create({ data })),
+    parallelSeedAndMap(pins, (data) => prisma.pin.create({ data })),
+  ]);
+
+  // ==========================================
+  // TIER 2: FIRST-LEVEL DEPENDENCIES
+  // Classes depend on Classrooms.
+  // ==========================================
+  console.log("Seeding Tier 2 (Classes)...");
+  const classIdMap = await parallelSeedAndMap(classes, (data) => {
+    // Note: data.classroomId is safely typed, but we need to map it
+    const mappedClassroomId = data.classroomId ? classroomIdMap.get(data.classroomId) : null;
+    if (data.classroomId && !mappedClassroomId) {
+      throw new Error(`Missing mapped classroomId for a Class`);
+    }
+    return prisma.class.create({
+      data: { ...data, classroomId: mappedClassroomId },
+    });
+  });
+
+  // ==========================================
+  // TIER 3: JOIN & LEAF TABLES (BULK INSERTS)
+  // These tables depend on Tiers 1 & 2 but have no dependents of their own.
+  // We run 4 highly-efficient bulk inserts in parallel.
+  // ==========================================
+  console.log("Seeding Tier 3 (Join Tables)...");
+  
+  await Promise.all([
+    // Registrations
+    (async () => {
+      const validRegs = registrations.map((r) => {
+        const childId = childIdMap.get(r.childId);
+        const classId = classIdMap.get(r.classId);
+        if (!childId || !classId) throw new Error("Invalid Registration relation");
+        return { ...r, childId, classId };
+      });
+      await prisma.registration.createMany({ data: validRegs, skipDuplicates: true });
+    })(),
+
+    // Phones
+    (async () => {
+      const validPhones = phones.map(({ id, contactId, ...phone }) => {
+        const mappedContactId = contactIdMap.get(contactId);
+        if (!mappedContactId) throw new Error(`Missing contactId for Phone ${id}`);
+        return { ...phone, contactId: mappedContactId };
+      });
+      await prisma.phone.createMany({ data: validPhones, skipDuplicates: true });
+    })(),
+
+    // Relationships
+    (async () => {
+      const validRels = relationships.map((r) => {
+        const childId = childIdMap.get(r.childId);
+        const contactId = contactIdMap.get(r.contactId);
+        const relationshipTypeId = relTypeIdMap.get(r.relationshipTypeId);
+        if (!childId || !contactId || !relationshipTypeId) throw new Error("Invalid Relationship relation");
+        return { ...r, childId, contactId, relationshipTypeId };
+      });
+      await prisma.relationship.createMany({ data: validRels, skipDuplicates: true });
+    })(),
+
+    // Pin Grants
+    (async () => {
+      const validPinGrants = pinGrants.map((pg) => {
+        const childId = childIdMap.get(pg.childId);
+        const pinId = pinIdMap.get(pg.pinId);
+        if (!childId || !pinId) throw new Error("Invalid PinGrant relation");
+        return { ...pg, childId, pinId };
+      });
+      await prisma.pinGrant.createMany({ data: validPinGrants, skipDuplicates: true });
+    })(),
+  ]);
+
+  console.log("✅ Parallel seeding completed successfully.");
+}
+
 main()
   .then(async () => {
     await prisma.$disconnect();
     await pool.end();
   })
   .catch(async (e) => {
-    console.error(e);
+    console.error("❌ Seeding failed:", e);
     await prisma.$disconnect();
     await pool.end();
     process.exit(1);
