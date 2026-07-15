@@ -10,10 +10,20 @@ import {
 } from "@/components/ui/item";
 import { getChildResumeParamsSchema } from "@/features/children/schemas/childrenSchemas";
 import { getChildResumeService } from "@/features/children/services/getChildResume";
-import { CakeIcon, PhoneIcon, Star, User } from "lucide-react";
+import {
+  CakeIcon,
+  NotebookIcon,
+  PhoneIcon,
+  Star,
+  UserIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft as ArrowLeft } from "lucide-react";
+import {
+  IdentityCardNumberFormat,
+  PhoneFormat,
+} from "@/components/ui/numeric-format";
 
 export default async function ResumePage({
   params,
@@ -65,10 +75,15 @@ export default async function ResumePage({
               <CardContent>
                 <Item size="sm">
                   <ItemMedia variant="icon">
-                    <User />
+                    <NotebookIcon />
                   </ItemMedia>
                   <ItemContent>
-                    <ItemTitle>{child.identityCardNumber}</ItemTitle>
+                    <ItemTitle>
+                      <span className="font-bold">DNI:</span>{" "}
+                      <IdentityCardNumberFormat
+                        value={child.identityCardNumber}
+                      />
+                    </ItemTitle>
                   </ItemContent>
                 </Item>
                 <Item size="sm">
@@ -88,26 +103,39 @@ export default async function ResumePage({
               <Card>
                 <CardHeader>
                   <CardTitle role="heading" aria-level={2}>
-                    Contactos
+                    Autorizados a retirarlo adicionales
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {child.contacts.map((contact, idx) => (
                     <Item key={idx}>
                       <ItemMedia variant="icon">
-                        <PhoneIcon />
+                        <UserIcon />
                       </ItemMedia>
                       <ItemContent>
                         <ItemTitle>
-                          {contact.phones.map((phone, i) => (
-                            <div key={i}>{phone.number}</div>
-                          ))}
-                        </ItemTitle>
-                        <ItemDescription>
                           {contact.firstName} {contact.lastName} (
                           {contact.relationShip})
+                        </ItemTitle>
+                        <ItemDescription className="flex flex-col gap-1">
+                          {contact.phones.map((phone, i) => (
+                            <PhoneFormat key={i} value={phone.number} />
+                          ))}
+                          {contact.identityCardNumber && (
+                            <span>
+                              DNI:{" "}
+                              <IdentityCardNumberFormat
+                                value={contact.identityCardNumber}
+                              />
+                            </span>
+                          )}
                         </ItemDescription>
                       </ItemContent>
+                      {contact.phones.length > 0 && (
+                        <ItemMedia variant="icon">
+                          <PhoneIcon />
+                        </ItemMedia>
+                      )}
                     </Item>
                   ))}
                 </CardContent>
