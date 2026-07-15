@@ -6,6 +6,7 @@ import { ChevronLeft as ArrowLeft, Search } from "lucide-react";
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
+import Link from "next/link";
 
 export default function FetchChildHeader() {
   const router = useRouter();
@@ -50,7 +51,7 @@ export default function FetchChildHeader() {
   }, 300);
 
   return (
-    <header className="flex mb-4 items-center">
+    <header className="flex mb-4 items-center justify-between">
       {expanded ? (
         <>
           <Button
@@ -72,7 +73,16 @@ export default function FetchChildHeader() {
         </>
       ) : (
         <>
-          <h1 className="title flex-1">Infancia Misionera</h1>
+          <Link href="/">
+            <Button
+              variant="ghost"
+              size="icon"
+              type="button"
+              onClick={handleReturnButtonClick}
+            >
+              <ArrowLeft />
+            </Button>
+          </Link>
           <Button
             variant="ghost"
             size="icon"
