@@ -133,7 +133,11 @@ export default async function ResumePage({
                       </ItemContent>
                       {contact.phones.length > 0 && (
                         <ItemMedia variant="icon">
-                          <PhoneIcon />
+                          <a href={`tel:${contact.phones[0].number}`}>
+                            <Button type="button" variant="ghost">
+                              <PhoneIcon />
+                            </Button>
+                          </a>
                         </ItemMedia>
                       )}
                     </Item>
