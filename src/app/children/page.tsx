@@ -1,9 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Item } from "@/components/ui/item";
-import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { searchChildrenService } from "@/features/children/services/searchChildren";
 import FetchChildHeader from "@/features/children/components/FetchChildHeader";
+import { Button } from "@/components/ui/button";
 
 export default async function Page({
   searchParams,
@@ -17,25 +15,27 @@ export default async function Page({
     <div className="base-layout list-layout">
       <FetchChildHeader />
       <main>
-        <Card size="sm">
-          <CardContent className="px-0">
-            {children.length > 0 ? (
-              children.map((child, idx) => (
-                <div key={child.id}>
-                  <Link href={`/children/${child.id}/resume`}>
-                    <Item className="px-(--card-spacing)" role="button">
-                      {child.firstName} {child.lastName}
-                    </Item>
-                  </Link>
+        <section className="flex flex-col gap-2">
+          {children.length > 0 ? (
+            children.map((child) => (
+              <div key={child.id}>
+                <Link href={`/children/${child.id}/resume`}>
+                  <Button
+                    variant="outline"
+                    type="button"
+                    className="w-full justify-start"
+                  >
+                    {child.firstName} {child.lastName}
+                  </Button>
+                </Link>
 
-                  {idx !== children.length - 1 && <Separator />}
-                </div>
-              ))
-            ) : (
-              <div className="p-8 text-center">No se encontraron personas</div>
-            )}
-          </CardContent>
-        </Card>
+                {/* {idx !== children.length - 1 && <Separator />} */}
+              </div>
+            ))
+          ) : (
+            <div className="p-8 text-center">No se encontraron personas</div>
+          )}
+        </section>
       </main>
     </div>
   );
