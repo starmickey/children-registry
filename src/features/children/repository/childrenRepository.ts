@@ -17,9 +17,15 @@ export const searchChildren = async (searchString?: string) =>
           ],
           removedAt: null,
         },
+        orderBy: {
+          firstName: "asc",
+        },
       })
     : prisma.child.findMany({
         where: { removedAt: null },
+        orderBy: {
+          firstName: "asc",
+        },
       });
 
 export const getChildResume = async (id: number) =>
