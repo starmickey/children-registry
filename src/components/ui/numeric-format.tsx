@@ -4,12 +4,19 @@ import {
   NumericFormat as NF,
   NumericFormatProps as NFP,
 } from "react-number-format";
-import { PatternFormat, PatternFormatProps } from 'react-number-format';
+import { PatternFormat, PatternFormatProps } from "react-number-format";
 
 type NumericFormatProps = Omit<NFP, "thousandSeparator" | "decimalSeparator">;
 
 export function NumericFormat(props: NumericFormatProps) {
-  return <NF thousandSeparator="." decimalSeparator="," {...props} />;
+  return (
+    <NF
+      thousandSeparator="."
+      decimalSeparator=","
+      displayType="text"
+      {...props}
+    />
+  );
 }
 
 export function IdentityCardNumberFormat(props: NumericFormatProps) {
@@ -22,6 +29,7 @@ export function PhoneFormat(props: Partial<PatternFormatProps>) {
       format="### ###-####"
       mask="_"
       allowEmptyFormatting={false}
+      displayType="text"
       {...props}
     />
   );
