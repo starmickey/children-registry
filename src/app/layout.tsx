@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, DM_Sans } from "next/font/google";
+import { Geist, Geist_Mono, DM_Sans, Playpen_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+
+const playpenSans = Playpen_Sans({
+  subsets: ["latin"],
+  variable: "--font-playpen-sans",
+});
 
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -36,6 +41,7 @@ export default function RootLayout({
         geistMono.variable,
         "font-sans",
         dmSans.variable,
+        playpenSans.variable,
       )}
     >
       <body className="min-h-full flex flex-col">{children}</body>

@@ -27,6 +27,7 @@ import {
 import { calculateAge } from "@/lib/utils";
 import { PhoneCallButton, WhatsAppButton } from "@/components/social-buttons";
 import { FaWhatsapp as WhatsAppIcon } from "react-icons/fa";
+import { Typography } from "@/components/ui/typography";
 
 export default async function ResumePage({
   params,
@@ -62,153 +63,153 @@ export default async function ResumePage({
   ];
 
   return (
-    <div className="base-layout">
-      <div className="centered-layout">
-        <header className="flex w-full justify-between items-center">
-          <Link href="/children">
-            <Button variant="ghost" size="icon-sm">
-              <ArrowLeft />
-            </Button>
-          </Link>
-          {child.class?.classRoom && (
-            <Badge>
-              {child.class.classRoom.alias ?? child.class.classRoom.name}
-            </Badge>
-          )}
-        </header>
+    <>
+      <header className="header flex w-full justify-between items-center">
+        <Link href="/children">
+          <Button variant="ghost" size="icon-sm">
+            <ArrowLeft />
+          </Button>
+        </Link>
+        {child.class?.classRoom && (
+          <Badge>
+            {child.class.classRoom.alias ?? child.class.classRoom.name}
+          </Badge>
+        )}
+      </header>
+      
+      <main className="container">
+        <Typography level="h1" variant="main-title">
+          {child.firstName} {child.lastName}
+        </Typography>
 
-        <main className="min-w-full">
-          <h1 className="title">
-            {child.firstName} {child.lastName}
-          </h1>
+        <section className="grid grid-cols-1 gap-4 w-full">
+          <Card>
+            <CardHeader>
+              <CardTitle role="heading" aria-level={2}>
+                General
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {child.identityCardNumber && (
+                <Item size="sm">
+                  <ItemMedia variant="icon">
+                    <NotebookIcon />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>
+                      <span className="font-bold">DNI:</span>{" "}
+                      <IdentityCardNumberFormat
+                        value={child.identityCardNumber}
+                      />
+                    </ItemTitle>
+                  </ItemContent>
+                </Item>
+              )}
+              {child.birthDate && (
+                <Item size="sm">
+                  <ItemMedia variant="icon">
+                    <CakeIcon />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>
+                      {child.birthDate?.toLocaleDateString("es-ES")}{" "}
+                      <span className="text-muted-foreground">
+                        ({calculateAge(child.birthDate)} años)
+                      </span>
+                    </ItemTitle>
+                  </ItemContent>
+                </Item>
+              )}
+            </CardContent>
+          </Card>
 
-          <section className="grid grid-cols-1 gap-4 w-full">
+          {child.contacts.length > 0 && (
             <Card>
               <CardHeader>
                 <CardTitle role="heading" aria-level={2}>
-                  General
+                  Autorizados a retirarlo adicionales
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {child.identityCardNumber && (
-                  <Item size="sm">
+                {sortedContacts.map((contact, idx) => (
+                  <Item key={idx}>
                     <ItemMedia variant="icon">
-                      <NotebookIcon />
+                      <UserIcon />
                     </ItemMedia>
                     <ItemContent>
                       <ItemTitle>
-                        <span className="font-bold">DNI:</span>{" "}
-                        <IdentityCardNumberFormat
-                          value={child.identityCardNumber}
-                        />
+                        {contact.firstName} {contact.lastName} (
+                        {contact.relationShip})
                       </ItemTitle>
+                      <ItemDescription className="flex flex-col gap-1">
+                        {contact.phones.map((phone, i) => (
+                          <PhoneFormat key={i} value={phone.number} />
+                        ))}
+                        {contact.identityCardNumber && (
+                          <span>
+                            DNI:{" "}
+                            <IdentityCardNumberFormat
+                              value={contact.identityCardNumber}
+                            />
+                          </span>
+                        )}
+                      </ItemDescription>
                     </ItemContent>
+                    {contact.phones.length > 0 && (
+                      <>
+                        <ItemMedia variant="icon">
+                          <WhatsAppButton
+                            type="button"
+                            variant="link"
+                            size="icon-sm"
+                            phone={contact.phones[0].number}
+                            className="items-start"
+                          >
+                            <WhatsAppIcon />
+                          </WhatsAppButton>
+                        </ItemMedia>
+                        <ItemMedia variant="icon">
+                          <PhoneCallButton
+                            type="button"
+                            variant="link"
+                            size="icon-sm"
+                            phone={contact.phones[0].number}
+                            className="items-start"
+                          >
+                            <PhoneIcon />
+                          </PhoneCallButton>
+                        </ItemMedia>
+                      </>
+                    )}
                   </Item>
-                )}
-                {child.birthDate && (
-                  <Item size="sm">
-                    <ItemMedia variant="icon">
-                      <CakeIcon />
-                    </ItemMedia>
-                    <ItemContent>
-                      <ItemTitle>
-                        {child.birthDate?.toLocaleDateString("es-ES")}{" "}
-                        <span className="text-muted-foreground">
-                          ({calculateAge(child.birthDate)} años)
-                        </span>
-                      </ItemTitle>
-                    </ItemContent>
-                  </Item>
-                )}
+                ))}
               </CardContent>
             </Card>
+          )}
 
-            {child.contacts.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle role="heading" aria-level={2}>
-                    Autorizados a retirarlo adicionales
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {sortedContacts.map((contact, idx) => (
-                    <Item key={idx}>
-                      <ItemMedia variant="icon">
-                        <UserIcon />
-                      </ItemMedia>
-                      <ItemContent>
-                        <ItemTitle>
-                          {contact.firstName} {contact.lastName} (
-                          {contact.relationShip})
-                        </ItemTitle>
-                        <ItemDescription className="flex flex-col gap-1">
-                          {contact.phones.map((phone, i) => (
-                            <PhoneFormat key={i} value={phone.number} />
-                          ))}
-                          {contact.identityCardNumber && (
-                            <span>
-                              DNI:{" "}
-                              <IdentityCardNumberFormat
-                                value={contact.identityCardNumber}
-                              />
-                            </span>
-                          )}
-                        </ItemDescription>
-                      </ItemContent>
-                      {contact.phones.length > 0 && (
-                        <>
-                          <ItemMedia variant="icon">
-                            <WhatsAppButton
-                              type="button"
-                              variant="ghost"
-                              phone={contact.phones[0].number}
-                              className="px-0.5 pt-0 border-0 items-start"
-                            >
-                              <WhatsAppIcon />
-                            </WhatsAppButton>
-                          </ItemMedia>
-                          <ItemMedia variant="icon">
-                            <PhoneCallButton
-                              type="button"
-                              variant="ghost"
-                              phone={contact.phones[0].number}
-                              className="px-0.5 pt-0 border-0 items-start"
-                            >
-                              <PhoneIcon />
-                            </PhoneCallButton>
-                          </ItemMedia>
-                        </>
-                      )}
-                    </Item>
-                  ))}
-                </CardContent>
-              </Card>
-            )}
-
-            {child.pins.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle role="heading" aria-level={2}>
-                    Insignias
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {child.pins.map((pin, idx) => (
-                    <Item key={idx} size="sm">
-                      <ItemMedia variant="icon">
-                        <Star />
-                      </ItemMedia>
-                      <ItemContent>
-                        <ItemTitle>{pin.pinName}</ItemTitle>
-                      </ItemContent>
-                    </Item>
-                  ))}
-                </CardContent>
-              </Card>
-            )}
-          </section>
-        </main>
-      </div>
-    </div>
+          {child.pins.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle role="heading" aria-level={2}>
+                  Insignias
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {child.pins.map((pin, idx) => (
+                  <Item key={idx} size="sm">
+                    <ItemMedia variant="icon">
+                      <Star />
+                    </ItemMedia>
+                    <ItemContent>
+                      <ItemTitle>{pin.pinName}</ItemTitle>
+                    </ItemContent>
+                  </Item>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+        </section>
+      </main>
+    </>
   );
 }

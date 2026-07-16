@@ -6,6 +6,7 @@ import { ChevronLeft as ArrowLeft, Search } from "lucide-react";
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
+import { Typography } from "@/components/ui/typography";
 
 export default function FetchChildHeader() {
   const router = useRouter();
@@ -50,7 +51,7 @@ export default function FetchChildHeader() {
   }, 300);
 
   return (
-    <header className="flex mb-4 items-center">
+    <header className="header flex mb-4 items-center">
       {expanded ? (
         <>
           <Button
@@ -72,7 +73,9 @@ export default function FetchChildHeader() {
         </>
       ) : (
         <>
-          <h1 className="title flex-1">Infancia Misionera</h1>
+          <Typography variant="H1" className="flex-1">
+            Infancia Misionera
+          </Typography>
           <Button
             variant="ghost"
             size="icon"
