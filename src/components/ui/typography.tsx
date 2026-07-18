@@ -2,7 +2,7 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
-const typographyVariants = cva(
+export const typographyVariants = cva(
   "text-foreground",
   {
     variants: {
@@ -19,7 +19,7 @@ const typographyVariants = cva(
 
 type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span"
 
-interface TypographyProps
+export interface TypographyProps
   extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof typographyVariants> {
   level?: HeadingLevel
