@@ -1,12 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from "@/components/ui/item";
+import { Item, ItemContent, ItemMedia, ItemTitle } from "@/components/ui/item";
 import Link from "next/link";
 import { ChevronLeft as ArrowLeft } from "lucide-react";
 import { Skeleton, TypographySkeleton } from "@/components/ui/skeleton";
@@ -74,9 +68,7 @@ export default async function ChildResumeSkeleton() {
                     <ItemTitle>
                       <Skeleton className="h-4 w-38 bg-muted-dark" />
                     </ItemTitle>
-                    <ItemDescription className="flex flex-col gap-1">
-                      <Skeleton className="h-3 w-28 bg-muted-dark" />
-                    </ItemDescription>
+                    <Skeleton className="h-3 w-28 bg-muted-dark" />
                   </ItemContent>
                   <ItemMedia variant="icon">
                     <Skeleton className="h-4 w-4 bg-muted-dark rounded-full" />
