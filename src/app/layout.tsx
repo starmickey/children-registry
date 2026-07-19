@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, DM_Sans, Playpen_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -24,6 +24,22 @@ export const metadata: Metadata = {
   title: "Infancia Misionera",
   description:
     "A registry of children who have been part of the Infancia Misionera program.",
+  applicationName: "Infancia Misionera",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#FFF7E6",
 };
 
 export default function RootLayout({
