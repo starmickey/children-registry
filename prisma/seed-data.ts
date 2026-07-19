@@ -225,3 +225,115 @@ export const pinGrants = [
   { pinId: 1, childId: 9, grantedAt: new Date("2026-02-09T10:00:00") },
   { pinId: 2, childId: 10, grantedAt: new Date("2026-02-10T10:15:00") },
 ];
+
+export const permissionTypes = [
+  {
+    id: 1,
+    shortName: "Fotos",
+    name: "Toma de fotos",
+  },
+  {
+    id: 2,
+    shortName: "Misionar",
+    name: "Salir a misionar",
+  },
+  {
+    id: 3,
+    shortName: "Retirarse solo",
+    name: "Retirarse de las instalaciones sin la compañía de un adulto",
+  },
+];
+export const permissions = [
+  {
+    childId: 1,
+    permissionTypeId: 1,
+  },
+  {
+    childId: 1,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 1,
+    permissionTypeId: 3,
+  },
+  {
+    childId: 2,
+    permissionTypeId: 1,
+  },
+  {
+    childId: 2,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 3,
+    permissionTypeId: 1,
+  },
+  {
+    childId: 3,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 5,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 5,
+    permissionTypeId: 3,
+  },
+  {
+    childId: 6,
+    permissionTypeId: 1,
+  },
+  {
+    childId: 6,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 9,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 9,
+    permissionTypeId: 3,
+  },
+  {
+    childId: 11,
+    permissionTypeId: 1,
+  },
+  {
+    childId: 11,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 12,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 12,
+    permissionTypeId: 3,
+  },
+  {
+    childId: 13,
+    permissionTypeId: 1,
+  },
+  {
+    childId: 13,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 15,
+    permissionTypeId: 1,
+  },
+  {
+    childId: 15,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 16,
+    permissionTypeId: 2,
+  },
+  {
+    childId: 16,
+    permissionTypeId: 3,
+  },
+];

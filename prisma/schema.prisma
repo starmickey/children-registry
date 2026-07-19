@@ -19,6 +19,7 @@ model Child {
   registrations      Registration[]
   childRelationships Relationship[]
   pinGrants          PinGrant[]
+  permissions        Permission[]
 
   @@index([removedAt])
   @@map("children")
@@ -151,4 +152,32 @@ model Pin {
 
   @@index([removedAt])
   @@map("pins")
+}
+
+model Permission {
+  childId          Int
+  permissionTypeId Int            @map("permission_type_id")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+  removedAt        DateTime?      @map("removed_at")
+  child            Child          @relation(fields: [childId], references: [id], onDelete: Cascade)
+  permissionType   PermissionType @relation(fields: [permissionTypeId], references: [id], onDelete: Restrict)
+
+  @@id([childId, permissionTypeId, createdAt])
+  @@index([permissionTypeId])
+  @@index([removedAt])
+  @@map("permissions")
+}
+
+model PermissionType {
+  id          Int          @id @default(autoincrement())
+  shortName   String       @map("short_name")
+  name        String
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  removedAt   DateTime?    @map("removed_at")
+  permissions Permission[]
+
+  @@index([removedAt])
+  @@map("permission_types")
 }

@@ -13,6 +13,8 @@ import {
   registrations,
   relationships,
   relationshipTypes,
+  permissions,
+  permissionTypes,
 } from "./seed-data";
 
 const connectionString = `${process.env.DATABASE_URL}`;
@@ -44,12 +46,13 @@ async function main() {
   // We can seed all 5 tables in parallel.
   // ==========================================
   console.log("Seeding Tier 1 (Independent Models)...");
-  const [childIdMap, classroomIdMap, contactIdMap, relTypeIdMap, pinIdMap] = await Promise.all([
+  const [childIdMap, classroomIdMap, contactIdMap, relTypeIdMap, pinIdMap, permissionTypeIdMap] = await Promise.all([
     parallelSeedAndMap(children, (data) => prisma.child.create({ data })),
     parallelSeedAndMap(classrooms, (data) => prisma.classroom.create({ data })),
     parallelSeedAndMap(contacts, (data) => prisma.contact.create({ data })),
     parallelSeedAndMap(relationshipTypes, (data) => prisma.relationshipType.create({ data })),
     parallelSeedAndMap(pins, (data) => prisma.pin.create({ data })),
+    parallelSeedAndMap(permissionTypes, (data) => prisma.permissionType.create({ data })),
   ]);
 
   // ==========================================
@@ -118,6 +121,17 @@ async function main() {
         return { ...pg, childId, pinId };
       });
       await prisma.pinGrant.createMany({ data: validPinGrants, skipDuplicates: true });
+    })(),
+
+    // Permissions
+    (async () => {
+      const validPermissions = permissions.map((p) => {
+        const childId = childIdMap.get(p.childId);
+        const permissionTypeId = permissionTypeIdMap.get(p.permissionTypeId);
+        if (!childId || !permissionTypeId) throw new Error("Invalid PinGrant relation");
+        return { ...p, childId, permissionTypeId };
+      });
+      await prisma.permission.createMany({ data: validPermissions, skipDuplicates: true });
     })(),
   ]);
 
