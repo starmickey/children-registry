@@ -6,8 +6,6 @@ import ChildContactsList from "./ChildContactsList";
 import ChildPinsList from "./ChildPinsList";
 import ReturnButton from "@/components/buttons/return-button";
 import ChildClassRoomBadge from "./ChildClassroomBadge";
-import { CardSkeleton } from "@/components/ui/skeleton";
-import { Suspense } from "react";
 import ChildPermissionList from "./ChildPermissionList";
 
 export default async function ChildResume({ id }: { id: number }) {
@@ -30,21 +28,13 @@ export default async function ChildResume({ id }: { id: number }) {
         </Typography>
 
         <section className="grid grid-cols-1 gap-4 w-full">
-          <Suspense fallback={<CardSkeleton />}>
             <ChildGeneralDataCard child={child} />
-          </Suspense>
 
-          <Suspense fallback={<CardSkeleton />}>
             <ChildContactsList childId={child.id} />
-          </Suspense>
 
-          <Suspense fallback={<CardSkeleton />}>
             <ChildPinsList childId={child.id} />
-          </Suspense>
           
-          <Suspense fallback={<CardSkeleton />}>
             <ChildPermissionList childId={child.id} />
-          </Suspense>o  
         </section>
       </main>
     </>
