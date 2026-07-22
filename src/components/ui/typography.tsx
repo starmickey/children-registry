@@ -7,7 +7,8 @@ export const typographyVariants = cva(
   {
     variants: {
       variant: {
-        "main-title": "text-2xl mb-10 mt-8 text-center",
+        "gigantic-title": "text-5xl font-heading font-bold uppercase text-center mb-10 mt-8 ",
+        "main-title": "text-2xl  text-center mb-10 mt-8",
         "H1": "text-lg font-bold",
       },
     },
