@@ -24,7 +24,7 @@ function ButtonSkeleton({
     <Skeleton
       className={cn(
         buttonVariants({ variant, size, className }),
-        "animate-pulse rounded-md bg-muted",
+        "animate-pulse rounded-md bg-muted hover:bg-muted",
         className,
       )}
       {...props}
