@@ -44,7 +44,7 @@ export default async function ChildResume({ id }: { id: number }) {
           
           <Suspense fallback={<CardSkeleton />}>
             <ChildPermissionList childId={child.id} />
-          </Suspense>
+          </Suspense>o  
         </section>
       </main>
     </>
