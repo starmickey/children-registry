@@ -4,9 +4,9 @@ import { Typography } from "@/components/ui/typography";
 import ChildGeneralDataCard from "./ChildGeneralDataCard";
 import ChildContactsList from "./ChildContactsList";
 import ChildPinsList from "./ChildPinsList";
-import ReturnButton from "@/components/buttons/return-button";
 import ChildClassRoomBadge from "./ChildClassroomBadge";
 import ChildPermissionList from "./ChildPermissionList";
+import Header, { ReturnButton } from "@/components/layout/header";
 
 export default async function ChildResume({ id }: { id: number }) {
   const child = await getChildByIdService(id);
@@ -17,10 +17,10 @@ export default async function ChildResume({ id }: { id: number }) {
 
   return (
     <>
-      <header className="header flex w-full justify-between items-center">
+      <Header className="justify-between">
         <ReturnButton href="/children" />
         <ChildClassRoomBadge childId={child.id} />
-      </header>
+      </Header>
 
       <main className="container">
         <Typography level="h1" variant="main-title">

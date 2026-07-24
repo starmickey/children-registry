@@ -1,7 +1,8 @@
-import FetchChildHeader from "@/features/children/components/FetchChildHeader";
+import SearchChildrenInput from "@/features/children/components/SearchChildrenInput";
 import ChildrenList from "@/features/children/components/ChildrenList";
 import { ChildrenListSkeleton } from "@/features/children/components/ChildrenListSkeleton";
 import { Suspense } from "react";
+import Header from "@/components/layout/header";
 
 export default async function Page({
   searchParams,
@@ -12,7 +13,10 @@ export default async function Page({
 
   return (
     <>
-      <FetchChildHeader />
+      <Header>
+        <SearchChildrenInput />
+      </Header>
+      
       <main className="container">
         <Suspense fallback={<ChildrenListSkeleton />}>
           <ChildrenList searchString={searchString} />

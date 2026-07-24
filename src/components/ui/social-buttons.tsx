@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from "../ui/button";
+import { Button, ButtonProps } from "./button";
 
 export interface PhoneCallButtonProps extends ButtonProps {
   phone: string;

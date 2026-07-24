@@ -8,7 +8,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { Typography } from "@/components/ui/typography";
 
-export default function FetchChildHeader() {
+export default function SearchChildrenInput() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -50,42 +50,38 @@ export default function FetchChildHeader() {
     router.replace(`${pathname}?${params.toString()}`);
   }, 300);
 
-  return (
-    <header className="header flex mb-4 items-center">
-      {expanded ? (
-        <>
-          <Button
-            variant="ghost"
-            size="icon"
-            type="button"
-            onClick={handleReturnButtonClick}
-          >
-            <ArrowLeft />
-          </Button>
-          <Input
-            placeholder="Ingrese un nombre"
-            value={searchString}
-            onChange={(e) => {
-              setSearchString(e.target.value);
-              handleSearch(e.target.value);
-            }}
-          />
-        </>
-      ) : (
-        <>
-          <Typography variant="H1" className="flex-1">
-            Infancia Misionera
-          </Typography>
-          <Button
-            variant="ghost"
-            size="icon"
-            type="button"
-            onClick={handleSearchButtonClick}
-          >
-            <Search />
-          </Button>
-        </>
-      )}
-    </header>
+  return expanded ? (
+    <>
+      <Button
+        variant="ghost"
+        size="icon"
+        type="button"
+        onClick={handleReturnButtonClick}
+      >
+        <ArrowLeft />
+      </Button>
+      <Input
+        placeholder="Ingrese un nombre"
+        value={searchString}
+        onChange={(e) => {
+          setSearchString(e.target.value);
+          handleSearch(e.target.value);
+        }}
+      />
+    </>
+  ) : (
+    <>
+      <Typography variant="H1" className="flex-1">
+        Infancia Misionera
+      </Typography>
+      <Button
+        variant="ghost"
+        size="icon"
+        type="button"
+        onClick={handleSearchButtonClick}
+      >
+        <Search />
+      </Button>
+    </>
   );
 }

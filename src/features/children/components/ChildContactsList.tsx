@@ -1,4 +1,4 @@
-import { WhatsAppButton, PhoneCallButton } from "@/components/buttons/social-buttons";
+import { WhatsAppButton, PhoneCallButton } from "@/components/ui/social-buttons";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Item,
