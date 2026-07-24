@@ -35,7 +35,7 @@ model Registration {
   class     Class     @relation(fields: [classId], references: [id], onDelete: Cascade)
 
   @@id([childId, classId])
-  @@index([classId])
+  @@index([childId, removedAt, createdAt(sort: Desc)])
   @@map("registrations")
 }
 
