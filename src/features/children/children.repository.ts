@@ -5,63 +5,80 @@ type SearchChildrenParams = {
   classroomId?: number;
 };
 
-export const searchChildren = async (params: SearchChildrenParams) =>
-  prisma.child
-    .findMany({
-      where: {
-        ...(params.search &&
-          params.search.trim() && {
-            OR: [
-              // 1. The first name or surname starts directly with the string
-              {
-                firstName: { startsWith: params.search, mode: "insensitive" },
-              },
-              { lastName: { startsWith: params.search, mode: "insensitive" } },
+export const searchChildren = async (params: SearchChildrenParams) => {
+  let matchingChildIds: number[] | undefined = undefined;
 
-              // 2. A secondary word inside the field starts with the string (e.g., "Mary Jo")
-              {
-                firstName: {
-                  contains: ` ${params.search}`,
-                  mode: "insensitive",
-                },
-              },
-              {
-                lastName: {
-                  contains: ` ${params.search}`,
-                  mode: "insensitive",
-                },
-              },
-            ],
-          }),
+  // 1. If classroomId filter is supplied, resolve child IDs whose LATEST registration matches it
+  if (params.classroomId != null) {
+    const latestRegistrations = await prisma.registration.findMany({
+      where: {
         removedAt: null,
+        child: { removedAt: null },
+        class: { removedAt: null },
       },
-      include: {
-        ...(params.classroomId && {
-          registrations: {
-            where: { removedAt: null },
-            orderBy: { createdAt: "desc" },
-            take: 1,
+      orderBy: [
+        { childId: "asc" },
+        { createdAt: "desc" },
+      ],
+      distinct: ["childId"], // Guarantees 1 row per child (their latest registration)
+      select: {
+        childId: true,
+        class: {
+          select: {
+            classroomId: true,
+          },
+        },
+      },
+    });
+
+    matchingChildIds = latestRegistrations
+      .filter((reg) => reg.class.classroomId === params.classroomId)
+      .map((reg) => reg.childId);
+  }
+
+  // 2. Fetch children at Database level
+  return prisma.child.findMany({
+    where: {
+      removedAt: null,
+
+      // Apply the latest classroom filter if active
+      ...(matchingChildIds !== undefined && {
+        id: { in: matchingChildIds },
+      }),
+
+      // Apply search query across names
+      ...(params.search &&
+        params.search.trim() && {
+          OR: [
+            // 1. First name or surname starts directly with search string
+            { firstName: { startsWith: params.search, mode: "insensitive" } },
+            { lastName: { startsWith: params.search, mode: "insensitive" } },
+
+            // 2. Secondary word inside field starts with search string (e.g., "Mary Jo")
+            { firstName: { contains: ` ${params.search}`, mode: "insensitive" } },
+            { lastName: { contains: ` ${params.search}`, mode: "insensitive" } },
+          ],
+        }),
+    },
+    include: {
+      registrations: {
+        where: { removedAt: null },
+        orderBy: { createdAt: "desc" },
+        take: 1,
+        include: {
+          class: {
             include: {
-              class: {
-                include: {
-                  classroom: true,
-                },
-              },
+              classroom: true,
             },
           },
-        }),
+        },
       },
-      orderBy: {
-        firstName: "asc",
-      },
-    })
-    .then((children) => 
-      children.filter(
-        (child) =>
-          params.classroomId == null ||
-          child.registrations?.[0]?.class?.classroom.id === params.classroomId,
-      )
-    );
+    },
+    orderBy: {
+      firstName: "asc",
+    },
+  });
+};
 
 export const getChildById = async (id: number) =>
   prisma.child.findUnique({
