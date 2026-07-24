@@ -1,32 +1,67 @@
 import { prisma } from "@/lib/prisma";
 
-export const searchChildren = async (searchString?: string) =>
-  searchString && searchString.trim()
-    ? prisma.child.findMany({
-        where: {
-          OR: [
-            // 1. The first name or surname starts directly with the string
-            { firstName: { startsWith: searchString, mode: "insensitive" } },
-            { lastName: { startsWith: searchString, mode: "insensitive" } },
+type SearchChildrenParams = {
+  search?: string;
+  classroomId?: number;
+};
 
-            // 2. A secondary word inside the field starts with the string (e.g., "Mary Jo")
-            {
-              firstName: { contains: ` ${searchString}`, mode: "insensitive" },
+export const searchChildren = async (params: SearchChildrenParams) =>
+  prisma.child
+    .findMany({
+      where: {
+        ...(params.search &&
+          params.search.trim() && {
+            OR: [
+              // 1. The first name or surname starts directly with the string
+              {
+                firstName: { startsWith: params.search, mode: "insensitive" },
+              },
+              { lastName: { startsWith: params.search, mode: "insensitive" } },
+
+              // 2. A secondary word inside the field starts with the string (e.g., "Mary Jo")
+              {
+                firstName: {
+                  contains: ` ${params.search}`,
+                  mode: "insensitive",
+                },
+              },
+              {
+                lastName: {
+                  contains: ` ${params.search}`,
+                  mode: "insensitive",
+                },
+              },
+            ],
+          }),
+        removedAt: null,
+      },
+      include: {
+        ...(params.classroomId && {
+          registrations: {
+            where: { removedAt: null },
+            orderBy: { createdAt: "desc" },
+            take: 1,
+            include: {
+              class: {
+                include: {
+                  classroom: true,
+                },
+              },
             },
-            { lastName: { contains: ` ${searchString}`, mode: "insensitive" } },
-          ],
-          removedAt: null,
-        },
-        orderBy: {
-          firstName: "asc",
-        },
-      })
-    : prisma.child.findMany({
-        where: { removedAt: null },
-        orderBy: {
-          firstName: "asc",
-        },
-      });
+          },
+        }),
+      },
+      orderBy: {
+        firstName: "asc",
+      },
+    })
+    .then((children) => 
+      children.filter(
+        (child) =>
+          params.classroomId == null ||
+          child.registrations?.[0]?.class?.classroom.id === params.classroomId,
+      )
+    );
 
 export const getChildById = async (id: number) =>
   prisma.child.findUnique({
@@ -84,8 +119,8 @@ export const getChildPermissions = async (childId: number) =>
         },
         take: 1,
         orderBy: {
-          createdAt: "desc"
-        }
+          createdAt: "desc",
+        },
       },
     },
   });

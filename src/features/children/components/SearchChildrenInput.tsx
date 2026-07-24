@@ -2,11 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft as ArrowLeft, Search } from "lucide-react";
+import { ChevronLeft as ArrowLeft, Plus, Search } from "lucide-react";
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { Typography } from "@/components/ui/typography";
+import Link from "next/link";
 
 export default function SearchChildrenInput() {
   const router = useRouter();

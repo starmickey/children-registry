@@ -4,10 +4,15 @@ import { searchChildrenService } from "../children.service";
 
 export default async function ChildrenList({
   searchString,
+  classroomFilter,
 }: {
   searchString?: string;
+  classroomFilter?: number;
 }) {
-  const children = await searchChildrenService(searchString);
+  const children = await searchChildrenService({
+    search: searchString,
+    classroomId: classroomFilter,
+  });
 
   if (children.length == 0) {
     return (
