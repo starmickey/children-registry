@@ -1,4 +1,4 @@
-import { getClassroomsService } from "@/features/classroom/classroom.service";
+import { getClassroomsService } from "../service/classroom.service";
 import { ChildrenClassroomFiltersClient } from "./ChildrenClassroomFiltersClient";
 
 export default async function ChildrenClassroomFilters({ activeId }: { activeId?: number }) {

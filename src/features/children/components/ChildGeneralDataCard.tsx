@@ -3,7 +3,7 @@ import { Item, ItemMedia, ItemContent, ItemTitle } from "@/components/ui/item";
 import { IdentityCardNumberFormat } from "@/components/ui/numeric-format";
 import { calculateAge } from "@/lib/utils";
 import { NotebookIcon, CakeIcon } from "lucide-react";
-import { ChildDTO } from "../children.dto";
+import { ChildDTO } from "../types/children.dto";
 
 export default function ChildGeneralDataCard({ child }: { child: ChildDTO }) {
   return (

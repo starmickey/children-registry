@@ -5,7 +5,7 @@ import {
   getChildPermissions,
   getChildPins,
   searchChildren,
-} from "@/features/children/children.repository";
+} from "@/features/children/repository/children.repository";
 import {
   parseChildClassroomDTO,
   parseChildContactsDTO,

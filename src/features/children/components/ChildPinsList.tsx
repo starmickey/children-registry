@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Item, ItemMedia, ItemContent, ItemTitle } from "@/components/ui/item";
 import { Star } from "lucide-react";
-import { getChildPinsService } from "../children.service";
+import { getChildPinsService } from "../service/children.service";
 
 export default async function ChildPinsList({ childId }: { childId: number }) {
   const pins = await getChildPinsService(childId);

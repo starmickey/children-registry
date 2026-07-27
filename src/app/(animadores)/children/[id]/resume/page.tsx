@@ -1,4 +1,4 @@
-import { getChildResumeParamsSchema } from "@/features/children/children.schema";
+import { getChildResumeParamsSchema } from "@/features/children/schemas/children.schema";
 import { notFound } from "next/navigation";
 import ChildResume from "@/features/children/components/ChildResume";
 import ChildResumeSkeleton from "@/features/children/components/ChildResumeSkeleton";

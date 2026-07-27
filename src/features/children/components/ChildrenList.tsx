@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { searchChildrenService } from "../children.service";
+import { searchChildrenService } from "../service/children.service";
 
 export default async function ChildrenList({
   searchString,

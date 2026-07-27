@@ -1,4 +1,4 @@
-import { getChildByIdService } from "@/features/children/children.service";
+import { getChildByIdService } from "@/features/children/service/children.service";
 import { notFound } from "next/navigation";
 import { Typography } from "@/components/ui/typography";
 import ChildGeneralDataCard from "./ChildGeneralDataCard";

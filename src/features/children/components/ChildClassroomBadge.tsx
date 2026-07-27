@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { getChildClassroomService } from "../children.service";
+import { getChildClassroomService } from "../service/children.service";
 
 export default async function ChildClassRoomBadge({
   childId,

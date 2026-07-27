@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/numeric-format";
 import { UserIcon, PhoneIcon } from "lucide-react";
 import { FaWhatsapp as WhatsAppIcon } from "react-icons/fa";
-import { getChildContactsService } from "../children.service";
+import { getChildContactsService } from "../service/children.service";
 
 export default async function ChildContactsList({
   childId,

@@ -3,15 +3,15 @@ import type {
   getChildContacts,
   getChildPermissions,
   getChildPins,
-} from "@/features/children/children.repository";
-import { Child } from "../../../generated/prisma/client";
+} from "@/features/children/repository/children.repository";
+import { Child } from "../../../../generated/prisma/client";
 import {
   ChildClassroomDTO,
   ChildContactDTO,
   ChildDTO,
   ChildPermissionDTO,
   ChildPinDTO,
-} from "./children.dto";
+} from "../types/children.dto";
 
 export const parseChildDTO = (child: Child): ChildDTO => ({
   id: child.id,
