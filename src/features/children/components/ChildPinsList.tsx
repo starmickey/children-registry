@@ -1,15 +1,9 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Item, ItemMedia, ItemContent, ItemTitle } from "@/components/ui/item";
 import { Star } from "lucide-react";
-import { getChildPinsService } from "../service/children.service";
+import { PinDto } from "../types";
 
-export default async function ChildPinsList({ childId }: { childId: number }) {
-  const pins = await getChildPinsService(childId);
-
-  if (pins.length === 0) {
-    return <></>;
-  }
-  
+export default async function ChildPinsList({ pins }: { pins: PinDto[] }) {
   return (
     <Card>
       <CardHeader>
@@ -24,7 +18,7 @@ export default async function ChildPinsList({ childId }: { childId: number }) {
               <Star />
             </ItemMedia>
             <ItemContent>
-              <ItemTitle>{pin.pinName}</ItemTitle>
+              <ItemTitle>{pin.name}</ItemTitle>
             </ItemContent>
           </Item>
         ))}

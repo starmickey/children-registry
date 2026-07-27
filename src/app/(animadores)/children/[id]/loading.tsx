@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ChevronLeft as ArrowLeft } from "lucide-react";
 import { Skeleton, TypographySkeleton } from "@/components/ui/skeleton";
 
-export default async function ChildResumeSkeleton() {
+export default function ChildResumeSkeleton() {
   return (
     <>
       <header className="header flex w-full justify-between items-center">

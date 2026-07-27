@@ -13,15 +13,13 @@ import {
 } from "@/components/ui/numeric-format";
 import { UserIcon, PhoneIcon } from "lucide-react";
 import { FaWhatsapp as WhatsAppIcon } from "react-icons/fa";
-import { getChildContactsService } from "../service/children.service";
+import { ContactDto } from "../types";
 
 export default async function ChildContactsList({
-  childId,
+  contacts,
 }: {
-  childId: number;
+  contacts: ContactDto[];
 }) {
-  const contacts = await getChildContactsService(childId);
-
   const sortedContacts = [
     ...(contacts.filter((c) => c.relationShip.toLowerCase() === "madre") ?? []),
     ...(contacts.filter((c) => c.relationShip.toLowerCase() === "padre") ?? []),
@@ -31,10 +29,6 @@ export default async function ChildContactsList({
         c.relationShip.toLowerCase() !== "padre",
     ) ?? []),
   ];
-
-  if (contacts.length === 0) {
-    return <></>;
-  }
 
   return (
     <Card>

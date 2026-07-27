@@ -1,15 +1,13 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Item, ItemMedia, ItemContent, ItemTitle } from "@/components/ui/item";
 import { Check, X } from "lucide-react";
-import { getChildPermissionsService } from "../service/children.service";
+import { ChildPermissionDto } from "../types";
 
 export default async function ChildPermissionList({
-  childId,
+  permissions,
 }: {
-  childId: number;
+  permissions: ChildPermissionDto[];
 }) {
-  const permissions = await getChildPermissionsService(childId);
-
   return (
     <Card>
       <CardHeader>

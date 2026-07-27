@@ -1,20 +1,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { searchChildrenService } from "../service/children.service";
+import { ChildDto } from "../types";
 
 export default async function ChildrenList({
-  searchString,
-  classroomFilter,
+  childItems,
 }: {
-  searchString?: string;
-  classroomFilter?: number;
+  childItems: ChildDto[];
 }) {
-  const children = await searchChildrenService({
-    search: searchString,
-    classroomId: classroomFilter,
-  });
-
-  if (children.length == 0) {
+  if (childItems.length == 0) {
     return (
       <section className="bg-secondary text-secondary-foreground rounded-lg">
         <p className="px-8 py-12 text-center">No se encontraron personas</p>
@@ -24,8 +17,8 @@ export default async function ChildrenList({
 
   return (
     <section className="flex flex-col gap-1">
-      {children.map((child) => (
-        <Link key={child.id} href={`/children/${child.id}/resume`}>
+      {childItems.map((child) => (
+        <Link key={child.id} href={`/children/${child.id}`}>
           <Button
             variant="secondary"
             type="button"

@@ -2,19 +2,18 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft as ArrowLeft, Plus, Search } from "lucide-react";
+import { ChevronLeft as ArrowLeft, Search } from "lucide-react";
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { Typography } from "@/components/ui/typography";
-import Link from "next/link";
 
-export default function SearchChildrenInput() {
+export default function ChildrenSearchInput() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const defaultSearchString = searchParams.get("search")?.toString();
+  const defaultSearchString = searchParams.get("q")?.toString();
 
   const [expanded, setExpanded] = useState<boolean>(
     defaultSearchString != null,
@@ -30,7 +29,7 @@ export default function SearchChildrenInput() {
   function handleReturnButtonClick() {
     const params = new URLSearchParams(searchParams);
 
-    params.delete("search");
+    params.delete("q");
 
     setSearchString("");
     setExpanded(false);
@@ -43,9 +42,9 @@ export default function SearchChildrenInput() {
     const params = new URLSearchParams(searchParams);
 
     if (term) {
-      params.set("search", term);
+      params.set("q", term);
     } else {
-      params.delete("search"); // Removes the param if the input is cleared
+      params.delete("q"); // Removes the param if the input is cleared
     }
 
     router.replace(`${pathname}?${params.toString()}`);
