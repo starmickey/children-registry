@@ -5,6 +5,8 @@ export const children = [
     lastName: "García",
     birthDate: new Date("2021-05-12"),
     identityCardNumber: "98765432",
+    firstClassDate: new Date("2023-05-12"),
+    address: "Calle sin nombre 1234"
   },
   {
     id: 2,
@@ -209,8 +211,8 @@ export const relationships = [
 ];
 
 export const pins = [
-  { id: 1, name: "Tarjeta de Acceso" },
-  { id: 2, name: "Llavero RFID" },
+  { id: 1, name: "Carnet" },
+  { id: 2, name: "Pin" },
 ];
 
 export const pinGrants = [
@@ -243,6 +245,7 @@ export const permissionTypes = [
     name: "Retirarse de las instalaciones sin la compañía de un adulto",
   },
 ];
+
 export const permissions = [
   {
     childId: 1,
@@ -296,44 +299,14 @@ export const permissions = [
     childId: 9,
     permissionTypeId: 3,
   },
-  {
-    childId: 11,
-    permissionTypeId: 1,
-  },
-  {
-    childId: 11,
-    permissionTypeId: 2,
-  },
-  {
-    childId: 12,
-    permissionTypeId: 2,
-  },
-  {
-    childId: 12,
-    permissionTypeId: 3,
-  },
-  {
-    childId: 13,
-    permissionTypeId: 1,
-  },
-  {
-    childId: 13,
-    permissionTypeId: 2,
-  },
-  {
-    childId: 15,
-    permissionTypeId: 1,
-  },
-  {
-    childId: 15,
-    permissionTypeId: 2,
-  },
-  {
-    childId: 16,
-    permissionTypeId: 2,
-  },
-  {
-    childId: 16,
-    permissionTypeId: 3,
-  },
+];
+
+export const diseases = [
+  { id: 1, name: "Diabetes" },
+  { id: 2, name: "Intolerancia a la lactosa" },
+];
+
+export const diseaseAssignations = [
+  { childId: 1, diseaseId: 1, notes: "Medicación continua" },
+  { childId: 2, diseaseId: 2 },
 ];
