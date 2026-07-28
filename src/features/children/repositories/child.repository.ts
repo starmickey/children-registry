@@ -139,6 +139,12 @@ export const childRepository = {
         childId,
         removedAt: null,
       },
+      orderBy: [
+        {
+          grantedAt: "desc",
+        },
+        { createdAt: "desc" },
+      ],
     });
   },
 
