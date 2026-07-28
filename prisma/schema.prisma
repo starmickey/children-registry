@@ -133,7 +133,7 @@ model Relationship {
 model PinGrant {
   childId   Int       @map("child_id")
   pinId     Int       @map("pin_id")
-  grantedAt DateTime  @map("granted_at")
+  grantedAt DateTime?  @map("granted_at")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
   removedAt DateTime? @map("removed_at")
