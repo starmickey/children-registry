@@ -49,12 +49,10 @@ export default async function ResumePage({
             <ChildContactsList contacts={child.contacts} />
           )}
 
-          {child.pins.length > 0 && (
-            <ChildPinsList
-              pins={child.pins}
-              firstClassDate={child.firstClassDate}
-            />
-          )}
+          <ChildPinsList
+            pins={child.pins}
+            firstClassDate={child.firstClassDate}
+          />
 
           <ChildPermissionList permissions={child.permissions} />
 

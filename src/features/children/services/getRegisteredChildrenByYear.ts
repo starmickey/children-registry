@@ -1,5 +1,3 @@
-// src/features/children/services/getRegisteredChildrenByYear.ts
-import { calculateAge } from "@/lib/utils";
 import {
   childRepository,
   RegisteredChildDbResult,

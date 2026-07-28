@@ -25,31 +25,42 @@ export default async function ChildPinsList({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {pins.map((pin, idx) => (
-          <Item key={idx} size="sm">
+        {pins.length > 0 ? (
+
+          pins.map((pin, idx) => (
+            <Item key={idx} size="sm">
             <ItemMedia variant="icon">
               <Star />
             </ItemMedia>
             <ItemContent>
-              <ItemTitle>{pin.name}</ItemTitle>
+            <ItemTitle>{pin.name}</ItemTitle>
             </ItemContent>
-          </Item>
-        ))}
-
-        <ItemSeparator />
+            </Item>
+          ))
+        ) : (
+           <Item  size="sm">
+            <ItemContent>
+            No ha recibido insignias aún
+            </ItemContent>
+            </Item>
+        )}
 
         {firstClassDate && (
-          <Item size="sm" className="text-muted-foreground">
-            <ItemMedia variant="icon">
-              <Calendar />
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>
-                Inicio en IAM: {firstClassDate?.toLocaleDateString("es-ES")} (
-                {calculateAge(firstClassDate)} años)
-              </ItemTitle>
-            </ItemContent>
-          </Item>
+          <>
+            <ItemSeparator />
+
+            <Item size="sm" className="text-muted-foreground">
+              <ItemMedia variant="icon">
+                <Calendar />
+              </ItemMedia>
+              <ItemContent>
+                <ItemTitle>
+                  Inicio en IAM: {firstClassDate?.toLocaleDateString("es-ES")} (
+                  {calculateAge(firstClassDate)} años)
+                </ItemTitle>
+              </ItemContent>
+            </Item>
+          </>
         )}
       </CardContent>
     </Card>
