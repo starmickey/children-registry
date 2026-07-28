@@ -72,7 +72,7 @@ DROP TABLE "RelationShipType";
 
 -- CreateTable
 CREATE TABLE "children" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "first_name" TEXT NOT NULL,
     "last_name" TEXT NOT NULL,
     "identity_card_number" TEXT,
@@ -80,13 +80,14 @@ CREATE TABLE "children" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "removed_at" TIMESTAMP(3),
+    "first_class_date" TIMESTAMP(3),
 
     CONSTRAINT "children_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "registrations" (
-    "child_id" TEXT NOT NULL,
+    "child_id" INTEGER NOT NULL,
     "class_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -157,7 +158,7 @@ CREATE TABLE "relationship_types" (
 
 -- CreateTable
 CREATE TABLE "relationships" (
-    "child_id" TEXT NOT NULL,
+    "child_id" INTEGER NOT NULL,
     "contact_id" INTEGER NOT NULL,
     "relationship_type_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -169,7 +170,7 @@ CREATE TABLE "relationships" (
 
 -- CreateTable
 CREATE TABLE "pin_grants" (
-    "child_id" TEXT NOT NULL,
+    "child_id" INTEGER NOT NULL,
     "pin_id" INTEGER NOT NULL,
     "granted_at" TIMESTAMP(3) NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -190,11 +191,59 @@ CREATE TABLE "pins" (
     CONSTRAINT "pins_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "permissions" (
+    "child_id" INTEGER NOT NULL,
+    "permission_type_id" INTEGER NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "removed_at" TIMESTAMP(3),
+
+    CONSTRAINT "permissions_pkey" PRIMARY KEY ("child_id","permission_type_id","created_at")
+);
+
+-- CreateTable
+CREATE TABLE "permission_types" (
+    "id" SERIAL NOT NULL,
+    "short_name" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "enabled" BOOLEAN NOT NULL DEFAULT true,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "removed_at" TIMESTAMP(3),
+
+    CONSTRAINT "permission_types_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "diseases" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "removed_at" TIMESTAMP(3),
+
+    CONSTRAINT "diseases_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "disease_assignations" (
+    "child_id" INTEGER NOT NULL,
+    "disease_id" INTEGER NOT NULL,
+    "notes" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+    "removed_at" TIMESTAMP(3),
+
+    CONSTRAINT "disease_assignations_pkey" PRIMARY KEY ("child_id","disease_id")
+);
+
 -- CreateIndex
 CREATE INDEX "children_removed_at_idx" ON "children"("removed_at");
 
 -- CreateIndex
-CREATE INDEX "registrations_class_id_idx" ON "registrations"("class_id");
+CREATE INDEX "registrations_child_id_removed_at_created_at_idx" ON "registrations"("child_id", "removed_at", "created_at" DESC);
 
 -- CreateIndex
 CREATE INDEX "classes_classroom_id_idx" ON "classes"("classroom_id");
@@ -235,6 +284,18 @@ CREATE INDEX "pin_grants_removed_at_idx" ON "pin_grants"("removed_at");
 -- CreateIndex
 CREATE INDEX "pins_removed_at_idx" ON "pins"("removed_at");
 
+-- CreateIndex
+CREATE INDEX "permissions_permission_type_id_idx" ON "permissions"("permission_type_id");
+
+-- CreateIndex
+CREATE INDEX "permissions_removed_at_idx" ON "permissions"("removed_at");
+
+-- CreateIndex
+CREATE INDEX "permission_types_removed_at_idx" ON "permission_types"("removed_at");
+
+-- CreateIndex
+CREATE INDEX "diseases_removed_at_idx" ON "diseases"("removed_at");
+
 -- AddForeignKey
 ALTER TABLE "registrations" ADD CONSTRAINT "registrations_child_id_fkey" FOREIGN KEY ("child_id") REFERENCES "children"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -261,3 +322,15 @@ ALTER TABLE "pin_grants" ADD CONSTRAINT "pin_grants_child_id_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "pin_grants" ADD CONSTRAINT "pin_grants_pin_id_fkey" FOREIGN KEY ("pin_id") REFERENCES "pins"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "permissions" ADD CONSTRAINT "permissions_child_id_fkey" FOREIGN KEY ("child_id") REFERENCES "children"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "permissions" ADD CONSTRAINT "permissions_permission_type_id_fkey" FOREIGN KEY ("permission_type_id") REFERENCES "permission_types"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "disease_assignations" ADD CONSTRAINT "disease_assignations_child_id_fkey" FOREIGN KEY ("child_id") REFERENCES "children"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "disease_assignations" ADD CONSTRAINT "disease_assignations_disease_id_fkey" FOREIGN KEY ("disease_id") REFERENCES "diseases"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
