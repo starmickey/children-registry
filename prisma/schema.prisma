@@ -8,19 +8,20 @@ datasource db {
 }
 
 model Child {
-  id                 Int            @id @default(autoincrement())
-  firstName          String         @map("first_name")
-  lastName           String         @map("last_name")
-  identityCardNumber String?        @map("identity_card_number")
-  birthDate          DateTime?      @map("birth_date")
-  createdAt          DateTime       @default(now()) @map("created_at")
-  updatedAt          DateTime       @updatedAt @map("updated_at")
-  removedAt          DateTime?      @map("removed_at")
-  firstClassDate     DateTime?      @map("first_class_date")
+  id                 Int                 @id @default(autoincrement())
+  firstName          String              @map("first_name")
+  lastName           String              @map("last_name")
+  identityCardNumber String?             @map("identity_card_number")
+  birthDate          DateTime?           @map("birth_date")
+  createdAt          DateTime            @default(now()) @map("created_at")
+  updatedAt          DateTime            @updatedAt @map("updated_at")
+  removedAt          DateTime?           @map("removed_at")
+  firstClassDate     DateTime?           @map("first_class_date")
   registrations      Registration[]
   childRelationships Relationship[]
   pinGrants          PinGrant[]
   permissions        Permission[]
+  diseaseAsignations DiseaseAsignation[]
 
   @@index([removedAt])
   @@map("children")
@@ -182,4 +183,31 @@ model PermissionType {
 
   @@index([removedAt])
   @@map("permission_types")
+}
+
+model Disease {
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  description        String?
+  createdAt          DateTime            @default(now()) @map("created_at")
+  updatedAt          DateTime            @updatedAt @map("updated_at")
+  removedAt          DateTime?           @map("removed_at")
+  diseaseAsignations DiseaseAsignation[]
+
+  @@index([removedAt])
+  @@map("diseases")
+}
+
+model DiseaseAsignation {
+  childId   Int       @map("child_id")
+  diseaseId Int       @map("disease_id")
+  notes     String?
+  child     Child     @relation(fields: [childId], references: [id], onDelete: Cascade)
+  disease   Disease   @relation(fields: [diseaseId], references: [id], onDelete: Restrict)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  removedAt DateTime? @map("removed_at")
+
+  @@id([childId, diseaseId])
+  @@map("disease_assignations")
 }
