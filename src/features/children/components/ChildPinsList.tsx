@@ -5,6 +5,7 @@ import {
   ItemContent,
   ItemTitle,
   ItemSeparator,
+  ItemDescription,
 } from "@/components/ui/item";
 import { Calendar, Star } from "lucide-react";
 import { PinDto } from "../types";
@@ -26,23 +27,23 @@ export default async function ChildPinsList({
       </CardHeader>
       <CardContent>
         {pins.length > 0 ? (
-
           pins.map((pin, idx) => (
             <Item key={idx} size="sm">
-            <ItemMedia variant="icon">
-              <Star />
-            </ItemMedia>
-            <ItemContent>
-            <ItemTitle>{pin.name}</ItemTitle>
-            </ItemContent>
+              <ItemMedia variant="icon">
+                <Star />
+              </ItemMedia>
+              <ItemContent>
+                <ItemTitle>{pin.name}</ItemTitle>
+                <ItemDescription className="flex flex-col gap-1">
+                  {pin.grantedAt && <span>{pin.grantedAt.getFullYear()}</span>}
+                </ItemDescription>
+              </ItemContent>
             </Item>
           ))
         ) : (
-           <Item  size="sm">
-            <ItemContent>
-            No ha recibido insignias aún
-            </ItemContent>
-            </Item>
+          <Item size="sm">
+            <ItemContent>No ha recibido insignias aún</ItemContent>
+          </Item>
         )}
 
         {firstClassDate && (
@@ -55,8 +56,10 @@ export default async function ChildPinsList({
               </ItemMedia>
               <ItemContent>
                 <ItemTitle>
-                  Inicio en IAM: {firstClassDate?.toLocaleDateString("es-ES")} (
-                  {calculateAge(firstClassDate)} años)
+                  Inicio en IAM: {firstClassDate?.toLocaleDateString("es-ES")}
+                  {calculateAge(firstClassDate) > 0 && (
+                    <span>({calculateAge(firstClassDate)} años)</span>
+                  )}
                 </ItemTitle>
               </ItemContent>
             </Item>

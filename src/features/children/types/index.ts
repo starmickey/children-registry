@@ -38,6 +38,7 @@ export interface ContactDto {
 export interface PinDto {
   id: number;
   name: string;
+  grantedAt?: Date;
 }
 
 export interface ChildPermissionDto {

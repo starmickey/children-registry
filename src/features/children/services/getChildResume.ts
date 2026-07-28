@@ -61,6 +61,7 @@ function mapToChildDto(
     pins: pinGrants.map((p) => ({
       id: p.pin.id,
       name: p.pin.name,
+      grantedAt: p.grantedAt ?? undefined,
     })),
     permissions: permissionTypes.map((permissionType) => ({
       id: permissionType.id,
