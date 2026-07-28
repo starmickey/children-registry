@@ -2,7 +2,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Item, ItemMedia, ItemContent, ItemTitle } from "@/components/ui/item";
 import { IdentityCardNumberFormat } from "@/components/ui/numeric-format";
 import { calculateAge } from "@/lib/utils";
-import { NotebookIcon, CakeIcon, House } from "lucide-react";
+import { NotebookIcon, CakeIcon, House, User } from "lucide-react";
 import { ChildDto } from "../types";
 
 export default function ChildGeneralDataCard({ child }: { child: ChildDto }) {
@@ -14,6 +14,18 @@ export default function ChildGeneralDataCard({ child }: { child: ChildDto }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
+        {child.alias && (
+          <Item size="sm">
+            <ItemMedia variant="icon">
+              <User />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>
+                <span className="font-bold">Alias:</span> <i>{child.alias}</i>
+              </ItemTitle>
+            </ItemContent>
+          </Item>
+        )}
         {child.identityCardNumber && (
           <Item size="sm">
             <ItemMedia variant="icon">

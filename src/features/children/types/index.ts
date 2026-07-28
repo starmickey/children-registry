@@ -14,6 +14,7 @@ export interface ChildDto {
   firstName: string;
   lastName: string;
   fullName: string;
+  alias?: string;
   firstClassDate?: Date;
   address?: string;
   identityCardNumber?: string;

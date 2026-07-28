@@ -11,6 +11,7 @@ model Child {
   id                 Int                 @id @default(autoincrement())
   firstName          String              @map("first_name")
   lastName           String              @map("last_name")
+  alias              String?
   identityCardNumber String?             @map("identity_card_number")
   address            String?
   birthDate          DateTime?           @map("birth_date")

@@ -57,6 +57,7 @@ export const childRepository = {
         ...(searchQuery
           ? {
               OR: [
+                { alias: { contains: searchQuery, mode: "insensitive" } },
                 { firstName: { contains: searchQuery, mode: "insensitive" } },
                 { lastName: { contains: searchQuery, mode: "insensitive" } },
               ],
@@ -75,6 +76,7 @@ export const childRepository = {
         id: true,
         firstName: true,
         lastName: true,
+        alias: true,
         birthDate: true,
         identityCardNumber: true,
         firstClassDate: true,

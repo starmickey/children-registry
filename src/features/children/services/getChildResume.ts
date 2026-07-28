@@ -38,6 +38,7 @@ function mapToChildDto(
     id: rawChild.id,
     firstName: rawChild.firstName,
     lastName: rawChild.lastName,
+    alias: rawChild.alias ?? undefined,
     fullName: `${rawChild.firstName} ${rawChild.lastName}`,
     age: rawChild.birthDate ? calculateAge(rawChild.birthDate) : undefined,
     birthDate: rawChild.birthDate ?? undefined,
