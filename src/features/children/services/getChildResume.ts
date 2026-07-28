@@ -2,6 +2,7 @@ import {
   ChildDiseaseDto,
   ChildDto,
   ChildPermissionDto,
+  ClassroomDto,
   ContactDto,
   PinDto,
 } from "../types";
@@ -17,7 +18,7 @@ import {
 import { calculateAge } from "@/lib/utils";
 
 interface ChildResumeDto extends ChildDto {
-  classroomName?: string;
+  classroom?: ClassroomDto;
   contacts: ContactDto[];
   pins: PinDto[];
   permissions: ChildPermissionDto[];
@@ -45,7 +46,12 @@ function mapToChildDto(
     firstClassDate: rawChild.firstClassDate ?? undefined,
     address: rawChild.address ?? undefined,
     identityCardNumber: rawChild.identityCardNumber ?? undefined,
-    classroomName: registration?.class.classroom?.name ?? undefined,
+    classroom: registration?.class.classroom
+      ? {
+          id: registration?.class.classroom?.id,
+          name: registration?.class.classroom?.name,
+        }
+      : undefined,
     contacts: relationships.map((r) => ({
       id: r.contact.id,
       firstName: r.contact.firstName,

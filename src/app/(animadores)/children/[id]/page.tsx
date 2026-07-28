@@ -6,6 +6,7 @@ import ChildDiseasesList from "@/features/children/components/ChildDeseasesList"
 import ChildGeneralDataCard from "@/features/children/components/ChildGeneralDataCard";
 import ChildPermissionList from "@/features/children/components/ChildPermissionList";
 import ChildPinsList from "@/features/children/components/ChildPinsList";
+import ClassroomBadge from "@/features/children/components/ClassroomBadge";
 import { getChildResume } from "@/features/children/services/getChildResume";
 import { notFound } from "next/navigation";
 import z from "zod";
@@ -34,7 +35,8 @@ export default async function ResumePage({
     <>
       <Header className="justify-between">
         <ReturnButton href="/children" />
-        <Badge>{child.classroomName}</Badge>
+        
+        {child.classroom && <ClassroomBadge classroom={child.classroom} />}
       </Header>
 
       <main className="container">
