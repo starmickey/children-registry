@@ -34,10 +34,15 @@ export default async function ChildPinsList({
               </ItemMedia>
               <ItemContent>
                 <ItemTitle>{pin.name}</ItemTitle>
-                <ItemDescription className="flex flex-col gap-1">
-                  {pin.grantedAt && <span>{pin.grantedAt.getFullYear()}</span>}
-                </ItemDescription>
               </ItemContent>
+
+              {pin.grantedAt && (
+                <ItemMedia>
+                  <ItemDescription className="flex flex-col gap-1">
+                    {pin.grantedAt.getFullYear()}{" "}
+                  </ItemDescription>
+                </ItemMedia>
+              )}
             </Item>
           ))
         ) : (
