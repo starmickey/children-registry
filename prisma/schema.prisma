@@ -16,6 +16,7 @@ model Child {
   createdAt          DateTime       @default(now()) @map("created_at")
   updatedAt          DateTime       @updatedAt @map("updated_at")
   removedAt          DateTime?      @map("removed_at")
+  firstClassDate     DateTime?      @map("first_class_date")
   registrations      Registration[]
   childRelationships Relationship[]
   pinGrants          PinGrant[]
