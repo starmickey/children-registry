@@ -33,9 +33,6 @@ function mapToChildDto(rawChild: RegisteredChildDbResult): RegisteredChildDto {
     firstName: rawChild.firstName,
     lastName: rawChild.lastName,
     fullName: `${rawChild.firstName} ${rawChild.lastName}`,
-    age: rawChild.birthDate ? calculateAge(rawChild.birthDate) : undefined,
-    birthDate: rawChild.birthDate ?? undefined,
-    identityCardNumber: rawChild.identityCardNumber ?? undefined,
     classroomName,
     classrooms,
   };

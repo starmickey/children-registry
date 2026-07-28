@@ -19,8 +19,6 @@ export const childRepository = {
         id: true,
         firstName: true,
         lastName: true,
-        birthDate: true,
-        identityCardNumber: true,
         // Include matching classroom details for context
         registrations: {
           where: {
@@ -67,7 +65,7 @@ export const childRepository = {
       },
 
       // 3. SORTING: Sort by last name then first name
-      orderBy: [{ lastName: "asc" }, { firstName: "asc" }],
+      orderBy: [{ firstName: "asc" }, { lastName: "asc" }],
     });
   },
 
@@ -79,6 +77,8 @@ export const childRepository = {
         lastName: true,
         birthDate: true,
         identityCardNumber: true,
+        firstClassDate: true,
+        address: true,
       },
       where: { id, removedAt: null },
     });
@@ -193,6 +193,30 @@ export const childRepository = {
       },
     });
   },
+
+  async getDiseases(childId: number) {
+    return prisma.diseaseAsignation.findMany({
+      select: {
+        childId: true,
+        diseaseId: true,
+        notes: true,
+        disease: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+          },
+        },
+      },
+      where: {
+        childId,
+        removedAt: null,
+        disease: {
+          removedAt: null,
+        },
+      },
+    });
+  },
 };
 
 export type RegisteredChildDbResult = Awaited<
@@ -217,4 +241,8 @@ export type GetChildPermissionTypesDbResult = Awaited<
 
 export type GetChildLatestRegistrationDbResult = Awaited<
   ReturnType<typeof childRepository.getChildLatestRegistration>
+>;
+
+export type GetChildDiseaseAssignationsDbResult = Awaited<
+  ReturnType<typeof childRepository.getDiseases>
 >;

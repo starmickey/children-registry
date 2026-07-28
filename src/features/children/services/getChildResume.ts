@@ -1,7 +1,14 @@
-import { ChildDto, ChildPermissionDto, ContactDto, PinDto } from "../types";
+import {
+  ChildDiseaseDto,
+  ChildDto,
+  ChildPermissionDto,
+  ContactDto,
+  PinDto,
+} from "../types";
 import {
   childRepository,
   GetChildByIdDbResult,
+  GetChildDiseaseAssignationsDbResult,
   GetChildLatestRegistrationDbResult,
   GetChildPermissionTypesDbResult,
   GetChildPinGrantsDbResult,
@@ -14,6 +21,7 @@ interface ChildResumeDto extends ChildDto {
   contacts: ContactDto[];
   pins: PinDto[];
   permissions: ChildPermissionDto[];
+  diseases: ChildDiseaseDto[];
 }
 
 function mapToChildDto(
@@ -22,6 +30,7 @@ function mapToChildDto(
   relationships: GetChildRelationshipsDbResult,
   pinGrants: GetChildPinGrantsDbResult,
   permissionTypes: GetChildPermissionTypesDbResult,
+  diseaseAssignations: GetChildDiseaseAssignationsDbResult,
 ): ChildResumeDto | null {
   if (rawChild == null) return null;
 
@@ -32,6 +41,8 @@ function mapToChildDto(
     fullName: `${rawChild.firstName} ${rawChild.lastName}`,
     age: rawChild.birthDate ? calculateAge(rawChild.birthDate) : undefined,
     birthDate: rawChild.birthDate ?? undefined,
+    firstClassDate: rawChild.firstClassDate ?? undefined,
+    address: rawChild.address ?? undefined,
     identityCardNumber: rawChild.identityCardNumber ?? undefined,
     classroomName: registration?.class.classroom?.name ?? undefined,
     contacts: relationships.map((r) => ({
@@ -56,20 +67,33 @@ function mapToChildDto(
       shortName: permissionType.shortName,
       hasIt: permissionType.permissions.length > 0,
     })),
+    diseases: diseaseAssignations.map((da) => ({
+      id: da.disease.id,
+      name: da.disease.name,
+      description: da.disease.description ?? undefined,
+      notes: da.notes ?? undefined,
+    })),
   };
 }
 
 export async function getChildResume(
   childId: number,
 ): Promise<ChildResumeDto | null> {
-  const [child, classroom, relationships, pinGrants, permissionTypes] =
-    await Promise.all([
-      childRepository.getChildById(childId),
-      childRepository.getChildLatestRegistration(childId),
-      childRepository.getChildRelationships(childId),
-      childRepository.getChildPinGrants(childId),
-      childRepository.getChildPermissionTypes(childId),
-    ]);
+  const [
+    child,
+    classroom,
+    relationships,
+    pinGrants,
+    permissionTypes,
+    diseaseAssignations,
+  ] = await Promise.all([
+    childRepository.getChildById(childId),
+    childRepository.getChildLatestRegistration(childId),
+    childRepository.getChildRelationships(childId),
+    childRepository.getChildPinGrants(childId),
+    childRepository.getChildPermissionTypes(childId),
+    childRepository.getDiseases(childId),
+  ]);
 
   return mapToChildDto(
     child,
@@ -77,5 +101,6 @@ export async function getChildResume(
     relationships,
     pinGrants,
     permissionTypes,
+    diseaseAssignations,
   );
 }

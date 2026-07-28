@@ -2,6 +2,7 @@ import Header, { ReturnButton } from "@/components/layout/header";
 import { Badge } from "@/components/ui/badge";
 import { Typography } from "@/components/ui/typography";
 import ChildContactsList from "@/features/children/components/ChildContactsList";
+import ChildDiseasesList from "@/features/children/components/ChildDeseasesList";
 import ChildGeneralDataCard from "@/features/children/components/ChildGeneralDataCard";
 import ChildPermissionList from "@/features/children/components/ChildPermissionList";
 import ChildPinsList from "@/features/children/components/ChildPinsList";
@@ -48,9 +49,16 @@ export default async function ResumePage({
             <ChildContactsList contacts={child.contacts} />
           )}
 
-          {child.pins.length > 0 && <ChildPinsList pins={child.pins} />}
+          {child.pins.length > 0 && (
+            <ChildPinsList
+              pins={child.pins}
+              firstClassDate={child.firstClassDate}
+            />
+          )}
 
           <ChildPermissionList permissions={child.permissions} />
+
+          <ChildDiseasesList diseases={child.diseases} />
         </section>
       </main>
     </>

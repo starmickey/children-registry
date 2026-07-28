@@ -1,9 +1,22 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Item, ItemMedia, ItemContent, ItemTitle } from "@/components/ui/item";
-import { Star } from "lucide-react";
+import {
+  Item,
+  ItemMedia,
+  ItemContent,
+  ItemTitle,
+  ItemSeparator,
+} from "@/components/ui/item";
+import { Calendar, Star } from "lucide-react";
 import { PinDto } from "../types";
+import { calculateAge } from "@/lib/utils";
 
-export default async function ChildPinsList({ pins }: { pins: PinDto[] }) {
+export default async function ChildPinsList({
+  pins,
+  firstClassDate,
+}: {
+  pins: PinDto[];
+  firstClassDate?: Date;
+}) {
   return (
     <Card>
       <CardHeader>
@@ -22,6 +35,22 @@ export default async function ChildPinsList({ pins }: { pins: PinDto[] }) {
             </ItemContent>
           </Item>
         ))}
+
+        <ItemSeparator />
+
+        {firstClassDate && (
+          <Item size="sm" className="text-muted-foreground">
+            <ItemMedia variant="icon">
+              <Calendar />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>
+                Inicio en IAM: {firstClassDate?.toLocaleDateString("es-ES")} (
+                {calculateAge(firstClassDate)} años)
+              </ItemTitle>
+            </ItemContent>
+          </Item>
+        )}
       </CardContent>
     </Card>
   );

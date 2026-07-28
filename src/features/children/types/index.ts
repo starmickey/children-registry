@@ -14,6 +14,8 @@ export interface ChildDto {
   firstName: string;
   lastName: string;
   fullName: string;
+  firstClassDate?: Date;
+  address?: string;
   identityCardNumber?: string;
   age?: number;
   birthDate?: Date;
@@ -42,4 +44,11 @@ export interface ChildPermissionDto {
   name: string;
   shortName: string;
   hasIt: boolean;
+}
+
+export interface ChildDiseaseDto {
+  id: number;
+  name: string;
+  description?: string;
+  notes?: string;
 }
