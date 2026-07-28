@@ -12,6 +12,7 @@ model Child {
   firstName          String              @map("first_name")
   lastName           String              @map("last_name")
   identityCardNumber String?             @map("identity_card_number")
+  address            String?
   birthDate          DateTime?           @map("birth_date")
   createdAt          DateTime            @default(now()) @map("created_at")
   updatedAt          DateTime            @updatedAt @map("updated_at")
