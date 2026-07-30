@@ -1,7 +1,8 @@
-import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, DM_Sans, Playpen_Sans } from "next/font/google";
-import "./globals.css";
 import { cn } from "@/lib/utils";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata, Viewport } from "next";
+import { DM_Sans, Geist, Geist_Mono, Playpen_Sans } from "next/font/google";
+import "./globals.css";
 
 const playpenSans = Playpen_Sans({
   subsets: ["latin"],
@@ -31,7 +32,9 @@ export const metadata: Metadata = {
       { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
@@ -61,6 +64,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">{children}</body>
+      <SpeedInsights />
     </html>
   );
 }
