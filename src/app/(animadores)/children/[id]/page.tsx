@@ -1,5 +1,4 @@
 import Header, { ReturnButton } from "@/components/layout/header";
-import { Badge } from "@/components/ui/badge";
 import { Typography } from "@/components/ui/typography";
 import ChildContactsList from "@/features/children/components/ChildContactsList";
 import ChildDiseasesList from "@/features/children/components/ChildDeseasesList";

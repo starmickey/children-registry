@@ -30,6 +30,7 @@ export default function ChildrenSearchInput() {
     const params = new URLSearchParams(searchParams);
 
     params.delete("q");
+    params.delete("ya"); // if enabled, quit filter that shows other years data
 
     setSearchString("");
     setExpanded(false);

@@ -3,27 +3,48 @@ import { Button } from "@/components/ui/button";
 import { ChildrenClassroomFilters } from "@/features/children/components/ChildrenClassroomFilters";
 import ChildrenList from "@/features/children/components/ChildrenList";
 import ChildrenSearchInput from "@/features/children/components/ChildrenSearchInput";
+import ChildrenFetchAllRegisteredButton from "@/features/children/components/ChildrenFetchAllRegisteredButton";
 import { getClassroomsByYear } from "@/features/children/services/getClassroomsByYear";
 import { getRegisteredChildrenByYear } from "@/features/children/services/getRegisteredChildrenByYear";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import z from "zod";
+
+const currentYear = () => new Date().getFullYear();
+
+const searchParamsSchema = z.object({
+  q: z
+    .string()
+    .min(1)
+    .optional()
+    .transform((q) => q?.trim()),
+  cr: z.coerce.number().min(1).optional(),
+  y: z.coerce.number().min(1).optional().default(currentYear()),
+  ya: z.coerce.boolean().default(false)
+});
 
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; cr?: number; y?: number }>;
+  searchParams: Promise<z.input<typeof searchParamsSchema>>;
 }) {
-  const params = await searchParams;
+  const parseResult = searchParamsSchema.safeParse(await searchParams);
 
-  const year = params.y ? Number(params.y) : new Date().getFullYear();
-  const classroomId = params.cr ? Number(params.cr) : undefined;
-  const searchQuery = params.q?.trim() || undefined;
+  if (!parseResult.success) {
+    redirect("/children");
+  }
+
+  const year = parseResult.data.y;
+  const classroomId = parseResult.data.cr;
+  const searchQuery = parseResult.data.q;
+  const showAllYears = parseResult.data.ya;
 
   const [children, classrooms] = await Promise.all([
     getRegisteredChildrenByYear({
       searchQuery,
       classroomId,
-      year,
+      year: !showAllYears ? year : undefined,
     }),
     getClassroomsByYear(year),
   ]);
@@ -46,6 +67,8 @@ export default async function Page({
         />
 
         <ChildrenList childItems={children} />
+
+        {searchQuery && !showAllYears && <ChildrenFetchAllRegisteredButton />}
       </main>
     </>
   );

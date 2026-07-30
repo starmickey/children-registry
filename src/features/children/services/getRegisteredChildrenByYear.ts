@@ -40,7 +40,7 @@ function mapToChildDto(rawChild: RegisteredChildDbResult): RegisteredChildDto {
  * Filter parameters passed from the URL/Page to the Service & Repository
  */
 export interface GetChildrenFilters {
-  year: number;
+  year?: number;
   classroomId?: number;
   searchQuery?: string;
 }
@@ -54,8 +54,8 @@ export async function getRegisteredChildrenByYear(
 ): Promise<ChildDto[]> {
   // 1. Business Default: Enforce current academic year if unspecified
   const validatedFilters: GetChildrenFilters = {
-    year: Number(filters.year),
-    classroomId: Number(filters.classroomId) || undefined,
+    year: filters.year ? Number(filters.year) : undefined,
+    classroomId: filters.classroomId ? Number(filters.classroomId) : undefined,
     searchQuery: filters.searchQuery?.trim() || undefined,
   };
 

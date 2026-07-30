@@ -7,7 +7,7 @@ export const childRepository = {
    * Leverages Prisma's relational filtering to execute SQL INNER JOIN / EXISTS clauses.
    */
   async findRegisteredByYear(filters?: {
-    year: number;
+    year?: number;
     classroomId?: number;
     searchQuery?: string;
   }) {
@@ -23,7 +23,9 @@ export const childRepository = {
         registrations: {
           where: {
             class: {
-              year,
+              ...(year && {
+                year,
+              }),
               ...(classroomId && {
                 classroom: {
                   id: classroomId,
