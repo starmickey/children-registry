@@ -22,7 +22,7 @@ export default async function ChildrenList({
           <Button
             variant="secondary"
             type="button"
-            className="w-full justify-start"
+            className="w-full justify-start truncate"
             size="lg"
           >
             {child.firstName} {child.lastName}
