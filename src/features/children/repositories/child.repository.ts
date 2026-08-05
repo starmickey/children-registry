@@ -55,14 +55,23 @@ export const childRepository = {
             },
           },
         },
-        // Optional search filter by name
+        // Optional search filter by name: every search word must match at least one field.
         ...(searchQuery
           ? {
-              OR: [
-                { alias: { contains: searchQuery, mode: "insensitive" } },
-                { firstName: { contains: searchQuery, mode: "insensitive" } },
-                { lastName: { contains: searchQuery, mode: "insensitive" } },
-              ],
+              OR: searchQuery
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean)
+                .map((word) => ({
+                  OR: [
+                    { firstName: { startsWith: word, mode: "insensitive" } },
+                    { lastName: { startsWith: word, mode: "insensitive" } },
+                    { alias: { startsWith: word, mode: "insensitive" } },
+                    { firstName: { contains: ` ${word}`, mode: "insensitive" } },
+                    { lastName: { contains: ` ${word}`, mode: "insensitive" } },
+                    { alias: { contains: ` ${word}`, mode: "insensitive" } },
+                  ],
+                })),
             }
           : {}),
       },
