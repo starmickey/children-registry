@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronLeft as ArrowLeft, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { Typography } from "@/components/ui/typography";
@@ -13,6 +13,8 @@ export default function ChildrenSearchInput() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
   const defaultSearchString = searchParams.get("q")?.toString();
 
   const [expanded, setExpanded] = useState<boolean>(
@@ -21,6 +23,13 @@ export default function ChildrenSearchInput() {
   const [searchString, setSearchString] = useState<string>(
     defaultSearchString ?? "",
   );
+
+  useEffect(() => {
+    if (expanded) {
+      searchInputRef.current?.focus();
+      console.log(searchInputRef.current);
+    }
+  }, [expanded]);
 
   function handleSearchButtonClick() {
     setExpanded(true);
@@ -64,6 +73,7 @@ export default function ChildrenSearchInput() {
       <Input
         placeholder="Ingrese un nombre"
         value={searchString}
+        ref={searchInputRef}
         onChange={(e) => {
           setSearchString(e.target.value);
           handleSearch(e.target.value);
