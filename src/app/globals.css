@@ -78,7 +78,7 @@
 :root {
   --card: #FFF7E6;
   --card-foreground: oklch(0.153 0.006 107.1);
-  --popover: oklch(1 0 0);
+  --popover: #fffaf0;
   --popover-foreground: oklch(0.153 0.006 107.1);
   --primary: #C50077;
   --primary-foreground: oklch(0.988 0.003 106.5);
@@ -91,8 +91,8 @@
   --accent-foreground: oklch(0.228 0.013 107.4);
   --destructive: #e7000b;
   --success: #008000;
-  --border: #ede6d8;
-  --input: rgb(218, 218, 196);
+  --border: #dadac4;
+  --input: #dadac4;
   --ring: oklch(88.399% 0.02143 106.91);
   --chart-1: oklch(0.88 0.011 106.6);
   --chart-2: oklch(0.58 0.031 107.3);

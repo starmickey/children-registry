@@ -1,5 +1,7 @@
 // src/features/children/repositories/child.repository.ts
 import { prisma } from "@/lib/prisma";
+import { CreateChildDto } from "../types";
+import { Prisma } from "../../../../generated/prisma/browser";
 
 export const childRepository = {
   /**
@@ -67,7 +69,9 @@ export const childRepository = {
                     { firstName: { startsWith: word, mode: "insensitive" } },
                     { lastName: { startsWith: word, mode: "insensitive" } },
                     { alias: { startsWith: word, mode: "insensitive" } },
-                    { firstName: { contains: ` ${word}`, mode: "insensitive" } },
+                    {
+                      firstName: { contains: ` ${word}`, mode: "insensitive" },
+                    },
                     { lastName: { contains: ` ${word}`, mode: "insensitive" } },
                     { alias: { contains: ` ${word}`, mode: "insensitive" } },
                   ],
@@ -233,6 +237,43 @@ export const childRepository = {
         disease: {
           removedAt: null,
         },
+      },
+    });
+  },
+
+  async create(
+    data: CreateChildDto,
+    client: Prisma.TransactionClient = prisma,
+  ) {
+    return client.child.create({
+      data,
+    });
+  },
+
+  async registerToClass(
+    childId: number,
+    classId: number,
+    client: Prisma.TransactionClient = prisma,
+  ) {
+    return client.registration.create({
+      data: {
+        childId,
+        classId,
+      },
+    });
+  },
+
+  async addRelationship(
+    childId: number,
+    contactId: number,
+    relationshipTypeId: number,
+    client: Prisma.TransactionClient = prisma,
+  ) {
+    return client.relationship.create({
+      data: {
+        childId,
+        contactId,
+        relationshipTypeId,
       },
     });
   },

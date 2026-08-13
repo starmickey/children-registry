@@ -54,3 +54,23 @@ export interface ChildDiseaseDto {
   description?: string;
   notes?: string;
 }
+
+export interface RelationshipTypeDto {
+  id: number;
+  name: string;
+}
+
+export interface CreateChildDto {
+  firstName: string;
+  lastName: string;
+  alias?: string;
+  address?: string;
+  identityCardNumber?: string;
+  birthDate?: Date;
+}
+
+export interface CreateContactDto {
+  firstName: string;
+  lastName: string;
+  identityCardNumber?: string;
+}
