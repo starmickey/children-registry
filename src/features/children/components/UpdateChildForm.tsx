@@ -35,11 +35,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ClassroomDto, RelationshipTypeDto } from "../types";
+import { useTransition } from "react";
 
 export interface UpdateChildFormProps {
   defaultValues?: CreateChildInput;
-  onSubmit: (data: CreateChildInput) => void;
-  isSubmitting?: boolean;
+  onSubmit: (data: CreateChildInput) => Promise<void>;
   classrooms: ClassroomDto[];
   relationshipTypes: RelationshipTypeDto[];
 }
@@ -47,10 +47,11 @@ export interface UpdateChildFormProps {
 export default function UpdateChildForm({
   defaultValues,
   onSubmit,
-  isSubmitting,
   classrooms,
   relationshipTypes,
 }: UpdateChildFormProps) {
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm({
     resolver: zodResolver(createChildSchema),
     defaultValues: {
@@ -74,9 +75,15 @@ export default function UpdateChildForm({
     value: r.id,
   }));
 
+  function handleSubmit(data: CreateChildInput) {
+    startTransition(async () => {
+      await onSubmit(data);
+    });
+  }
+
   return (
     <form
-      onSubmit={form.handleSubmit(onSubmit)}
+      onSubmit={form.handleSubmit(handleSubmit)}
       className="flex flex-col gap-6"
     >
       {/* ---------------- GENERAL INFO CARD ---------------- */}
@@ -88,7 +95,10 @@ export default function UpdateChildForm({
             render={({ field, fieldState }) => (
               <>
                 <User className="h-5 mt-1.5 text-primary" />
-                <Field data-invalid={fieldState.invalid}>
+                <Field
+                  data-invalid={fieldState.invalid}
+                  aria-disabled={isPending}
+                >
                   <Input
                     {...field}
                     id={field.name}
@@ -97,6 +107,7 @@ export default function UpdateChildForm({
                     placeholder="Nombre"
                     autoComplete="off"
                     className="pl-0 w-full"
+                    disabled={isPending}
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -110,7 +121,11 @@ export default function UpdateChildForm({
             name="lastName"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid} className="col-start-2">
+              <Field
+                data-invalid={fieldState.invalid}
+                className="col-start-2"
+                aria-disabled={isPending}
+              >
                 <Input
                   {...field}
                   id={field.name}
@@ -119,6 +134,7 @@ export default function UpdateChildForm({
                   placeholder="Apellido"
                   autoComplete="off"
                   className="pl-0 w-full"
+                  disabled={isPending}
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
@@ -131,7 +147,11 @@ export default function UpdateChildForm({
             name="alias"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid} className="col-start-2">
+              <Field
+                data-invalid={fieldState.invalid}
+                className="col-start-2"
+                aria-disabled={isPending}
+              >
                 <Input
                   {...field}
                   id={field.name}
@@ -139,6 +159,7 @@ export default function UpdateChildForm({
                   value={field.value ?? ""}
                   placeholder="Alias"
                   className="pl-0 w-full"
+                  disabled={isPending}
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
@@ -153,7 +174,10 @@ export default function UpdateChildForm({
             render={({ field, fieldState }) => (
               <>
                 <NotebookIcon className="h-5 mt-1.5 text-primary" />
-                <Field data-invalid={fieldState.invalid}>
+                <Field
+                  data-invalid={fieldState.invalid}
+                  aria-disabled={isPending}
+                >
                   <Input
                     {...field}
                     id={field.name}
@@ -161,6 +185,7 @@ export default function UpdateChildForm({
                     value={field.value ?? ""}
                     placeholder="D.N.I."
                     className="pl-0 w-full"
+                    disabled={isPending}
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -176,7 +201,10 @@ export default function UpdateChildForm({
             render={({ field, fieldState }) => (
               <>
                 <Home className="h-5 mt-1.5 text-primary" />
-                <Field data-invalid={fieldState.invalid}>
+                <Field
+                  data-invalid={fieldState.invalid}
+                  aria-disabled={isPending}
+                >
                   <Input
                     {...field}
                     id={field.name}
@@ -185,6 +213,7 @@ export default function UpdateChildForm({
                     placeholder="Dirección"
                     autoComplete="off"
                     className="pl-0 w-full"
+                    disabled={isPending}
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -205,12 +234,13 @@ export default function UpdateChildForm({
             render={({ field, fieldState }) => (
               <>
                 <Church className="text-primary" />
-                <Field>
+                <Field aria-disabled={isPending}>
                   <Select
                     items={classroomItems}
                     name={field.name}
                     value={field.value ?? ""}
                     onValueChange={(fieldValue) => field.onChange(fieldValue)}
+                    disabled={isPending}
                   >
                     <SelectTrigger aria-invalid={fieldState.invalid}>
                       <SelectValue placeholder="Seleccionar sede" />
@@ -264,11 +294,13 @@ export default function UpdateChildForm({
                   <Field
                     data-invalid={fieldState.invalid}
                     className="col-start-2 mt-2"
+                    aria-disabled={isPending}
                   >
                     <Select
                       items={relationshipTypeItems}
                       value={field.value ?? ""}
                       onValueChange={(fieldValue) => field.onChange(fieldValue)}
+                      disabled={isPending}
                     >
                       <SelectTrigger
                         className="flex justify-start aria-[invalid=false]:border-0 text-xs text-primary p-0 h-4 data-[size=default]:h-4 [&_svg]:text-primary **:data-[slot=select-value]:flex-none"
@@ -306,7 +338,10 @@ export default function UpdateChildForm({
                 render={({ field, fieldState }) => (
                   <>
                     <User className="h-5 text-primary mt-1.5" />
-                    <Field data-invalid={fieldState.invalid}>
+                    <Field
+                      data-invalid={fieldState.invalid}
+                      aria-disabled={isPending}
+                    >
                       <Input
                         {...field}
                         id={field.name}
@@ -314,6 +349,7 @@ export default function UpdateChildForm({
                         placeholder="Nombre"
                         className="pl-0 w-full"
                         value={field.value ?? ""}
+                        disabled={isPending}
                       />
                       {fieldState.invalid && (
                         <FieldError errors={[fieldState.error]} />
@@ -330,6 +366,7 @@ export default function UpdateChildForm({
                   <Field
                     data-invalid={fieldState.invalid}
                     className="col-start-2"
+                    aria-disabled={isPending}
                   >
                     <Input
                       {...field}
@@ -338,6 +375,7 @@ export default function UpdateChildForm({
                       aria-invalid={fieldState.invalid}
                       placeholder="Apellido"
                       className="pl-0 w-full"
+                      disabled={isPending}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
@@ -355,6 +393,7 @@ export default function UpdateChildForm({
                     <Field
                       data-invalid={fieldState.invalid}
                       className="col-start-2"
+                      aria-disabled={isPending}
                     >
                       <Input
                         {...field}
@@ -363,6 +402,7 @@ export default function UpdateChildForm({
                         value={field.value ?? ""}
                         placeholder="D.N.I."
                         className="pl-0 w-full"
+                        disabled={isPending}
                       />
                       {fieldState.invalid && (
                         <FieldError errors={[fieldState.error]} />
@@ -379,7 +419,10 @@ export default function UpdateChildForm({
                   render={({ field, fieldState }) => (
                     <>
                       <Plus className="h-5 text-primary" />
-                      <Field data-invalid={fieldState.invalid}>
+                      <Field
+                        data-invalid={fieldState.invalid}
+                        aria-disabled={isPending}
+                      >
                         <Input
                           {...field}
                           id={field.name}
@@ -387,6 +430,7 @@ export default function UpdateChildForm({
                           aria-invalid={fieldState.invalid}
                           placeholder="Añadir teléfono"
                           className="pl-0 w-full"
+                          disabled={isPending}
                         />
                         {fieldState.invalid && (
                           <FieldError errors={[fieldState.error]} />
@@ -400,7 +444,12 @@ export default function UpdateChildForm({
             </div>
           ))}
 
-          <Button type="button" variant="ghost" size="icon">
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            disabled={isPending}
+          >
             <Plus className="h-5 text-primary" />
           </Button>
           <Button
@@ -408,6 +457,7 @@ export default function UpdateChildForm({
             variant="ghost"
             className="justify-start"
             onClick={() => append(defaultCreateChildContactValues)}
+            disabled={isPending}
           >
             Añadir contacto
           </Button>
@@ -416,8 +466,13 @@ export default function UpdateChildForm({
 
       {/* ---------------- CONTACT INFO CARD ---------------- */}
 
-      <Button type="submit" size="lg" className="mt-6" disabled={isSubmitting}>
-        Guardar
+      <Button
+        type="submit"
+        size="lg"
+        className={`mt-6 ${isPending ? "animate-pulse" : ""}`}
+        disabled={isPending}
+      >
+        {isPending ? "Guardando..." : "Guardar"}
       </Button>
     </form>
   );

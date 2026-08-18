@@ -13,10 +13,19 @@ export default function Page() {
         <p className="text-3xl text-success font-bold font-heading mb-16 text-center">
           ¡Creado exitosamente!
         </p>
+
         <FaCircleCheck className="w-32 h-32 text-success mb-16" />
-        <Link href="/children">
-          <Button size="lg">Volver</Button>
-        </Link>
+
+        <div className="flex flex-col items-center gap-4">
+          <Link href="/children">
+            <Button size="lg" className="w-24">Volver</Button>
+          </Link>
+          <Link href="/children/new">
+            <Button size="lg" variant="primary-outline" className="w-24">
+              Crear otro
+            </Button>
+          </Link>
+        </div>
       </main>
     </>
   );

@@ -46,7 +46,7 @@ export const createChildSchema = z.object({
 export const defaultCreateChildContactValues = {
   firstName: "",
   lastName: "",
-  relationShip: 0,
+  relationShip: null as unknown as number,
   phones: [
     {
       number: "",
@@ -54,7 +54,7 @@ export const defaultCreateChildContactValues = {
   ],
 };
 
-export const defaultCreateChildValues: Partial<CreateChildInput> = {
+export const defaultCreateChildValues = {
   contacts: [defaultCreateChildContactValues],
 };
 
