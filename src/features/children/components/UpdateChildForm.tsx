@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ChevronDownIcon,
   Church,
+  Cake,
   Home,
   NotebookIcon,
   Plus,
@@ -100,6 +101,16 @@ export default function UpdateChildForm({
 
       await onSubmit(data as CreateChildInput);
     });
+  }
+
+  function formatDateInput(value?: Date) {
+    if (!value) return "";
+
+    const year = value.getFullYear();
+    const month = String(value.getMonth() + 1).padStart(2, "0");
+    const day = String(value.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
   }
 
   return (
@@ -233,6 +244,42 @@ export default function UpdateChildForm({
                     value={field.value ?? ""}
                     placeholder="Dirección"
                     autoComplete="off"
+                    className="pl-0 w-full"
+                    disabled={isPending}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              </>
+            )}
+          />
+
+          <Controller
+            name="birthDate"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <>
+                <Cake className="h-5 mt-1.5 text-primary" />
+                <Field
+                  data-invalid={fieldState.invalid}
+                  aria-disabled={isPending}
+                >
+                  <Input
+                    type="date"
+                    name={field.name}
+                    ref={field.ref}
+                    id={field.name}
+                    aria-invalid={fieldState.invalid}
+                    value={formatDateInput(field.value)}
+                    onBlur={field.onBlur}
+                    onChange={(event) =>
+                      field.onChange(
+                        event.target.value
+                          ? new Date(`${event.target.value}T00:00:00`)
+                          : undefined,
+                      )
+                    }
                     className="pl-0 w-full"
                     disabled={isPending}
                   />
