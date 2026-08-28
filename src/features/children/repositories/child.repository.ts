@@ -1,6 +1,6 @@
 // src/features/children/repositories/child.repository.ts
 import { prisma } from "@/lib/prisma";
-import { CreateChildDto } from "../types";
+import { CreateChildDto, EditChildDto } from "../types";
 import { Prisma } from "../../../../generated/prisma/browser";
 
 export const childRepository = {
@@ -250,6 +250,19 @@ export const childRepository = {
     });
   },
 
+  async edit(
+    { id, ...data }: EditChildDto,
+    client: Prisma.TransactionClient = prisma,
+  ) {
+    return client.child.update({
+      where: {
+        id,
+        removedAt: null,
+      },
+      data,
+    });
+  },
+
   async registerToClass(
     childId: number,
     classId: number,
@@ -257,6 +270,27 @@ export const childRepository = {
   ) {
     return client.registration.create({
       data: {
+        childId,
+        classId,
+      },
+    });
+  },
+
+  async upsertRegistrationToClass(
+    childId: number,
+    classId: number,
+    client: Prisma.TransactionClient = prisma,
+  ) {
+    return client.registration.upsert({
+      where: {
+        childId_classId: {
+          childId,
+          classId,
+        },
+        removedAt: null,
+      },
+      update: {},
+      create: {
         childId,
         classId,
       },
@@ -274,6 +308,26 @@ export const childRepository = {
         childId,
         contactId,
         relationshipTypeId,
+      },
+    });
+  },
+
+  async removeRelationship(
+    childId: number,
+    contactId: number,
+    relationshipTypeId: number,
+    client: Prisma.TransactionClient = prisma,
+  ) {
+    return client.relationship.update({
+      where: {
+        childId_contactId_relationshipTypeId: {
+          childId,
+          contactId,
+          relationshipTypeId,
+        },
+      },
+      data: {
+        removedAt: new Date(),
       },
     });
   },

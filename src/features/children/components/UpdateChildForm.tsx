@@ -27,6 +27,8 @@ import {
   createChildSchema,
   defaultCreateChildContactValues,
   defaultCreateChildValues,
+  EditChildInput,
+  editChildSchema,
 } from "../schemas/update-child-schema";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -37,14 +39,26 @@ import {
 import { ClassroomDto, RelationshipTypeDto } from "../types";
 import { useTransition } from "react";
 
-export interface UpdateChildFormProps {
+export interface CreateChildFormProps {
   defaultValues?: CreateChildInput;
   onSubmit: (data: CreateChildInput) => Promise<void>;
   classrooms: ClassroomDto[];
   relationshipTypes: RelationshipTypeDto[];
 }
 
+export interface EditChildFormProps {
+  defaultValues: EditChildInput;
+  onSubmit: (data: EditChildInput) => Promise<void>;
+  classrooms: ClassroomDto[];
+  relationshipTypes: RelationshipTypeDto[];
+}
+
+export type UpdateChildFormProps =
+  | ({ mode: "create" } & CreateChildFormProps)
+  | ({ mode: "edit" } & EditChildFormProps);
+
 export default function UpdateChildForm({
+  mode,
   defaultValues,
   onSubmit,
   classrooms,
@@ -52,8 +66,10 @@ export default function UpdateChildForm({
 }: UpdateChildFormProps) {
   const [isPending, startTransition] = useTransition();
 
+  const schema = mode === "edit" ? editChildSchema : createChildSchema;
+
   const form = useForm({
-    resolver: zodResolver(createChildSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       ...defaultCreateChildValues,
       ...defaultValues,
@@ -75,9 +91,14 @@ export default function UpdateChildForm({
     value: r.id,
   }));
 
-  function handleSubmit(data: CreateChildInput) {
+  function handleSubmit(data: CreateChildInput | EditChildInput) {
     startTransition(async () => {
-      await onSubmit(data);
+      if (mode === "edit") {
+        await onSubmit(data as EditChildInput);
+        return;
+      }
+
+      await onSubmit(data as CreateChildInput);
     });
   }
 
@@ -411,7 +432,7 @@ export default function UpdateChildForm({
                   </>
                 )}
               />
-              {fields[idx].phones?.map((phone, i) => (
+              {fields[idx].phones?.map((_phone, i) => (
                 <Controller
                   key={`contacts-${idx}-phones-${i}-number`}
                   name={`contacts.${idx}.phones.${i}.number`}

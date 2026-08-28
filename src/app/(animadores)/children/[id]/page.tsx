@@ -1,4 +1,5 @@
 import Header, { ReturnButton } from "@/components/layout/header";
+import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import ChildContactsList from "@/features/children/components/ChildContactsList";
 import ChildDiseasesList from "@/features/children/components/ChildDeseasesList";
@@ -7,6 +8,7 @@ import ChildPermissionList from "@/features/children/components/ChildPermissionL
 import ChildPinsList from "@/features/children/components/ChildPinsList";
 import ClassroomBadge from "@/features/children/components/ClassroomBadge";
 import { getChildResume } from "@/features/children/services/getChildResume";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import z from "zod";
 
@@ -34,7 +36,7 @@ export default async function ResumePage({
     <>
       <Header className="justify-between">
         <ReturnButton href="/children" />
-        
+
         {child.classroom && <ClassroomBadge classroom={child.classroom} />}
       </Header>
 
@@ -58,6 +60,10 @@ export default async function ResumePage({
           <ChildPermissionList permissions={child.permissions} />
 
           <ChildDiseasesList diseases={child.diseases} />
+
+          <Link href={`/children/${childId}/edit`}>
+            <Button type="button" className="w-full">Modificar</Button>
+          </Link>
         </section>
       </main>
     </>

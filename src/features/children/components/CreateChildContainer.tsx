@@ -11,6 +11,7 @@ export default async function CreateChildContainer() {
   return (
     <>
       <UpdateChildForm
+        mode="create"
         classrooms={classrooms}
         relationshipTypes={relationshipTypes}
         onSubmit={async (data) => {

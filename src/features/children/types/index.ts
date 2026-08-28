@@ -5,8 +5,8 @@ export interface ClassroomDto {
 
 export interface ClassDto {
   id: number;
-  name: string;
-  year: number;
+  name?: string;
+  year?: number;
 }
 
 export interface ChildDto {
@@ -28,6 +28,7 @@ export interface ContactDto {
   lastName: string;
   fullName: string;
   identityCardNumber?: string;
+  relationShipId: number;
   relationShip: string;
   phones: {
     id: number;
@@ -69,8 +70,16 @@ export interface CreateChildDto {
   birthDate?: Date;
 }
 
+export interface EditChildDto extends CreateChildDto {
+  id: number;
+}
+
 export interface CreateContactDto {
   firstName: string;
   lastName: string;
   identityCardNumber?: string;
+}
+
+export interface UpsertContactDto extends CreateContactDto {
+  id?: number;
 }

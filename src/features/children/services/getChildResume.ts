@@ -2,6 +2,7 @@ import {
   ChildDiseaseDto,
   ChildDto,
   ChildPermissionDto,
+  ClassDto,
   ClassroomDto,
   ContactDto,
   PinDto,
@@ -17,7 +18,8 @@ import {
 } from "../repositories/child.repository";
 import { calculateAge } from "@/lib/utils";
 
-interface ChildResumeDto extends ChildDto {
+export interface ChildResumeDto extends ChildDto {
+  class?: ClassDto;
   classroom?: ClassroomDto;
   contacts: ContactDto[];
   pins: PinDto[];
@@ -46,6 +48,11 @@ function mapToChildDto(
     firstClassDate: rawChild.firstClassDate ?? undefined,
     address: rawChild.address ?? undefined,
     identityCardNumber: rawChild.identityCardNumber ?? undefined,
+    class: registration?.class ? {
+      id: registration?.class.id,
+      name: registration?.class.classroom?.name,
+      year: registration?.class.year,
+    } : undefined,
     classroom: registration?.class.classroom
       ? {
           id: registration?.class.classroom?.id,
@@ -58,6 +65,7 @@ function mapToChildDto(
       lastName: r.contact.lastName,
       fullName: `${r.contact.firstName} ${r.contact.lastName}`,
       identityCardNumber: r.contact.identityCardNumber ?? undefined,
+      relationShipId: r.relationshipType.id,
       relationShip: r.relationshipType.name,
       phones: r.contact.phones.map((p) => ({
         id: p.id,
