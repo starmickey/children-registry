@@ -21,7 +21,7 @@ const searchParamsSchema = z.object({
     .transform((q) => q?.trim()),
   cr: z.coerce.number().min(1).optional(),
   y: z.coerce.number().min(1).optional().default(currentYear()),
-  ya: z.coerce.boolean().default(false)
+  ya: z.coerce.boolean().default(false),
 });
 
 export default async function Page({
@@ -53,8 +53,9 @@ export default async function Page({
     <>
       <Header>
         <ChildrenSearchInput />
-        <Link href="/children/new">
-          <Button variant="ghost" size="icon" type="button">
+        
+        <Link aria-label="Registrar niño" href="/children/new">
+          <Button aria-hidden="true" variant="ghost" size="icon" type="button">
             <Plus />
           </Button>
         </Link>
