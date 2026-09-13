@@ -21,6 +21,7 @@ export const childRepository = {
         id: true,
         firstName: true,
         lastName: true,
+        birthDate: true,
         // Include matching classroom details for context
         registrations: {
           where: {

@@ -19,7 +19,7 @@ export interface ChildDto {
   address?: string;
   identityCardNumber?: string;
   age?: number;
-  birthDate?: Date;
+  birthDate?: Date | null;
 }
 
 export interface ContactDto {

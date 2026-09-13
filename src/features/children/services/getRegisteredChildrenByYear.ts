@@ -31,6 +31,7 @@ function mapToChildDto(rawChild: RegisteredChildDbResult): RegisteredChildDto {
     firstName: rawChild.firstName,
     lastName: rawChild.lastName,
     fullName: `${rawChild.firstName} ${rawChild.lastName}`,
+    birthDate: rawChild.birthDate,
     classroomName,
     classrooms,
   };
@@ -51,7 +52,7 @@ export interface GetChildrenFilters {
  */
 export async function getRegisteredChildrenByYear(
   filters: GetChildrenFilters,
-): Promise<ChildDto[]> {
+): Promise<RegisteredChildDto[]> {
   // 1. Business Default: Enforce current academic year if unspecified
   const validatedFilters: GetChildrenFilters = {
     year: filters.year ? Number(filters.year) : undefined,

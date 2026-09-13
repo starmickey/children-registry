@@ -11,6 +11,8 @@ import { redirect } from "next/navigation";
 import z from "zod";
 import { Typography } from "@/components/ui/typography";
 import Header from "@/components/layout/header";
+import { headers } from "next/headers";
+import ChildrenDataTable from "@/features/children/components/ChildrenDataTable/table";
 
 const currentYear = () => new Date().getFullYear();
 
@@ -29,12 +31,21 @@ export default async function Page({
 }: {
   searchParams: Promise<z.input<typeof searchParamsSchema>>;
 }) {
+  // 1. Determine if it is a mobile phone
+  const headersList = await headers();
+  const userAgent = headersList.get("user-agent") || "";
+
+  // Basic regex check for mobile user agents
+  const isMobile = /mobile|android|iphone|ipad|ipod/i.test(userAgent);
+
+  // 2. Validate parameters
   const parseResult = searchParamsSchema.safeParse(await searchParams);
 
   if (!parseResult.success) {
     redirect("/children");
   }
 
+  // 3. Fetch data
   const year = parseResult.data.y;
   const classroomId = parseResult.data.cr;
   const searchQuery = parseResult.data.q;
@@ -76,7 +87,11 @@ export default async function Page({
         />
       </Header>
 
-      <ChildrenList childItems={children} />
+      {isMobile ? (
+        <ChildrenList childItems={children} />
+      ) : (
+        <ChildrenDataTable childItems={children} />
+      )}
 
       {searchQuery && !showAllYears && <ChildrenFetchAllRegisteredButton />}
     </main>
