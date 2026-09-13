@@ -85,10 +85,10 @@ export default function UpdateChildForm({
   });
 
   useEffect(() => {
-    if(form.formState.errors) {
-      console.log(form.formState.errors)
+    if (form.formState.errors) {
+      console.log(form.formState.errors);
     }
-  }, [form.formState.errors])
+  }, [form.formState.errors]);
 
   const classroomItems = classrooms.map((c) => ({
     label: c.name,
@@ -578,18 +578,12 @@ export default function UpdateChildForm({
           <Button
             type="button"
             variant="ghost"
-            size="icon"
-            disabled={isPending}
-          >
-            <Plus className="h-5 text-primary" />
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            className="justify-start"
+            className="grid grid-cols-[1.25rem_1fr] gap-y-0 gap-x-3 p-0 text-base"
+            size="lg"
             onClick={() => append(defaultCreateChildContactValues)}
             disabled={isPending}
           >
+            <Plus className="h-5! w-5! text-primary col-start-1" />
             Añadir contacto
           </Button>
         </CollapsibleContent>
