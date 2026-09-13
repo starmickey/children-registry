@@ -5,9 +5,14 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { ClassroomDto } from "../types";
 
-export function ChildrenClassroomFilters({ classrooms, activeId }: {
+export function ChildrenClassroomFilters({
+  classrooms,
+  activeId,
+  className = "",
+}: {
   classrooms: ClassroomDto[];
   activeId?: number;
+  className?: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -29,7 +34,7 @@ export function ChildrenClassroomFilters({ classrooms, activeId }: {
   };
 
   return (
-    <ButtonGroup className="flex w-full mb-4">
+    <ButtonGroup className={`flex mb-4 ${className}`}>
       <Button
         onClick={() => handleFilter()}
         variant={activeId == null ? "default" : "primary-outline"}

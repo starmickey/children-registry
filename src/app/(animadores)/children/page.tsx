@@ -10,6 +10,7 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import z from "zod";
+import { Typography } from "@/components/ui/typography";
 
 const currentYear = () => new Date().getFullYear();
 
@@ -50,27 +51,28 @@ export default async function Page({
   ]);
 
   return (
-    <>
-      <Header>
-        <ChildrenSearchInput />
-        
+    <main className="page">
+      <div className="flex flex-wrap">
+        <Typography variant="H1">Infancia Misionera</Typography>
+
+        <ChildrenSearchInput className="ml-auto" />
+
         <Link aria-label="Registrar niño" href="/children/new">
           <Button aria-hidden="true" variant="ghost" size="icon" type="button">
             <Plus />
           </Button>
         </Link>
-      </Header>
 
-      <main className="container">
         <ChildrenClassroomFilters
           activeId={classroomId}
           classrooms={classrooms}
+          className="w-full sm:w-auto sm:ml-8"
         />
+      </div>
 
-        <ChildrenList childItems={children} />
+      <ChildrenList childItems={children} />
 
-        {searchQuery && !showAllYears && <ChildrenFetchAllRegisteredButton />}
-      </main>
-    </>
+      {searchQuery && !showAllYears && <ChildrenFetchAllRegisteredButton />}
+    </main>
   );
 }

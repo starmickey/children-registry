@@ -7,7 +7,7 @@ export default async function Page() {
       <Header>
         <ReturnButton href="/children" />
       </Header>
-      <main className="container sm:w-1/2 m-auto">
+      <main className="page-card sm:w-1/2 m-auto">
         <CreateChildContainer />
       </main>
     </>

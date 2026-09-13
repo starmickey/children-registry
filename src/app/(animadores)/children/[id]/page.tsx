@@ -8,6 +8,7 @@ import ChildPermissionList from "@/features/children/components/ChildPermissionL
 import ChildPinsList from "@/features/children/components/ChildPinsList";
 import ClassroomBadge from "@/features/children/components/ClassroomBadge";
 import { getChildResume } from "@/features/children/services/getChildResume";
+import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import z from "zod";
@@ -33,25 +34,40 @@ export default async function ResumePage({
   }
 
   return (
-    <>
+    <main className="page">
       <Header className="justify-between">
         <ReturnButton href="/children" />
 
-        {child.classroom && <ClassroomBadge classroom={child.classroom} />}
+        <div className="flex gap-4 items-center">
+          <Link href={`/children/${childId}/edit`}>
+            <Button
+              variant="ghost"
+              size="icon"
+              type="button"
+              className="w-full"
+            >
+              <Pencil />
+            </Button>
+          </Link>
+
+          {child.classroom && <ClassroomBadge classroom={child.classroom} />}
+        </div>
       </Header>
 
-      <main className="container">
-        <Typography level="h1" variant="main-title">
-          {child.fullName}
-        </Typography>
+      <Typography level="h1" variant="main-title">
+        {child.fullName}
+      </Typography>
 
-        <section className="grid grid-cols-1 gap-4 w-full">
+      <section className="grid sm:grid-cols-2 grid-cols-1 gap-4 w-full sm:w-200 mx-auto">
+        <div className="grid grid-cols-1 gap-4">
           <ChildGeneralDataCard child={child} />
 
           {child.contacts.length > 0 && (
             <ChildContactsList contacts={child.contacts} />
           )}
+        </div>
 
+        <div className="grid grid-cols-1 gap-4">
           <ChildPinsList
             pins={child.pins}
             firstClassDate={child.firstClassDate}
@@ -60,12 +76,8 @@ export default async function ResumePage({
           <ChildPermissionList permissions={child.permissions} />
 
           <ChildDiseasesList diseases={child.diseases} />
-
-          <Link href={`/children/${childId}/edit`}>
-            <Button type="button" className="w-full">Modificar</Button>
-          </Link>
-        </section>
-      </main>
-    </>
+        </div>
+      </section>
+    </main>
   );
 }

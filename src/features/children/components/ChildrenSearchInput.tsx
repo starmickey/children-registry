@@ -8,7 +8,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { Typography } from "@/components/ui/typography";
 
-export default function ChildrenSearchInput() {
+export default function ChildrenSearchInput({
+  className = "",
+}: {
+  className?: string;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -27,7 +31,6 @@ export default function ChildrenSearchInput() {
   useEffect(() => {
     if (expanded) {
       searchInputRef.current?.focus();
-      console.log(searchInputRef.current);
     }
   }, [expanded]);
 
@@ -60,39 +63,41 @@ export default function ChildrenSearchInput() {
     router.replace(`${pathname}?${params.toString()}`);
   }, 300);
 
-  return expanded ? (
-    <>
-      <Button
-        variant="ghost"
-        size="icon"
-        type="button"
-        onClick={handleReturnButtonClick}
-      >
-        <ArrowLeft />
-      </Button>
-      <Input
-        placeholder="Ingrese un nombre"
-        value={searchString}
-        ref={searchInputRef}
-        onChange={(e) => {
-          setSearchString(e.target.value);
-          handleSearch(e.target.value);
-        }}
-      />
-    </>
-  ) : (
-    <>
-      <Typography variant="H1" className="flex-1">
-        Infancia Misionera
-      </Typography>
-      <Button
-        variant="ghost"
-        size="icon"
-        type="button"
-        onClick={handleSearchButtonClick}
-      >
-        <Search />
-      </Button>
-    </>
+  return (
+    <div className={className}>
+      {expanded ? (
+        <>
+          <Button
+            variant="ghost"
+            size="icon"
+            type="button"
+            onClick={handleReturnButtonClick}
+          >
+            <ArrowLeft />
+          </Button>
+          <Input
+            placeholder="Ingrese un nombre"
+            value={searchString}
+            ref={searchInputRef}
+            className="sm:w-64"
+            onChange={(e) => {
+              setSearchString(e.target.value);
+              handleSearch(e.target.value);
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <Button
+            variant="ghost"
+            size="icon"
+            type="button"
+            onClick={handleSearchButtonClick}
+          >
+            <Search />
+          </Button>
+        </>
+      )}
+    </div>
   );
 }

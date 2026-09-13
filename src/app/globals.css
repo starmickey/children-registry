@@ -162,11 +162,11 @@
 }
 
 @layer components {
-  .container {
+  .page {
     @apply min-h-screen p-8 pt-4;
   }
 
-  .header {
-    @apply p-8 pb-0;
+  .page-card {
+    @apply min-h-screen p-8 sm:w-120 rounded-xl mx-auto;
   }
 }

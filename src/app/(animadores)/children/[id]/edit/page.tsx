@@ -4,7 +4,6 @@ import { getChildResume } from "@/features/children/services/getChildResume";
 import { notFound } from "next/navigation";
 import z from "zod";
 
-
 export default async function ResumePage({
   params,
 }: {
@@ -27,10 +26,10 @@ export default async function ResumePage({
 
   return (
     <>
-      <Header>
-        <ReturnButton href="/children" />
-      </Header>
-      <main className="container">
+      <main className="page-card">
+        <Header>
+          <ReturnButton href="/children" />
+        </Header>
         <EditChildContainer child={child} />
       </main>
     </>
