@@ -21,6 +21,8 @@ import {
   NotebookIcon,
   Plus,
   User,
+  Minus,
+  Phone,
 } from "lucide-react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import {
@@ -38,7 +40,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ClassroomDto, RelationshipTypeDto } from "../types";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 
 export interface CreateChildFormProps {
   defaultValues?: CreateChildInput;
@@ -77,10 +79,16 @@ export default function UpdateChildForm({
     },
   });
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control: form.control,
     name: "contacts",
   });
+
+  useEffect(() => {
+    if(form.formState.errors) {
+      console.log(form.formState.errors)
+    }
+  }, [form.formState.errors])
 
   const classroomItems = classrooms.map((c) => ({
     label: c.name,
@@ -350,10 +358,10 @@ export default function UpdateChildForm({
           }
         />
         <CollapsibleContent>
-          {fields.map((field, idx) => (
+          {fields.map((_field, idx) => (
             <div
               key={`contacts-${idx}-relationShip-controller`}
-              className="grid grid-cols-[1.25rem_1fr] gap-y-0 gap-x-3 items-center justify-center"
+              className="grid grid-cols-[1.25rem_1fr_1.25rem] gap-y-0 gap-x-3 items-center justify-center"
             >
               <Controller
                 name={`contacts.${idx}.relationShip`}
@@ -405,7 +413,7 @@ export default function UpdateChildForm({
                 control={form.control}
                 render={({ field, fieldState }) => (
                   <>
-                    <User className="h-5 text-primary mt-1.5" />
+                    <User className="h-5 text-primary mt-1.5 col-start-1" />
                     <Field
                       data-invalid={fieldState.invalid}
                       aria-disabled={isPending}
@@ -423,6 +431,16 @@ export default function UpdateChildForm({
                         <FieldError errors={[fieldState.error]} />
                       )}
                     </Field>
+                    <Button
+                      type="button"
+                      aria-label="Eliminar contacto"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => remove(idx)}
+                      disabled={isPending}
+                    >
+                      <Minus className="text-primary" />
+                    </Button>
                   </>
                 )}
               />
@@ -486,7 +504,11 @@ export default function UpdateChildForm({
                   control={form.control}
                   render={({ field, fieldState }) => (
                     <>
-                      <Plus className="h-5 text-primary" />
+                      {i === (fields[idx].phones?.length ?? 0) - 1 ? (
+                        <Plus className="h-5 text-primary col-start-1" />
+                      ) : (
+                        <Phone className="h-5 text-primary col-start-1" />
+                      )}
                       <Field
                         data-invalid={fieldState.invalid}
                         aria-disabled={isPending}
@@ -499,11 +521,52 @@ export default function UpdateChildForm({
                           placeholder="Añadir teléfono"
                           className="pl-0 w-full"
                           disabled={isPending}
+                          onChange={(e) => {
+                            field.onChange(e);
+
+                            const liveContact = form.getValues(
+                              `contacts.${idx}`,
+                            );
+                            const currentPhones = liveContact?.phones ?? [];
+
+                            if (
+                              i === currentPhones.length - 1 &&
+                              e.target.value.trim() !== ""
+                            ) {
+                              update(idx, {
+                                ...liveContact,
+                                phones: [...currentPhones, { number: "" }],
+                              });
+                            }
+                          }}
                         />
                         {fieldState.invalid && (
                           <FieldError errors={[fieldState.error]} />
                         )}
                       </Field>
+
+                      {i !== (fields[idx].phones?.length ?? 0) - 1 && (
+                        <Button
+                          type="button"
+                          aria-label="Eliminar teléfono"
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => {
+                            const liveContact = form.getValues(
+                              `contacts.${idx}`,
+                            );
+                            update(idx, {
+                              ...liveContact,
+                              phones: liveContact?.phones?.filter(
+                                (_, j) => j !== i,
+                              ),
+                            });
+                          }}
+                          disabled={isPending}
+                        >
+                          <Minus className="text-primary" />
+                        </Button>
+                      )}
                     </>
                   )}
                 />
