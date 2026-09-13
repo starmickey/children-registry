@@ -5,7 +5,7 @@ import ChildrenSearchInput from "@/features/children/components/ChildrenSearchIn
 import ChildrenFetchAllRegisteredButton from "@/features/children/components/ChildrenFetchAllRegisteredButton";
 import { getClassroomsByYear } from "@/features/children/services/getClassroomsByYear";
 import { getRegisteredChildrenByYear } from "@/features/children/services/getRegisteredChildrenByYear";
-import { Plus } from "lucide-react";
+import { DownloadIcon, Plus } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import z from "zod";
@@ -13,6 +13,7 @@ import { Typography } from "@/components/ui/typography";
 import Header from "@/components/layout/header";
 import { headers } from "next/headers";
 import ChildrenDataTable from "@/features/children/components/ChildrenDataTable/table";
+import { DownloadChildListExcelButton as DownloadExcelButton } from "@/features/children/components/DownloadChildListExcelButton";
 
 const currentYear = () => new Date().getFullYear();
 
@@ -73,6 +74,12 @@ export default async function Page({
         <ChildrenSearchInput
           className={`ml-auto ${searchQuery != null ? "flex-1 sm:flex-0" : ""}`}
         />
+
+        <DownloadExcelButton>
+          <Button variant="ghost" size="icon" type="button">
+            <DownloadIcon />
+          </Button>
+        </DownloadExcelButton>
 
         <Link aria-label="Registrar niño" href="/children/new">
           <Button aria-hidden="true" variant="ghost" size="icon" type="button">

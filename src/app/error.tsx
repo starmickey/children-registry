@@ -17,7 +17,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="container flex flex-col justify-center items-center">
+    <main className="page flex flex-col justify-center items-center">
       <Typography level="h2" variant="gigantic-title">
         ¡Error!
       </Typography>

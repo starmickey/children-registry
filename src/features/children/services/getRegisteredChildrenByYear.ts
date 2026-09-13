@@ -51,13 +51,13 @@ export interface GetChildrenFilters {
  * Applies default year rules, executes repository queries, and formats output.
  */
 export async function getRegisteredChildrenByYear(
-  filters: GetChildrenFilters,
+  filters?: GetChildrenFilters,
 ): Promise<RegisteredChildDto[]> {
   // 1. Business Default: Enforce current academic year if unspecified
   const validatedFilters: GetChildrenFilters = {
-    year: filters.year ? Number(filters.year) : undefined,
-    classroomId: filters.classroomId ? Number(filters.classroomId) : undefined,
-    searchQuery: filters.searchQuery?.trim() || undefined,
+    year: filters?.year ? Number(filters.year) : undefined,
+    classroomId: filters?.classroomId ? Number(filters.classroomId) : undefined,
+    searchQuery: filters?.searchQuery?.trim() || undefined,
   };
 
   // 2. Fetch raw database data via Repository

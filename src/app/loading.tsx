@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Loading() {
   // Or a custom loading skeleton component
   return (
-    <main className="container flex flex-col justify-center items-center h-screen">
+    <main className="page flex flex-col justify-center items-center h-screen">
       <Image
         src="/icon0.svg"
         className="w-1/3"
