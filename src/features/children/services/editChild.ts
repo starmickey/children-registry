@@ -22,6 +22,10 @@ function mapToEditChildDto(data: EditChildOutput): EditChildDto {
 function mapToUpsertContactDto(
   data: NonNullable<EditChildOutput["contacts"]>[number],
 ): UpsertContactDto {
+  if (!data.firstName || !data.lastName) {
+    throw new Error("Contact first and last names are required");
+  }
+
   return {
     id: data.id,
     firstName: data.firstName,

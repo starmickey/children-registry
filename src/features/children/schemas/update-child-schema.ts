@@ -2,6 +2,29 @@ import z from "zod";
 
 // BASE CHILD SCHEMA
 
+type CompleteContact = {
+  id?: number;
+  firstName: string;
+  lastName: string;
+  identityCardNumber?: string;
+  relationShip: number;
+  phones?: {
+    id?: number;
+    number?: string;
+  }[];
+};
+
+function isCompleteContact<
+  T extends { firstName?: string; lastName?: string; relationShip?: number },
+>(contact: T): contact is T & CompleteContact {
+  return Boolean(
+    contact.firstName?.trim() &&
+    contact.lastName?.trim() &&
+    contact.relationShip &&
+    contact.relationShip > 0,
+  );
+}
+
 export const actionSchema = z.enum(["create", "update", "delete"]);
 
 export const contactSchema = z
@@ -91,7 +114,7 @@ export const createChildSchema = baseChildSchema.transform((data) => ({
   ...data,
   firstName: data.firstName.trim(),
   lastName: data.lastName.trim(),
-  contacts: data.contacts?.filter((contact) => contact.firstName?.trim()),
+  contacts: data.contacts?.filter(isCompleteContact),
 }));
 
 export const defaultCreateChildContactValues = {
@@ -122,7 +145,7 @@ export const editChildSchema = baseChildSchema
     ...data,
     firstName: data.firstName.trim(),
     lastName: data.lastName.trim(),
-    contacts: data.contacts?.filter((contact) => contact.firstName?.trim()),
+    contacts: data.contacts?.filter(isCompleteContact),
   }));
 
 export type EditChildInput = z.infer<typeof editChildSchema>;
