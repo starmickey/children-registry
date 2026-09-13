@@ -1,4 +1,3 @@
-import Header from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
 import { ChildrenClassroomFilters } from "@/features/children/components/ChildrenClassroomFilters";
 import ChildrenList from "@/features/children/components/ChildrenList";
@@ -11,13 +10,13 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import z from "zod";
 import { Typography } from "@/components/ui/typography";
+import Header from "@/components/layout/header";
 
 const currentYear = () => new Date().getFullYear();
 
 const searchParamsSchema = z.object({
   q: z
     .string()
-    .min(1)
     .optional()
     .transform((q) => q?.trim()),
   cr: z.coerce.number().min(1).optional(),
@@ -52,10 +51,17 @@ export default async function Page({
 
   return (
     <main className="page">
-      <div className="flex flex-wrap">
-        <Typography variant="H1">Infancia Misionera</Typography>
+      <Header className="flex-wrap">
+        <Typography
+          variant="H1"
+          className={searchQuery != null ? "hidden sm:block" : ""}
+        >
+          Infancia Misionera
+        </Typography>
 
-        <ChildrenSearchInput className="ml-auto" />
+        <ChildrenSearchInput
+          className={`ml-auto ${searchQuery != null ? "flex-1 sm:flex-0" : ""}`}
+        />
 
         <Link aria-label="Registrar niño" href="/children/new">
           <Button aria-hidden="true" variant="ghost" size="icon" type="button">
@@ -68,7 +74,7 @@ export default async function Page({
           classrooms={classrooms}
           className="w-full sm:w-auto sm:ml-8"
         />
-      </div>
+      </Header>
 
       <ChildrenList childItems={children} />
 

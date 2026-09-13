@@ -10,7 +10,7 @@ export default function Header({
 }: React.ComponentProps<"header">) {
   return (
     <header
-      className={cn("header flex mb-4 items-center", className)}
+      className={cn("header flex pb-4 items-center gap-y-4", className)}
       {...props}
     />
   );

@@ -34,7 +34,7 @@ export function ChildrenClassroomFilters({
   };
 
   return (
-    <ButtonGroup className={`flex mb-4 ${className}`}>
+    <ButtonGroup className={`flex ${className}`}>
       <Button
         onClick={() => handleFilter()}
         variant={activeId == null ? "default" : "primary-outline"}

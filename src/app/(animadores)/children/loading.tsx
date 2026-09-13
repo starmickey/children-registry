@@ -5,7 +5,7 @@ import { ButtonSkeleton } from "@/components/ui/skeleton";
 export default function PageSkeleton() {
   return (
     <>
-      <main className="container">
+      <main className="page">
         {/* Filters */}
         <Header className="justify-end gap-2">
           <ButtonSkeleton size="default" className="w-8" />
