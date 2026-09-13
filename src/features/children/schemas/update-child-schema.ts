@@ -104,7 +104,7 @@ export const baseChildSchema = z.object({
     .number({ error: "Campo obligatorio" })
     .min(1, { message: "Campo obligatorio" }),
   identityCardNumber: z.string().optional(),
-  birthDate: z.date().optional(),
+  birthDate: z.date().nullable().optional(),
   contacts: z.array(contactSchema).optional(),
 });
 

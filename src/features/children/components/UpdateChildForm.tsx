@@ -111,7 +111,7 @@ export default function UpdateChildForm({
     });
   }
 
-  function formatDateInput(value?: Date) {
+  function formatDateInput(value?: Date | null) {
     if (!value) return "";
 
     const year = value.getFullYear();
