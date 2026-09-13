@@ -16,19 +16,21 @@ export default async function ChildrenList({
   }
 
   return (
-    <section className="flex flex-col gap-1">
+    <ul className="flex flex-col gap-1">
       {childItems.map((child) => (
-        <Link key={child.id} href={`/children/${child.id}`}>
-          <Button
-            variant="secondary"
-            type="button"
-            className="w-full justify-start truncate"
-            size="lg"
-          >
-            {child.firstName} {child.lastName}
-          </Button>
-        </Link>
+        <li key={child.id}>
+          <Link href={`/children/${child.id}`}>
+            <Button
+              variant="secondary"
+              type="button"
+              className="w-full justify-start truncate"
+              size="lg"
+            >
+              {child.firstName} {child.lastName}
+            </Button>
+          </Link>
+        </li>
       ))}
-    </section>
+    </ul>
   );
 }
