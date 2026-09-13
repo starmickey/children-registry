@@ -3,13 +3,11 @@ import CreateChildContainer from "@/features/children/components/CreateChildCont
 
 export default async function Page() {
   return (
-    <>
+    <main className="page">
       <Header>
         <ReturnButton href="/children" />
       </Header>
-      <main className="page-card sm:w-1/2 m-auto">
-        <CreateChildContainer />
-      </main>
-    </>
+      <CreateChildContainer />
+    </main>
   );
 }

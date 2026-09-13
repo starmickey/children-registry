@@ -166,7 +166,7 @@
     @apply min-h-screen p-8 pt-4;
   }
 
-  .page-card {
-    @apply min-h-screen p-8 sm:w-120 rounded-xl mx-auto;
+  .section-sm {
+    @apply sm:w-120 mx-auto;
   }
 }

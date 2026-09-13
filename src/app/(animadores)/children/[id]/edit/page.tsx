@@ -26,7 +26,7 @@ export default async function ResumePage({
 
   return (
     <>
-      <main className="page-card">
+      <main className="page">
         <Header>
           <ReturnButton href="/children" />
         </Header>

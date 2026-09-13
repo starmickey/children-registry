@@ -124,7 +124,7 @@ export default function UpdateChildForm({
   return (
     <form
       onSubmit={form.handleSubmit(handleSubmit)}
-      className="flex flex-col gap-6"
+      className="flex flex-col gap-6 section-sm"
     >
       {/* ---------------- GENERAL INFO CARD ---------------- */}
       <Card>
